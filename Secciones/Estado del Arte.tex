@@ -1,1 +1,38 @@
-Puede ser uno o varios capítulos que desarrollen el estado del arte del área de conocimiento donde se inserta la tesis. La profundidad del enfoque en el tratamiento de los temas debe ser adecuado para el entendimiento posterior de los resultados y discusiones de la tesis. No es necesario que sea autocontenido, es recomendable el uso amplio de referencias a trabajos previos que se encuentren en la literatura abierta sobre el tema.
+\subsection{Modelos de TTS}
+Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.
+
+\subsection{Cadenas de pre procesamiento}
+En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
+
+\begin{table*}[ht]
+\centering
+\caption{Comparación entre diferentes etapas en una cadena de pre procesamiento para TTS.}
+\label{tab:preproc-comparison}
+\small
+\begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X 
+                                >{\raggedright\arraybackslash}X 
+                                >{\raggedright\arraybackslash}X 
+                                >{\raggedright\arraybackslash}X 
+                                >{\raggedright\arraybackslash}X @{}}
+\toprule
+\makecell[b]{\textbf{Nombre}\\\textbf{del estudio}} & 
+\makecell[b]{\textbf{Algoritmo de}\\\textbf{Denoising}} & 
+\makecell[b]{\textbf{Voice Activity}\\\textbf{Detection}} & 
+\makecell[b]{\textbf{Estimador MOS}\\\textbf{y umbral}} & 
+\makecell[b]{\textbf{Sistema TTS}\\\textbf{evaluados}} \\
+\midrule
+AutoPrep - (\cite{autoprep}) & BSRRN & TDNN & DNS MOS: 2.4 & DurIAN TTS \\
+
+Text-to-Speech in the wild - (\cite{tts_wild}) & Demucs & Whisper X Pipeline & Nisqa: 3 & GradTTS y VITS \\
+
+WeNeetSpeech - (\cite{pipeline_tts2}) & MBTFNet & Rezamblyzer & DNS MOS: 3.6, 3.8, 4 & VALL-E y NS2 \\
+
+SCEP - (\cite{pipeline_data1}) & U-Net & Casual DNN & Usan SNR y PESQ & No evalúa \\
+
+Muyan TTS - (\cite{pipeline_tts1}) & FRCRN y VoiceFixer & No usa & Nisqa: 3.8 & FireRedTTS y CozyVoice2 \\
+
+Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNS MOS: 3 & VoiceBox \\
+
+\bottomrule
+\end{tabularx}
+\end{table*}

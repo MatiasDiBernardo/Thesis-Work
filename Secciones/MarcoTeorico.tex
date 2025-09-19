@@ -1,3 +1,22 @@
-En el Marco Teórico debemos incorporar la bibliografía, artículos de revistas, ponencias de congresos, links de Internet o todo aquello que haya contribuido a formar el cuerpo del saber sobre el que va a basarse la investigación, incorporando los procesos y ecuaciones necesarios.
+\subsection{Text-to-Speech (TTS)}
+Los sistemas de text-to-speech (TTS) convierten texto en señal de voz (\cite{survey1}).
+Históricamente pueden agruparse en tres grandes enfoques:
 
-Puede ser uno varios capítulos donde se detallen los parámetros, indicadores y conceptos teóricos referentes al tema a tratar. Se recomienda no utilizar conceptos muy básicos, como definición de nivel de presión sonora, ponderación A, etc.
+\begin{itemize}
+    \item Enfoque concatenativo: Ensamblan fragmentos pregrabados de voz (unidades) para formar enunciados. Ofrecen alta naturalidad cuando el corpus es homogéneo y extenso, pero presentan baja flexibilidad y alto coste de recopilación (\cite{concatenative}).
+    \item Enfoque paramétrico: Modelan parámetros acústicos (por ejemplo, mediante HMM) y luego sintetizan la señal a partir de los parámetros predichos. Tienen mayor flexibilidad y requieren un menor tamaño de corpus, aunque su calidad perceptual suele ser inferior a la voz grabada (\cite{parametrico}).
+    \item Enfoque neuronal: Emplean redes neuronales para mapear texto a representaciones intermedias (p.\,ej. mel-espectrogramas) y vocoders neuronales para generar la forma de onda. Dentro de este grupo hay variantes autoregresivas (mayor fidelidad pero más lentas) y no-autoregresivas (más rápidas y escalables). Los sistemas actuales de mayor calidad combinan un modelo de predicción de espectrogramas, como pueden ser Tacotron2 (\cite{tacotron}) o FastSpeech (\cite{fastspeech}), con un vocoder neural, como pueden ser WaveNet (\cite{wavenet}) o HiFi-GAN (\cite{hifigan}). 
+\end{itemize}
+
+\subsection{Redes neuronales}
+Las redes neuronales son modelos parametrizados por capas de neuronas artificiales que aprenden funciones complejas a partir de datos (\cite{goodfellow}).
+En TTS y procesamiento de audio se emplean arquitecturas diversas: redes convolucionales (CNN) para extracción de características tiempo-frecuencia; redes recurrentes y Transformers (\cite{attention}) para modelado secuencial; y mecanismos de \emph{attention} en tareas seq2seq.
+
+Las redes permiten aprender mapeos directos (texto $\rightarrow$ espectrograma) y modelos generativos (vocoder, modelos de densidad). Su flexibilidad explica el salto cualitativo en TTS, pero también la fuerte dependencia de la cantidad y calidad de los datos de entrenamiento.
+
+\subsection{Inteligencia artifial generativa}
+Completar
+
+\subsection{Modelos de difusión}
+Completar
+
