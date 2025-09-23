@@ -4,7 +4,7 @@ Los modelos de texto a habla (TTS, por sus siglas en inglés) experimentaron un 
 
 En este marco, se han desarrollado sistemas de TTS en español rioplatense (\cite{sintetica}) que alcanzan resultados aceptables, pero se enfrentan a la limitada cantidad de datos específicos de los diferentes dialectos de Argentina, lo cual impide lograr sistemas más robustos y naturales. Tradicionalmente, la generación de bases de datos para entrenar modelos de TTS se orienta a recopilar grandes volúmenes de grabaciones de alta calidad (realizadas en estudios profesionales) y a emplear hablantes con características específicas (por ejemplo, locutores), lo que da lugar a un corpus homogéneo en sus características acústicas y prosódicas. Este enfoque fue crucial para la convergencia de modelos basados en aprendizaje profundo, pero representa una barrera de entrada para numerosos idiomas y variedades dialectales que no disponen de recursos para producir dichos datasets.
 
-La literatura denomina “idiomas de bajos recursos” (low-resource languages) a estos casos; dentro de ellos se incluyen dialectos específicos de una lengua, como sería el español rioplatense o las variantes propias de determinadas provincias argentinas. Para entrenar modelos de TTS en lenguajes de bajos recursos se ha explorado la utilización de datos recolectados en Internet (\cite{erica}), conformando conjuntos heterogéneos procedentes de diversas fuentes y de calidad de audio variable. Estos corpus suelen denominarse datos salvajes (ITW, “in-the-wild” por sus siglas en inglés). Además, con el avance de la inteligencia artifial generativa, han surgido diferentes mejoras en la arquitecturas de los sistemas de TTS mas actuales (\cite{survey2}), lo que hace que los conjuntos de datos ITW sean una fuente especialemnte atractiva para capturar la gran diversidad del fenómeno del habla.
+La literatura denomina “idiomas de bajos recursos” (low-resource languages) a estos casos; dentro de ellos se incluyen dialectos específicos de una lengua, como sería el español rioplatense o las variantes propias de determinadas provincias argentinas. Para entrenar modelos de TTS en lenguajes de bajos recursos se ha explorado la utilización de datos recolectados en Internet (\cite{erica}), conformando conjuntos heterogéneos procedentes de diversas fuentes y de calidad de audio variable. Estos corpus suelen denominarse datos salvajes (ITW, “in-the-wild” por sus siglas en inglés). Además, con el avance de la inteligencia artificial generativa, han surgido diferentes mejoras en la arquitecturas de los sistemas de TTS mas actuales (\cite{survey2}), lo que hace que los conjuntos de datos ITW sean una fuente especialmente atractiva para capturar la gran diversidad del fenómeno del habla.
 
 El principal problema de entrenar modelos de TTS con conjuntos ITW es la elevada variabilidad en la calidad de las grabaciones, lo que incide directamente en la capacidad de los modelos neuronales para aprender los patrones subyacentes y, en muchos casos, impide la convergencia hacia resultados satisfactorios. Para abordar esta limitación, recientemente se han propuesto cadenas de preprocesamiento que extraen, a partir de un gran conjunto de datos, subgrupos con mejor calidad de audio (\cite{autoprep}). Si bien existen distintas variantes de estas cadenas en la literatura, no se ha llevado a cabo una caracterización acústica exhaustiva de la variabilidad que generan los conjuntos resultantes tras su aplicación. La validación suele basarse en el entrenamiento de modelos TTS y en la evaluación de su convergencia; sin embargo, no se suele caracterizar toda la cadena mediante parámetros acústicos que permitan comparar diferentes implementaciones bajo criterios comunes, ni definir configuraciones óptimas según objetivos distintos (por ejemplo, maximizar la calidad del audio frente a maximizar la cantidad de horas del corpus). El impacto de la calidad de los datos en el entrenamiento de modelos de TTS a sida profundamente estudiado (\cite{improv_tts2}), pero no se ha analizado las diferencias entre los dataset ITW y los dataset profesionales mediante un análisis objetivo.
 
@@ -18,29 +18,29 @@ El objetivo de la investigación es evaluar con parámetros objetivos y subjetiv
 
 \subsubsection{Objetivo especifico}
 
-Los objetivos específcos son:
+Los objetivos específicos son:
 
 \begin{itemize}
-    \item Crear un dataset \emph{in-the-wild} en español de Argeninta. Recopilar datasets de voces profesionales en español (grabaciones de alta calidad realizadas por hablantes profesionales).
+    \item Crear un dataset \emph{in-the-wild} en español de Argentina. Recopilar datasets de voces profesionales en español (grabaciones de alta calidad realizadas por hablantes profesionales).
     \item Desarrollar una cadena automática de preprocesamiento modular para la generación de conjuntos de datos de habla, y procesar el conjunto de datos ITW con la cadena bajo diferentes configuraciones operativas.
     \item Evaluar métricas acústicas en los distintos conjuntos de datos generados y comparar dichos resultados con los obtenidos en datasets tradicionales y determinar, según criterios acústicos, cuál de los conjuntos generados puede considerarse óptimo (comparando media y desvío de los diferentes conjuntos).
     \item Entrenar un modelo de estimación de distribuciones y comparar la similitud entre los diferentes conjuntos en el espacio latente. Determinar el conjunto de datos óptimo según criterios de similitud basados en estimación de densidad.
-    \item Comparar los resultados del análisis acústico con los derivados del análisis por estimación de densidad. Analizar estadísticamente la relevancia de las diferencias observadas en los distintos parámetros.
+    \item Comparar los resultados del análisis acústico con los derivados del análisis por estimación de densidad. Analizar de forma estadística la relevancia de las diferencias observadas en los distintos parámetros.
     \item Validar los resultados en el contexto de clonación de voz mediante modelos TTS zero-shot.
 \end{itemize}
 
 \subsection{ESTRUCTURA DE LA INVESTIGACIÓN}
 
-El trabajo propuesto se enmarca en una investigació de tipo tecnológica, donde se busca desarrollar y evaluar una herramienta de software que permita la selección automática de audios para la generación de conjuntos de datos del habla, con el objetivo de generar un dataset en español de Argentina. Este desarrollo es fundamental para el desarrollo de tecnologías del habla en Argentina y contribuir así a la soberanía tecnológica nacional. El desarrollo de esta tesis se enmarca dentro del proyecto Archivoz del grupo de investigación Intercambios Transorgánicos, radicado en el MUNTREF.
+El trabajo propuesto corresponde a una investigación de carácter tecnológico orientada al desarrollo y evaluación de una herramienta de software para la selección automática de audios, destinada a la generación de conjuntos de datos de habla. El objetivo principal es crear un dataset en español con los diferentes acentos de Argentina, contribuyendo al avance de las tecnologías del habla en el país y, en consecuencia, a la soberanía tecnológica nacional. El desarrollo de esta tesis se enmarca en el proyecto Archivoz del grupo de investigación Intercambios Transorgánicos, radicado en el MUNTREF.
 
-El documento presenta la siguiente organización:
+Organización del documento:
 
-En el capítulo 2 se presenta el marco teórico donde se explican los fundamentos de inteligencia artifial, centrandonos en las arquitecturas que se aplican a los modelos de TTS modernos, que incluyen modelos secuenciales y modelos de inteligencia artifical generativa. Luego se detallan las métricas acústicas elegidas para caracterizar.
+En el capítulo 2 se presenta el marco teórico: se exponen los fundamentos de la inteligencia artificial y se describen las arquitecturas aplicables a los modelos modernos de TTS, incluyendo tanto modelos secuenciales como modelos generativos. Además, se detallan las métricas acústicas seleccionadas para la caracterización de los datos.
 
-En el capítulo 3 se hace una recapitualción de los modelos de TTS actuales y de las cadenas de procesamientos que aparecieron en los úlitmos años.
+El capítulo 3 ofrece una recapitulación de los modelos de TTS actuales y de las cadenas de procesamiento que han surgido en los últimos años.
 
-En el capítulo 4 se explican los detalles de cada etapa del desarrollo, desde la recopilación de datos, el desarrollo de software, la metodología de comparación propuesta y el entrenamiento de modelos con redes neuronales.  
+En el capítulo 4 se describen con detalle las etapas del desarrollo: recopilación de datos, diseño y construcción del software, metodología de comparación propuesta y el entrenamiento de modelos mediante redes neuronales.
 
-El capítulo 5 contiene los resultados y análisis de los diferentes experimientos detallados en la sección anterior. 
+El capítulo 5 presenta los resultados y el análisis de los experimentos descritos en la sección anterior.
 
-Por úlitmo, el capítulo 6 tiene las conclusiones generales de la tesis, y el capítulo 7 se plantean lineas de investigación para continuar profundizando el análisis, o posibles aplicaciones que no fueron exploradas en en el presente trabajo.
+Finalmente, el capítulo 6 expone las conclusiones generales de la tesis, y el capítulo 7 propone líneas de investigación futuras y posibles aplicaciones no exploradas en el presente trabajo.
