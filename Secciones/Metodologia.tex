@@ -1,10 +1,19 @@
 \subsection{RECOPILACIÓN DE BASES DE DATOS}
 
 \subsubsection{Datos in-the-wild}
-Detallar el proceso de recolección de datos ITW.
+Para poder evaluar cadenas de procesamientos a conjuntos de datos del habla, se utiliza la base de datos de habla en español de Argentina confeccionada por el grupo de investigación Intercambios Transorgánicos, donde se han recopilado un total de 24 horas de grabaciones del habla en diferentes condiciones, tanto de calidad de los audios como en la diversidad de los hablantes. Dado que las recolección del material se lleva a cabo principalmente de fuentes publicas de internet, este corpus \emph{in-the-wild} es el conjunto ideal para evaluar el funcionamiento de pre procesamientos de audios. En las futuras secciones, se refiere a este conjunto de datos como original (al ser la versión si procesamientos).
+
+En busca de armar un conjunto de datos que capture las diferencias lingüísticas de todo el país, se seleccionan datos con dialecto bonaerense y centro, según las regiones que establece (\cite{Fontanella2004español}). En concreto, el conjunto de datos cuenta con 32 hablantes del acento bonaerense, y 27 del acento centro. El objetivo a futuro es armar un dataset con todos los dialectos representativos de la Argentina, pero primero se busca validar el funcionamiento de la cadena de pre procesamiento con 2 dialectos representativos para después ampliar la base de datos y cubrir todos los acentos del país.
 
 \subsubsection{Datos profesionales}
-Detallar cuales son los dataset profesiones a evaluar y porque elegí esos
+Los conjuntos de datos profesionales se recolectan de trabajos previos. Como no es posible armar un conjunto de datos de referencia lo suficientemente extenso solo con audio en español de Argentina, se utiliza también el español con otras variantes dialécticas.
+
+\begin{itemize}
+    \item Conjunto de datos de Google (\cite{google-arg}): Cuenta con 8 horas de audio de dialecto bonaerense, con un total de 44 hablantes.
+    \item Emilia (\cite{datset_arg}): Con un total de 4 horas de audio de dialecto bonaerense.
+\end{itemize}
+
+En total, el conjunto de datos profesional cuenta con X horas de audio de X hablantes diferentes.
 
 \subsection{DESARROLLO DE LA CADENA DE PRE PROCESAMIENTO}
 Describir como es la cadena de pre procesamiento
