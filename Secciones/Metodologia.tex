@@ -28,10 +28,14 @@ La cadena de preprocesamiento diseñada en esta Tesis es una secuencia modular y
 \item Transcripción (STT): Obtención de transcripciones automáticas necesario para obtener los pares texto-audio que se requieren para el entrenamiento; en esta etapa se prioriza la precisión a costa de un mayor tiempo de cómputo, dado el impacto de errores de transcripción en la calidad final del corpus. Se utiliza el modelo de Whisper Large para la transcripción (\cite{whisper}).
 \end{enumerate}
 
-La implementación enfatiza portabilidad y bajo costo computacional, de modo que grupos con recursos limitados puedan reproducir la cadena y comparar variantes de configuración sin necesidad de utilizar hardware de alto rendimiento como serían GPUs. El diagrama de flujo de toda  la cadena propuesta se presenta en la Figura,
+La implementación enfatiza portabilidad y bajo costo computacional, de modo que grupos con recursos limitados puedan reproducir la cadena y comparar variantes de configuración sin necesidad de utilizar hardware de alto rendimiento como serían GPUs. El diagrama de flujo de toda  la cadena propuesta se presenta en la Figura \ref{fig:pipeline_flowchart}.
 
-AGREGAR FIGURA
-
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=18cm]{Figuras/Desarrollo/diagrama_flujo_cadena.PNG}}
+  \caption{Diagrama de flujo del proceso completo para generar el dataset.}
+    \label{fig:pipeline_flowchart}
+\end{figure}
 
 \subsubsection{Diferentes configuraciones}
 
@@ -43,14 +47,23 @@ Para evaluar el impacto de decisiones de diseño en la confección de cadenas de
     \item Umbrales de filtrado: Para NISQA se evaluaron (3.0, 3.5, 3.8, 4.2) y para DNSMOS (2.7, 3.0, 3.2, 3.4). Los umbrales se eligieron de forma empírica analizando el nivel predicho de MOS para todo el conjunto de datos original. 
 \end{itemize}
 
-La selección de umbrales parte de un análisis empírico presentado en la Figura, donde se calcula el valor de MOS resultante de NISQA y DNS MOS para todos los segmentos del dataset original. Es interesante notar como DNS MOS presenta un valor medio inferior y menos varianza. En consecuencia, para hacer una comparación justa, se seleccionaron los umbrales para garantizar un filtrado equitativo para los dos modelos.
+La selección de umbrales parte de un análisis empírico presentado en la Figura \ref{fig:original_mos}, donde se calcula el valor de MOS resultante de NISQA y DNS MOS para todos los segmentos del dataset original. Es interesante notar como DNS MOS presenta un valor medio inferior y menos varianza. En consecuencia, para hacer una comparación justa, se seleccionaron los umbrales para garantizar un filtrado equitativo para los dos modelos.
 
-AGREGAR FIGURA DNS MOS
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=11cm]{Figuras/Desarrollo/mos_pred_dist.pdf}}
+  \caption{Resultado de MOS por cantidad de segmentos del dataset original para los 2 modelos a comparar.}
+    \label{fig:original_mos}
+\end{figure}
 
-En la Figura X se presentan de manera gráfica las diferentes variantes a analizar. Cada configuración genera un subconjunto procesado sobre el que se calculan las métricas objetivas (ver sección siguiente) para permitir una comparación reproducible y dirigida por métrica sin necesidad de entrenar modelos TTS para cada variante. A estas variantes de procesamiento se las denomina sub dataset.
+En la Figura \ref{fig:pipeline_variants} se presentan de manera gráfica las diferentes variantes a analizar. Cada configuración genera un subconjunto procesado sobre el que se calculan las métricas objetivas (ver sección siguiente) para permitir una comparación reproducible y dirigida por métrica sin necesidad de entrenar modelos TTS para cada variante. A estas variantes de procesamiento se las denomina sub dataset.
 
-AGREGAR FIGURA VARANTES
-
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=15cm]{Figuras/Desarrollo/variantes_diagrama.PNG}}
+  \caption{Variantes propuestas para evaluar diferentes configuración de la cadena de procesamientos.}
+    \label{fig:pipeline_variants}
+\end{figure}
 
 \subsection{EVALUACIÓN DE LOS CONJUNTOS DE DATOS}
 
