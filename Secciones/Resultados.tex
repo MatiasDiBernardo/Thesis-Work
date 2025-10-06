@@ -1,4 +1,49 @@
 \subsection{RESULTADOS DE LAS DIFERENTES VARIANTES DE LA CADENA}
+
+\subsubsection{Ejemplo de cálculo}
+Se calcula el promedio de cada métrica para las diferentes configuraciones propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Las resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Mejora SNR por métrica de calidad y algoritmo de denoising.}
+\label{tab:snr-improvement}
+\begin{tabular}{@{} l l r @{}}
+\toprule
+\shortstack{\textbf{Filtro de calidad}\\\textbf{y umbral}} &
+\shortstack{\textbf{Algoritmo}\\\textbf{de denoising}} &
+\shortstack{\textbf{Mejora}\\\textbf{SNR (\%)}} \\
+\midrule
+NISQA = 3    & Sin denoising    & 4.07 \\
+NISQA = 3.5  & Sin denoising    & 4.93 \\
+DNSMOS = 2.7 & Sin denoising    & 6.93 \\
+DNSMOS = 3.4 & Sin denoising    & 7.56 \\
+DNSMOS = 3.0 & Sin denoising    & 9.92 \\
+DNSMOS = 3.2 & Sin denoising    & 10.00 \\
+NISQA = 3.8  & Deepfilternet    & 10.13 \\
+NISQA = 4.2  & Sin denoising    & 11.67 \\
+DNSMOS = 3.4 & Deepfilternet    & 12.52 \\
+NISQA = 3.5  & Deepfilternet    & 14.78 \\
+NISQA = 3.8  & Sin denoising    & 15.58 \\
+DNSMOS = 3.2 & Deepfilternet    & 15.65 \\
+NISQA = 3.0  & Deepfilternet    & 15.72 \\
+NISQA = 4.2  & Deepfilternet    & 17.55 \\
+DNSMOS = 3.0 & Deepfilternet    & 17.86 \\
+DNSMOS = 2.7 & Deepfilternet    & 18.84 \\
+DNSMOS = 3.4 & Demucs           & 39.66 \\
+NISQA = 4.2  & Demucs           & 40.34 \\
+NISQA = 3.8  & Demucs           & 40.54 \\
+NISQA = 3.5  & Demucs           & 41.24 \\
+DNSMOS = 3.2 & Demucs           & 41.78 \\
+NISQA = 3.0  & Demucs           & 42.16 \\
+DNSMOS = 3.0 & Demucs           & 43.25 \\
+DNSMOS = 2.7 & Demucs           & 43.52 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Este análisis es el que se pondera para cada variable en las 4 categorías de métricas propuestas.
+
 \subsubsection{Métricas separadas}
 En una instancia exploratoria previa a la definición de la métrica conjunta, se exploran los resultados del dataset de prueba ante las diferentes métricas propuestas.
 
