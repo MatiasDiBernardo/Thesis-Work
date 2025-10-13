@@ -2,6 +2,10 @@
 \documentclass[12pt]{article}
 \usepackage[a4paper]{geometry}
 \usepackage[spanish,es-tabla]{babel}
+\addto\captionsspanish{%
+  \renewcommand{\listfigurename}{Índice de Figuras}%
+  \renewcommand{\listtablename}{Índice de Tablas}%
+}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 % \usepackage{fontspec}
@@ -72,10 +76,10 @@
   references = {BIBLIOGRAFÍA}, % <-- Aquí cerramos correctamente la definición}
 }
 % Configuración global de las descripciones de las figuras
-\captionsetup[figure]{labelsep=period}
+\captionsetup[figure]{font=small, labelsep=period}
 % Configuración global de las descripciones de las tablas
 \floatsetup[table]{capposition=top}
-\captionsetup[table]{labelsep=period}
+\captionsetup[table]{font=small, labelsep=period}
 
 % Personalización del formato del índice de figuras
 \renewcommand{\cftfigpresnum}{Figura }
@@ -190,7 +194,9 @@ Fecha de defensa: mes y año $\lvert$ Locación (Ej. Saenz Peña), Argentina \\
 \newpage
 \renewcommand{\contentsname}{ÍNDICE DE CONTENIDOS}
 \tableofcontents   % Índice General
+\newpage
 \listoffigures  % Índice de Figuras
+\newpage
 \listoftables   % Índice de Tablas 
 
 
@@ -258,7 +264,7 @@ Fecha de defensa: mes y año $\lvert$ Locación (Ej. Saenz Peña), Argentina \\
 %-----------------Bibliografia-----------------
 \newpage
 
-\printbibliography[title={Bibliografia}]
+\printbibliography[title={BIBLIOGRAFÍA}, heading=bibintoc]
 
 %-----------------ANEXO-----------------
 \newpage
