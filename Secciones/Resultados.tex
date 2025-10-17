@@ -69,7 +69,7 @@ Además, de comparar la cantidad de horas, también se pueden relacionar otras v
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0-STD vs PESQ (nisqa).pdf}}
+  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf}}
   \caption{Comparación entre F0-std y PESQ para diferentes variantes con DNS MOS.}
     \label{fig:F0_vs_PESQ}
 \end{figure}
@@ -88,8 +88,14 @@ En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción 
     \label{fig:RD_vs_CS}
 \end{figure}
 
-Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados completos de este análisis se presentan en el Anexo B. Los resultados mas destacados son la comparación entre...
-(ver de los gráficos los resultados mas importantes pasarlos acá arriba)
+Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados completos de este análisis se presentan en el Anexo B. Los resultados mas destacados son la comparación entre calidad de señal y condiciones acústicas Figura \ref{fig:CS_vs_CA}, donde el agrupamiento de las métricas indica que el filtrado tiene muy poco impacto.
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/CS vs CA (dnsmos).pdf}}
+  \caption{Comparación entre calidad de señal y condiciones acústicas para diferentes variantes con DNSMOS.}
+    \label{fig:CS_vs_CA}
+\end{figure}
 
 \subsubsection{Optimización de la cadena}
 Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se puede ordenar las variantes de la cadena y así definir cual es la configuración optima para procesar un conjunto de datos del habla.
@@ -133,9 +139,9 @@ Nisqa   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 \end{tabular}
 \end{table}
 
-La mejor configuración es la que utiliza XXXX, que obtiene un valor total de 4.5, mientras que la peor variante alcanza un valor total de 5.
-Es interesante analizar como la mejor variante, no es la mejor opción en ninguna de las métricas compuestas, sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
+La mejor configuración es la que utiliza Demucs como algoritmo de denoiser y DNSMOS como algoritmo de filtrado con umbral de MOS en 2.7. Esta configuración obtiene un valor total de 4.08, mientras que la peor variante alcanza un valor total de 5.53
 
+Es interesante analizar como la mejor variante, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
 
 \subsubsection{Análisis del peso de cada métrica}
 Se analiza la varianza de cada métrica en función de las distintas configuraciones para determinar cual métrica tiene mas peso en el ordenamiento propuesto por la metodología de evaluación.
