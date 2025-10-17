@@ -51,7 +51,7 @@ Primero es compara la relación entre calidad de audio y cantidad de horas del d
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/pesq vs horas bien.pdf}}
+  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/PESQ vs horas (nisqa).pdf}}
   \caption{Comparación entre PESQ y cantidad de horas de diferentes variantes con NISQA.}
     \label{fig:horas_vs_pesq}
 \end{figure}
@@ -69,7 +69,7 @@ Además, de comparar la cantidad de horas, también se pueden relacionar otras v
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0 vs pesq.pdf}}
+  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0-STD vs PESQ (nisqa).pdf}}
   \caption{Comparación entre F0-std y PESQ para diferentes variantes con DNS MOS.}
     \label{fig:F0_vs_PESQ}
 \end{figure}
@@ -79,61 +79,59 @@ Este análisis pone en evidencia las relaciones de compromiso entre las métrica
 \subsubsection{Métricas compuestas}
 Una vez validado el comportamiento de cada métricas de forma individual, se analiza las métricas compuestas definidas en la Sección \ref{sec:metricas_description}. Primero, la calidad de la señal, presenta el comportamiento similar a la tendencia explicada al analizar PESQ. Esto es evidente, ya que tanto PESQ, SI-SDR y SNR sigen la misma tendencia, como se presenta en las gráficas completas en el Anexo A.
 
-En la Figura \ref{}, se compara la métrica compuesta de reducción de datos (RD), respeto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
+En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción de datos (RD), respeto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
 
-FIGURA RD vs CS
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/RD vs CS (nisqa).pdf}}
+  \caption{Comparación entre reducción de datos y calidad de señal para diferentes variantes con Nisqa.}
+    \label{fig:RD_vs_CS}
+\end{figure}
 
 Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados completos de este análisis se presentan en el Anexo B. Los resultados mas destacados son la comparación entre...
 (ver de los gráficos los resultados mas importantes pasarlos acá arriba)
 
-
 \subsubsection{Optimización de la cadena}
 Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se puede ordenar las variantes de la cadena y así definir cual es la configuración optima para procesar un conjunto de datos del habla.
 
-En la Tabla X, se presenta el valor de cada métricas compuesta y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variantes y máximo la pero variante).
-
-% En el preámbulo del documento:
-% \usepackage{booktabs}
-% \usepackage{siunitx}
-% \sisetup{output-decimal-marker = {.}}
+En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métricas compuesta y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variantes y máximo la pero variante).
 
 \begin{table}[ht]
 \centering
 \small
-\caption{Métricas globales para cada configuración}
-\label{tab:metricas}
-\begin{tabular}{@{} ll S S S S S @{}}
+\caption{Métricas compuestas y total para todas las configuraciones.}
+\label{tab:metricas_ranking}
+\begin{tabular}{@{} l S l S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] @{}}
 \toprule
-Configuración & Denoiser & {DR} & {SQ} & {AP} & {SD} & {TOT} \\
+Filtrado & {Umbral} & Denoiser & {RD} & {CS} & {CA} & {DH} & {TOT} \\
 \midrule
-Dnsmos = 2.7  & Demucs          & 0.02 & 2.30 & 1.29 & 0.48 & 4.08 \\
-Dnsmos = 3    & Demucs          & 0.13 & 2.27 & 1.27 & 0.51 & 4.17 \\
-Nisqa = 3     & Demucs          & 0.17 & 2.28 & 1.27 & 0.60 & 4.31 \\
-Nisqa = 3.5   & Demucs          & 0.29 & 2.25 & 1.28 & 0.58 & 4.41 \\
-Nisqa = 3.8   & Demucs          & 0.40 & 2.25 & 1.30 & 0.55 & 4.51 \\
-Dnsmos = 3.2  & Demucs          & 0.35 & 2.25 & 1.27 & 0.63 & 4.51 \\
-Dnsmos = 2.7  & DeepFilterNet   & 0.01 & 2.66 & 1.37 & 0.62 & 4.65 \\
-Nisqa = 4.2   & Demucs          & 0.64 & 2.23 & 1.29 & 0.52 & 4.68 \\
-Dnsmos = 3    & DeepFilterNet   & 0.12 & 2.63 & 1.37 & 0.61 & 4.73 \\
-Nisqa = 3     & DeepFilterNet   & 0.15 & 2.67 & 1.37 & 0.63 & 4.83 \\
-Dnsmos = 3.2  & DeepFilterNet   & 0.35 & 2.62 & 1.35 & 0.60 & 4.93 \\
-Dnsmos = 2.7  & No denoising    & 0.19 & 2.85 & 1.82 & 0.07 & 4.93 \\
-Nisqa = 3.5   & DeepFilterNet   & 0.30 & 2.65 & 1.38 & 0.63 & 4.96 \\
-Dnsmos = 3    & No denoising    & 0.45 & 2.72 & 1.66 & 0.12 & 4.96 \\
-Dnsmos = 3.4  & Demucs          & 0.80 & 2.23 & 1.24 & 0.78 & 5.05 \\
-Nisqa = 3     & No denoising    & 0.37 & 2.82 & 1.79 & 0.09 & 5.08 \\
-Dnsmos = 3.2  & No denoising    & 0.68 & 2.65 & 1.58 & 0.20 & 5.10 \\
-Nisqa = 3.8   & DeepFilterNet   & 0.45 & 2.66 & 1.37 & 0.64 & 5.13 \\
-Nisqa = 3.8   & No denoising    & 0.79 & 2.53 & 1.69 & 0.20 & 5.21 \\
-Nisqa = 3.5   & No denoising    & 0.62 & 2.74 & 1.74 & 0.13 & 5.22 \\
-Dnsmos = 3.4  & DeepFilterNet   & 0.79 & 2.59 & 1.32 & 0.58 & 5.29 \\
-Nisqa = 4.2   & DeepFilterNet   & 0.63 & 2.58 & 1.37 & 0.81 & 5.39 \\
-Dnsmos = 3.4  & No denoising    & 0.93 & 2.65 & 1.54 & 0.28 & 5.39 \\
-Nisqa = 4.2   & No denoising    & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
+Dnsmos  & 2.7 & Demucs        & 0.02 & 2.30 & 1.29 & 0.48 & \textbf{4.08} \\
+Dnsmos  & 3.0 & Demucs        & 0.13 & 2.27 & 1.27 & 0.51 & 4.17 \\
+Nisqa   & 3.0 & Demucs        & 0.17 & 2.28 & 1.27 & 0.60 & 4.31 \\
+Nisqa   & 3.5 & Demucs        & 0.29 & 2.25 & 1.28 & 0.58 & 4.41 \\
+Nisqa   & 3.8 & Demucs        & 0.40 & 2.25 & 1.30 & 0.55 & 4.51 \\
+Dnsmos  & 3.2 & Demucs        & 0.35 & 2.25 & 1.27 & 0.63 & 4.51 \\
+Dnsmos  & 2.7 & DeepFilterNet & \textbf{0.01} & 2.66 & 1.37 & 0.62 & 4.65 \\
+Nisqa   & 4.2 & Demucs        & 0.64 & \textbf{2.22} & 1.29 & 0.52 & 4.68 \\
+Dnsmos  & 3.0 & DeepFilterNet & 0.12 & 2.63 & 1.37 & 0.61 & 4.73 \\
+Nisqa   & 3.0 & DeepFilterNet & 0.15 & 2.67 & 1.37 & 0.63 & 4.83 \\
+Dnsmos  & 3.2 & DeepFilterNet & 0.35 & 2.62 & 1.35 & 0.60 & 4.93 \\
+Dnsmos  & 2.7 & No denoising  & 0.19 & 2.85 & 1.82 & \textbf{0.07} & 4.93 \\
+Nisqa   & 3.5 & DeepFilterNet & 0.30 & 2.65 & 1.38 & 0.63 & 4.96 \\
+Dnsmos  & 3.0 & No denoising  & 0.45 & 2.72 & 1.66 & 0.12 & 4.96 \\
+Dnsmos  & 3.4 & Demucs        & 0.80 & 2.23 & \textbf{1.24} & 0.78 & 5.05 \\
+Nisqa   & 3.0 & No denoising  & 0.37 & 2.82 & 1.79 & 0.09 & 5.08 \\
+Dnsmos  & 3.2 & No denoising  & 0.68 & 2.65 & 1.58 & 0.20 & 5.10 \\
+Nisqa   & 3.8 & DeepFilterNet & 0.45 & 2.66 & 1.37 & 0.64 & 5.13 \\
+Nisqa   & 3.8 & No denoising  & 0.79 & 2.53 & 1.69 & 0.20 & 5.21 \\
+Nisqa   & 3.5 & No denoising  & 0.62 & 2.74 & 1.74 & 0.13 & 5.22 \\
+Dnsmos  & 3.4 & DeepFilterNet & 0.79 & 2.59 & 1.32 & 0.58 & 5.29 \\
+Nisqa   & 4.2 & DeepFilterNet & 0.63 & 2.58 & 1.37 & 0.81 & 5.39 \\
+Dnsmos  & 3.4 & No denoising  & 0.93 & 2.65 & 1.54 & 0.28 & 5.39 \\
+Nisqa   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
 
 La mejor configuración es la que utiliza XXXX, que obtiene un valor total de 4.5, mientras que la peor variante alcanza un valor total de 5.
 Es interesante analizar como la mejor variante, no es la mejor opción en ninguna de las métricas compuestas, sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
