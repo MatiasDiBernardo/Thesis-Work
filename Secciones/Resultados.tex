@@ -3,7 +3,7 @@
 \subsubsection{Ejemplo de cálculo}
 Se calcula el promedio de cada métrica para las diferentes configuraciones propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Las resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \small
 \caption{Mejora SNR por métrica de calidad y algoritmo de denoising.}
@@ -20,16 +20,16 @@ DNSMOS = 2.7 & Sin denoising    & 6.93 \\
 DNSMOS = 3.4 & Sin denoising    & 7.56 \\
 DNSMOS = 3.0 & Sin denoising    & 9.92 \\
 DNSMOS = 3.2 & Sin denoising    & 10.00 \\
-NISQA = 3.8  & Deepfilternet    & 10.13 \\
+NISQA = 3.8  & DeepFilterNet    & 10.13 \\
 NISQA = 4.2  & Sin denoising    & 11.67 \\
-DNSMOS = 3.4 & Deepfilternet    & 12.52 \\
-NISQA = 3.5  & Deepfilternet    & 14.78 \\
+DNSMOS = 3.4 & DeepFilterNet    & 12.52 \\
+NISQA = 3.5  & DeepFilterNet    & 14.78 \\
 NISQA = 3.8  & Sin denoising    & 15.58 \\
-DNSMOS = 3.2 & Deepfilternet    & 15.65 \\
-NISQA = 3.0  & Deepfilternet    & 15.72 \\
-NISQA = 4.2  & Deepfilternet    & 17.55 \\
-DNSMOS = 3.0 & Deepfilternet    & 17.86 \\
-DNSMOS = 2.7 & Deepfilternet    & 18.84 \\
+DNSMOS = 3.2 & DeepFilterNet    & 15.65 \\
+NISQA = 3.0  & DeepFilterNet    & 15.72 \\
+NISQA = 4.2  & DeepFilterNet    & 17.55 \\
+DNSMOS = 3.0 & DeepFilterNet    & 17.86 \\
+DNSMOS = 2.7 & DeepFilterNet    & 18.84 \\
 DNSMOS = 3.4 & Demucs           & 39.66 \\
 NISQA = 4.2  & Demucs           & 40.34 \\
 NISQA = 3.8  & Demucs           & 40.54 \\
@@ -111,30 +111,30 @@ En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métricas c
 \toprule
 Filtrado & {Umbral} & Denoiser & {RD} & {CS} & {CA} & {DH} & {TOT} \\
 \midrule
-Dnsmos  & 2.7 & Demucs        & 0.02 & 2.30 & 1.29 & 0.48 & \textbf{4.08} \\
-Dnsmos  & 3.0 & Demucs        & 0.13 & 2.27 & 1.27 & 0.51 & 4.17 \\
-Nisqa   & 3.0 & Demucs        & 0.17 & 2.28 & 1.27 & 0.60 & 4.31 \\
-Nisqa   & 3.5 & Demucs        & 0.29 & 2.25 & 1.28 & 0.58 & 4.41 \\
-Nisqa   & 3.8 & Demucs        & 0.40 & 2.25 & 1.30 & 0.55 & 4.51 \\
-Dnsmos  & 3.2 & Demucs        & 0.35 & 2.25 & 1.27 & 0.63 & 4.51 \\
-Dnsmos  & 2.7 & DeepFilterNet & \textbf{0.01} & 2.66 & 1.37 & 0.62 & 4.65 \\
-Nisqa   & 4.2 & Demucs        & 0.64 & \textbf{2.22} & 1.29 & 0.52 & 4.68 \\
-Dnsmos  & 3.0 & DeepFilterNet & 0.12 & 2.63 & 1.37 & 0.61 & 4.73 \\
-Nisqa   & 3.0 & DeepFilterNet & 0.15 & 2.67 & 1.37 & 0.63 & 4.83 \\
-Dnsmos  & 3.2 & DeepFilterNet & 0.35 & 2.62 & 1.35 & 0.60 & 4.93 \\
-Dnsmos  & 2.7 & No denoising  & 0.19 & 2.85 & 1.82 & \textbf{0.07} & 4.93 \\
-Nisqa   & 3.5 & DeepFilterNet & 0.30 & 2.65 & 1.38 & 0.63 & 4.96 \\
-Dnsmos  & 3.0 & No denoising  & 0.45 & 2.72 & 1.66 & 0.12 & 4.96 \\
-Dnsmos  & 3.4 & Demucs        & 0.80 & 2.23 & \textbf{1.24} & 0.78 & 5.05 \\
-Nisqa   & 3.0 & No denoising  & 0.37 & 2.82 & 1.79 & 0.09 & 5.08 \\
-Dnsmos  & 3.2 & No denoising  & 0.68 & 2.65 & 1.58 & 0.20 & 5.10 \\
-Nisqa   & 3.8 & DeepFilterNet & 0.45 & 2.66 & 1.37 & 0.64 & 5.13 \\
-Nisqa   & 3.8 & No denoising  & 0.79 & 2.53 & 1.69 & 0.20 & 5.21 \\
-Nisqa   & 3.5 & No denoising  & 0.62 & 2.74 & 1.74 & 0.13 & 5.22 \\
-Dnsmos  & 3.4 & DeepFilterNet & 0.79 & 2.59 & 1.32 & 0.58 & 5.29 \\
-Nisqa   & 4.2 & DeepFilterNet & 0.63 & 2.58 & 1.37 & 0.81 & 5.39 \\
-Dnsmos  & 3.4 & No denoising  & 0.93 & 2.65 & 1.54 & 0.28 & 5.39 \\
-Nisqa   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
+DNSMOS  & 2.7 & Demucs        & 0.02 & 2.30 & 1.29 & 0.48 & \textbf{4.08} \\
+DNSMOS  & 3.0 & Demucs        & 0.13 & 2.27 & 1.27 & 0.51 & 4.17 \\
+NISQA   & 3.0 & Demucs        & 0.17 & 2.28 & 1.27 & 0.60 & 4.31 \\
+NISQA   & 3.5 & Demucs        & 0.29 & 2.25 & 1.28 & 0.58 & 4.41 \\
+NISQA   & 3.8 & Demucs        & 0.40 & 2.25 & 1.30 & 0.55 & 4.51 \\
+DNSMOS  & 3.2 & Demucs        & 0.35 & 2.25 & 1.27 & 0.63 & 4.51 \\
+DNSMOS  & 2.7 & DeepFilterNet & \textbf{0.01} & 2.66 & 1.37 & 0.62 & 4.65 \\
+NISQA   & 4.2 & Demucs        & 0.64 & \textbf{2.22} & 1.29 & 0.52 & 4.68 \\
+DNSMOS  & 3.0 & DeepFilterNet & 0.12 & 2.63 & 1.37 & 0.61 & 4.73 \\
+NISQA   & 3.0 & DeepFilterNet & 0.15 & 2.67 & 1.37 & 0.63 & 4.83 \\
+DNSMOS  & 3.2 & DeepFilterNet & 0.35 & 2.62 & 1.35 & 0.60 & 4.93 \\
+DNSMOS  & 2.7 & No denoising  & 0.19 & 2.85 & 1.82 & \textbf{0.07} & 4.93 \\
+NISQA   & 3.5 & DeepFilterNet & 0.30 & 2.65 & 1.38 & 0.63 & 4.96 \\
+DNSMOS  & 3.0 & No denoising  & 0.45 & 2.72 & 1.66 & 0.12 & 4.96 \\
+DNSMOS  & 3.4 & Demucs        & 0.80 & 2.23 & \textbf{1.24} & 0.78 & 5.05 \\
+NISQA   & 3.0 & No denoising  & 0.37 & 2.82 & 1.79 & 0.09 & 5.08 \\
+DNSMOS  & 3.2 & No denoising  & 0.68 & 2.65 & 1.58 & 0.20 & 5.10 \\
+NISQA   & 3.8 & DeepFilterNet & 0.45 & 2.66 & 1.37 & 0.64 & 5.13 \\
+NISQA   & 3.8 & No denoising  & 0.79 & 2.53 & 1.69 & 0.20 & 5.21 \\
+NISQA   & 3.5 & No denoising  & 0.62 & 2.74 & 1.74 & 0.13 & 5.22 \\
+DNSMOS  & 3.4 & DeepFilterNet & 0.79 & 2.59 & 1.32 & 0.58 & 5.29 \\
+NISQA   & 4.2 & DeepFilterNet & 0.63 & 2.58 & 1.37 & 0.81 & 5.39 \\
+DNSMOS  & 3.4 & No denoising  & 0.93 & 2.65 & 1.54 & 0.28 & 5.39 \\
+NISQA   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 \bottomrule
 \end{tabular}
 \end{table}

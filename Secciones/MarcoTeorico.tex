@@ -1,12 +1,57 @@
 \subsection{DESCRIPTORES DE CALIDAD DE AUDIO}
 \subsubsection{Métricas de degradación de la señal}
-Explicar: PESQ, POLQA, SNR, SI-SDR, STOI
+% (Revisar CHAT) Explicar: PESQ, POLQA, SNR, SI-SDR, STOI
+Las métricas de degradación de la señal cuantifican, a nivel objetivo, la diferencia entre una señal de referencia (habitualmente la señal limpia o de alta calidad) y una señal procesada o degradada (por ejemplo, una señal comprimida o con ruido de fondo). A continuación se describen las más empleadas en evaluación de voz y TTS.
+
+PESQ es un índice objetivo diseñado para predecir la calidad percibida de la voz en telefonía y sistemas de comunicación. Compara la señal de referencia y la señal degradada mediante un modelo perceptual que incluye etapas de alineamiento temporal, modelado perceptual y mapeo a una escala MOS-LQO (Mean Opinion Score — Listening Quality Objective). PESQ fue normalizado originalmente como la recomendación ITU-T P.862 (\cite{ITU-T_P.862}) y se utiliza ampliamente para evaluación de códecs y transmisiones telefónicas.
+
+Esta métrica tiene la limitación del rango de frecuencia que evalúa (va entre 200 Hz a 3500 Hz), para un análisis mas completo surge la métrica denominada POLQA, que es la tercera generación de métricas ITU para evaluación de calidad de voz end-to-end ITU-T P.863 (\cite{ITU-T_P.863_2018}). Mejora y extiende PESQ en ancho de banda (incluye super-wideband y fullband), es más robusta frente a ciertas distorsiones modernas (ecualización, delays, codificación amplia banda) y proporciona predicciones MOS más fiables en escenarios actuales.
+
+Desde un lado objetivo de la calidad de la señal se tienen métricas como el SNR y el SI-SDR. El SNR (relación señal a ruido por sus siglas en inglés) es la relación entre la potencia de la señal útil y la potencia del ruido de fondo, normalmente expresada en decibelios. Es una medida física simple, muy útil para caracterizar condiciones de captura o transmisión, pero su correlación con la percepción humana puede ser pobre cuando las distorsiones son no-gaussianas, no-aditivas o hay alteraciones de fase y tiempo; por ello suele utilizarse junto con métricas perceptuales.
+
+% Poner ecuación SNR y alguna refe
+
+El SI-SDR (relación invariante de distorsión a señal por sus siglas en inglés) es una versión modificada y más robusta del SDR tradicional diseñada para evitar penalizaciones por escalado de amplitud entre referencia y estimado (\cite{SISDR}). En la práctica, SI-SDR proyecta la señal estimada sobre la referencia (elimina la diferencia de escala) y calcula la relación señal/residuo resultante; por su formulación, es ampliamente usada en separación de fuentes y evaluación de redes de denoising o separación en el dominio temporal. Su definición y discusión de ventajas frente a SDR clásico están recogidas en la literatura sobre evaluación objetiva de separación.
+
+Por último, entre las métricas de calidad de señales del habla se puede incluir el STOI (inteligibilidad objetiva de tiempo corto por sus siglas en inglés), que estima inteligibilidad de habla en condiciones ruidosas mediante una medida de correlación entre segmentos de tiempo-frecuencia de la señal limpia y la señal degradada (\cite{STOI_ref}). Fue propuesta para predecir la inteligibilidad de señal procesada (p. ej. filtrado espectral, separación) y ha mostrado alta correlación con experimentos de inteligibilidad humana en muchos escenarios. No mide naturalidad, sino inteligibilidad.
+
+Por su definición, para calcular todas estas métricas se necesita tener una referencia limpia (o la señal sin ruido para SNR). En la práctica no siempre se pude tener esta señal de referencia, por eso han surgido método de estimación ciega de todos estos parámetros, que permiten estimar la calidad de un audio sin tener la señal de referencia.
+
+% Agregar refe del parrafo de arriba
+
+Hay que destacar, que ninguna métrica única captura todos los aspectos perceptuales (naturalidad, inteligibilidad, artefactos, coloración). En evaluación de TTS y sistemas de procesamiento de voz es habitual combinar métricas intrusivas (PESQ/POLQA, SI-SDR, MCD) con medidas de inteligibilidad (STOI) y, cuando es posible, pruebas subjetivas (MOS).
 
 \subsubsection{Métricas de entorno}
-Explicar: T30, C50, C80, D50
+% (Revisar Chat) Explicar: T30, C50, C80, D50
+Las métricas de entorno (o de acústica de salas) describen propiedades de la sala o del campo acústico que afectan la percepción de la voz y la música.
+
+Uno de los parámetros principales, es el tiempo de reverberación (T), que se define clásicamente como el tiempo que tarda el nivel sonoro en decaer 60 dB tras cortar la fuente (Sabine). Por razones prácticas se calculan estimadores como ($T_{30}$) (pendiente del decaimiento entre -5 dB y -35 dB extrapolada a -60 dB) o ($T_{20}$) (entre -5 y -25 dB). El ($T_{30}$) es de uso corriente en caracterización objetiva de salas y está normalizado por ISO 3382 (\cite{T30}). Los valores de (T) afectan inteligibilidad, claridad y sensación de espacialidad acústica.
+
+Otro parámetros que se usa para evaluar la percepción de audios en auditorios es la claridad ($C_{50}$) (para voz) y ($C_{80}$) (para música), ya que miden la relación energía temprana/energía tardía. Este parámetro se define matemáticamente como:
+
+\begin{equation}
+    C_{50} = 10\log_{10}\frac{\int_{0}^{50,\mathrm{ms}} p^{2}(t)dt}{\int_{50,\mathrm{ms}}^{\infty} p^{2}(t)dt}
+\end{equation}
+
+donde (p(t)) es la respuesta al impulso en la posición de escucha. Valores altos de ($C_{50}$) indican mayor proporción de energía temprana (mejor inteligibilidad para voz). 
+
+% Agregar cita
+
+El $D_{50}$ (a menudo expresado en porcentaje) es la fracción de energía que llega en los primeros 50 ms respecto a la energía total; es otra forma de cuantificar claridad/inteligibilidad para voz (relacionado con ($C_{50}$)). Se calcula a partir de la respuesta al impulso y es relevante para evaluación de locales docentes, salas de conferencia y condiciones de grabación.
+
 
 \subsubsection{Métricas del habla}
-Explicar: F0, Speaker Rate, MCD 
+% Chat Explicar: F0, Speaker Rate, MCD 
+Las métricas del habla describen propiedades prosódicas y espectrales de la voz que influyen en la naturalidad y en la identificación del hablante. Dentro de esta categoría, una de las métricas principales es la frecuencia fundamental de la voz ($F_0$), cuyo valor representa la frecuencia de vibración principal de las cuerdas vocales de los diferentes hablantes (\cite{F0_desc}) y constituye la base de la percepción del \emph{pitch}. Se estima mediante algoritmos de detección de pitch (autocorrelación, cepstrum, algoritmos basados en modelos probabilísticos) y se usa para análisis prosódico, control de entonación en TTS y evaluación de naturalidad. La distribución estadística de F\textsubscript{0}, su variación temporal (contorno), y su relación con la energía son indicadores usados tanto en evaluación objetiva como perceptual.
+
+% Tal vez agregar diagramita
+
+Otra métrica muy utilizada en el análisis de sistemas de TTS es la distorsión media cepstral (MCD por sus siglas en ingles). MCD (a veces llamado Mel-Cepstral Distance) cuantifica la distancia entre dos secuencias de coeficientes mel-cepstrales (por ejemplo, señal natural vs. señal sintetizada) y se expresa en dB (\cite{mcd_metric}). La expresión de esta métrica es la siguiente:
+
+% Agregar formula
+
+Se calcula comúnmente como una raíz cuadrada de la suma de cuadrados normalizada entre vectores de coeficientes y es ampliamente utilizada para evaluar la calidad espectral en TTS y vocoders; sin embargo, su correlación con la calidad percibida no es perfecta y debe complementarse con pruebas perceptuales. La métrica fue propuesta en trabajos clásicos sobre evaluación objetiva de síntesis.
+
 
 \subsection{TEXT-TO-SPEECH (TTS)}
 Los sistemas de text-to-speech (TTS) convierten texto en señal de voz (\cite{survey1}).
@@ -25,8 +70,31 @@ En TTS y procesamiento de audio se emplean arquitecturas diversas: redes convolu
 Las redes permiten aprender mapeos directos (texto $\rightarrow$ espectrograma) y modelos generativos (vocoder, modelos de densidad). Su flexibilidad explica el salto cualitativo en TTS, pero también la fuerte dependencia de la cantidad y calidad de los datos de entrenamiento.
 
 \subsection{INTELIGENCIA ARTIFICIAL GENERATIVA}
-Completar
+La inteligencia artificial generativa (IAG) comprende técnicas cuyo objetivo es modelar la distribución de datos para generar muestras nuevas que sean plausibles, ya sea para imágenes, texto, o audio. La generación de estos \emph{samples} nuevos puede ser condicionadas o no por información adicional (\emph{prompts}). Los principales paradigmas contemporáneos son:
+
+\begin{itemize}
+\item Modelos autoregresivos: modelan la probabilidad conjunta como producto de condicionales (p. ej. PixelRNN en imágenes (\cite{pixel_rnn}) o WaveNet en audio (\cite{wavenet})). Son conceptualmente simples y producen alta calidad pero pueden ser lentos en inferencia por su naturaleza secuencial.
+\item VAE (Variational Autoencoders): modelos latentes que optimizan una cota variacional de la verosimilitud. Buen control del espacio latente y entrenamiento estable, pero a ofrecen menor fidelidad en muestras crudas (\cite{vaes}).
+\item GANs (Generative Adversarial Networks): enfrenta dos redes neuronales, un generador vs un discriminador que compiten en un juego adverso, generan muestras de alta fidelidad rápida y eficientemente (\cite{gans_ian}). Aunque el entrenamiento puede ser inestable, se han aplicado a vocoders y síntesis auditiva (ej. HiFi-GAN por \cite{hifigan}).
+\item Modelos basados en score / difusión: incluyen los modelos de difusión y score-matching (DDPM, score-based models) que adicionan ruido progresivamente a datos reales y aprenden a invertir ese proceso para muestrear (\cite{ddpm_diff}). Actualmente han mostrado resultados competitivos o superiores en calidad de muestras y estabilidad de entrenamiento en imagen y audio (ej. DiffWave por \cite{diffWave}).
+\end{itemize}
+
+En audio/TTS, cada paradigma tiene ventajas: los autoregresivos (WaveNet) alcanzaron alta naturalidad; los GANs (HiFi-GAN) ofrecen inferencia rápida y alta fidelidad; y los modelos de difusión (DiffWave) combinan calidad con mayor estabilidad y flexibilidad condicional. La elección depende de trade-offs entre calidad, velocidad y control.
 
 \subsection{MODELOS DE DIFUSIÓN}
-Completar
+Los modelos de difusión son una clase de generadores probabilísticos basados en procesos estocásticos de adición y eliminación de ruido. Su formulación moderna se fundamenta en dos ideas principales: (1) definir un proceso directo (forward) que corrompe los datos añadiendo ruido gaussiano progresivamente hasta obtener ruido casi puro; (2) aprender el proceso inverso (reverse) —un modelo condicional que predice pasos de denoising— para transformar ruido en datos sintéticos.
 
+La definición matemática plantea una muestra de datos $x_{0}$, donde ll proceso directo añade ruido en (T) pasos:
+\begin{equation}
+    q(x_{t}\mid x_{t-1})=\mathcal{N}(x_{t};\sqrt{1-\beta_{t}},x_{t-1},\beta_{t}),
+\end{equation}
+
+con una escala de varianzas (${\beta_{t}}$). El proceso inverso se parametriza como:
+
+\begin{equation}
+    p_{\theta}(x_{t-1}\mid x_{t})=\mathcal{N}(x_{t-1};\mu_{\theta}(x_{t},t),\Sigma_{\theta}(x_{t},t)),
+\end{equation}
+
+y se entrena minimizando una variación de la evidencia (ELBO) o una pérdida de denoising equivalente. El trabajo de \cite{ddpm_diff} formaliza esta familia (DDPM) y conecta la aproximación por denoising con score-matching (\cite{score_based}).
+
+Los modelos de difusión proporcionan calidad competitiva sin entrenamiento adversario y permiten control condicional (por ejemplo, condicionamiento en mel-espectrogramas para vocoders). La principal limitación práctica es el coste de muestreo (múltiples pasos), aunque variantes (DDIM, sampling acelerado, distillation) reducen el número de pasos sin pérdida sustancial de calidad.

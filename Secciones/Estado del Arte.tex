@@ -1,5 +1,5 @@
 \subsection{MODELOS DE TTS}
-Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.
+{\color{red}FALTA: Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.}
 
 \subsection{CADENAS DE PRE PROCESAMIENTO}
 En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
@@ -36,3 +36,37 @@ Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNS MOS: 3 & VoiceBo
 \bottomrule
 \end{tabularx}
 \end{table*}
+
+La gran discrepancia entre modelos de las diferentes implementaciones es una da las motivaciones para el desarrollo de esta tesis.
+
+\subsection{CONJUNTOS DE DATOS DEL HABLA EN ESPAÑOL}
+Es relevante mencionar la falta de conjuntos de datos del habla en español, en principal de la variante español de Argentina. En la Tabla \ref{tab:datasets_resumen} se recopilaron diferentes conjuntos de datos de habla en español, especificando la cantidad de horas y hablante, la región que lingüística que representa y el tipo. Los diferentes tipos hacen referencia a la fuente de donde fueron recopilados los datos. Además de los conjuntos profesionales e \emph{in-the-wild} que ya fueron discutidos, se presentan dataset de tipo conversacional (de entrevistas o llamadas telefónicas) y los dataset \emph{crowdsourced}, donde se recopilan audios de voces de voluntarios a través de internet. 
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Resumen de datasets}
+\label{tab:datasets_resumen}
+\begin{tabularx}{\textwidth}{@{} X c c c c @{}}
+\toprule
+\makecell[c]{\textbf{Nombre} \\ \textbf{dataset}} &
+\makecell[c]{\textbf{Cantidad} \\ \textbf{horas}} &
+\makecell[c]{\textbf{Cantidad} \\ \textbf{hablantes}} &
+\makecell[c]{\textbf{Región} \\ \textbf{dialecto}} &
+\makecell[c]{\textbf{Tipo} \\ \textbf{dataset}} \\
+\midrule
+Google LREC - \cite{google-arg} & 8    & 44  & Buenos Aires                & Profesional    \\
+Emilia - \cite{datset_arg}           & 4    & 1   & Buenos Aires                & Profesional    \\
+HaCASpa - \cite{dataset_hamburg}        & 10   & 50  & Buenos Aires/Mendoza      & Conversacional \\
+CORdEBA - UNLP, 2014            & 6    & 25  & Buenos Aires                & Conversacional \\
+Common Voice - \cite{common-voice}         & 587  & 260 & Diversas                    & Crowdsourced    \\
+YODAS - \cite{yodas-data}                & 50k  & N/A & Diversas                    & In-the-wild    \\
+CML TTS - \cite{cml-dataset}         & 400  & N/A & España                      & Profesional    \\
+MLS - \cite{MLS-dataset}         & 1.5k  & 120 & España                      & Profesional    \\
+VoxPopuli - \cite{voxpopuli}         & 166  & 305 & España                      & Conversacional \\
+Tedx Spanish - \cite{tedx-dataset}  & 24   & N/A & México                      & Espontáneo     \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Este análisis de los dataset en el estado del arte pone en evidencia la necesidad de conformar un corpus del español de Argentina, donde es fundamental extender la representatividad cultural de nuestra región, y capturar los diferentes acentos de todas las regiones del país, ya que como se ve en la recopilación, casi todo el material disponible del dialecto de Argentina se centra en la región porteña. Los dataset calificados como dialecto diverso es porque en su confección no delimitaron entre los diferentes dialectos del español, y agruparon todo en una misma categoría, lo que incluya español de las diferentes regiones de latinoamerica y de españa.
