@@ -56,7 +56,7 @@ Primero es compara la relación entre calidad de audio y cantidad de horas del d
     \label{fig:horas_vs_pesq}
 \end{figure}
 
-En la Figura \ref{fig:T30_vs_horas} se relaciona la reducción porcentual de horas con la mejora relativa en \(T_{30}\) (tiempo de reverberación estimado) cuando se emplea DNSMOS como métrica de filtrado. En la gráfica, un aumento en la mejora de \(T_{30}\) implica una reducción de la energía tardía y, por ende, una menor reverberación aparente en los segmentos retenidos. Los resultados muestran que el filtrado aporta ganancias en condiciones sin denoise de forma especialmente notable, cuando no se aplica realce previo el filtrado selecciona segmentos con menor reverberación y la mejora en \(T_{30}\) es sustancial. En cambio, en las condiciones ya denoised las ganancias en \(T_{30}\) son más moderadas (por debajo aproximadamente del 5\% en los umbrales considerados). Además, no se detecta una diferencia significativa en \(T_{30}\) entre DeepFilterNet y Demucs. En conjunto, la figura subraya que el filtrado basado en DNSMOS puede reducir la reverberación del subconjunto resultante, pero el beneficio marginal depende fuertemente de si previamente se aplicó un algoritmo de realce y de la agresividad del umbral.
+En la Figura \ref{fig:T30_vs_horas} se relaciona la reducción porcentual de horas con la mejora relativa en \(T_{30}\) (tiempo de reverberación estimado) cuando se emplea DNSMOS como métrica de filtrado. En la gráfica, un aumento en la mejora de \(T_{30}\) implica una reducción de la energía tardía y, por ende, una menor reverberación aparente en los segmentos retenidos. Los resultados muestran que el filtrado aporta ganancias en condiciones sin denoise de forma especialmente notable, cuando no se aplica realce previo el filtrado selecciona segmentos con menor reverberación y la mejora en \(T_{30}\) es sustancial. En cambio, una vez aplicada la supresión de ruido, las ganancias en \(T_{30}\) son más moderadas (por debajo aproximadamente del 5\% en los umbrales considerados). Además, no se detecta una diferencia significativa en \(T_{30}\) entre DeepFilterNet y Demucs. En conjunto, la figura subraya que el filtrado basado en DNSMOS puede reducir la reverberación del subconjunto resultante, pero el beneficio marginal depende fuertemente de si previamente se aplicó un algoritmo de realce y de la agresividad del umbral.
 
 \begin{figure}[h]
   \centering
@@ -100,9 +100,9 @@ Se analizaron y compararon todas las combinaciones de las diferentes métricas. 
 \subsubsection{Optimización de la cadena}
 Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se puede ordenar las variantes de la cadena y así definir cual es la configuración optima para procesar un conjunto de datos del habla.
 
-En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métricas compuesta y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variantes y máximo la pero variante).
+En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métrica parcial y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variantes y máximo la peor variante). En la tabla se presentan las métricas parciales abreviadas, donde $RD$ es reducción del dataset, $CS$ es calidad de señal, $CA$ es calidad acústica, $DH$ es diferencias del habla, y $TOT$ es la métrica conjunta, que contempla la suma de todas las métricas parciales.
 
-\begin{table}[ht]
+\begin{table}[h]
 \centering
 \small
 \caption{Métricas compuestas y total para todas las configuraciones.}
@@ -141,7 +141,7 @@ NISQA   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 
 La mejor configuración es la que utiliza Demucs como algoritmo de denoiser y DNSMOS como algoritmo de filtrado con umbral de MOS en 2.7. Esta configuración obtiene un valor total de 4.08, mientras que la peor variante alcanza un valor total de 5.53
 
-Es interesante analizar como la mejor variante, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
+Es interesante analizar como la cadena que alcanza la mejor puntuación general, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
 
 \subsubsection{Análisis del peso de cada métrica}
 Se analiza la varianza de cada métrica en función de las distintas configuraciones para determinar cual métrica tiene mas peso en el ordenamiento propuesto por la metodología de evaluación.

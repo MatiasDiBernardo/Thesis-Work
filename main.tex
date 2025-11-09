@@ -65,11 +65,20 @@
 \setstretch{1.5} %Interlineado a 1.5
 \setlength{\parindent}{1cm} %Sangría de cada nuevo párrafo a 1cm
 
-% Configuración del pie de página
-\fancyfoot[C]{\rule{\textwidth}{0.4pt}\\ \hspace*{\fill}\fontsize{12pt}{14pt}\selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos de habla \hspace*{\fill}\thepage} 
+% Configuración del pie de página (old)
+% \fancyfoot[C]{\rule{\textwidth}{0.4pt}\\ \hspace*{\fill}\fontsize{12pt}{14pt}\selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos de habla \hspace*{\fill}\thepage} 
 
-%\setlength{\footskip}{1.02 cm}
-\setlength{\footskip}{0.5 cm}
+%\setlength{\footskip}{0.5 cm}
+
+\setlength{\footskip}{0.05 cm}
+
+% Configuración del pie de página (new by chat)
+\fancyfoot[C]{\rule{\textwidth}{0.4pt}\\[0.5ex]%
+  \fontsize{11}{13}\selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos de habla.}
+
+% número a la derecha, bajado con \raisebox (valor negativo baja)
+\fancyfoot[R]{\raisebox{-0.57cm}{\fontsize{12}{14}\selectfont\thepage}}
+
 \pagestyle{fancy} % Establecer el estilo de página como 'fancy'
 
 \fancyhead{} % Limpiar encabezado
@@ -147,8 +156,8 @@ BoldItalicFont=Calibri Bold Italic.ttf,
 \vspace{70pt}
 
 {\bfseries\fontsize{14pt}{0pt}\selectfont TESISTA: Matías Di Bernardo (42.229.438) \par}
-{\bfseries\fontsize{14pt}{0pt}\selectfont TUTOR/A: Guillermo Marzik (Ing.) \par}
-{\bfseries\fontsize{14pt}{0pt}\selectfont COTUTOR/A: Gala Lucía Gonzalez Barrios (Lic.) \par}
+{\bfseries\fontsize{14pt}{0pt}\selectfont TUTOR/A: (Ing.) Guillermo Marzik \par}
+{\bfseries\fontsize{14pt}{0pt}\selectfont COTUTOR/A: (Lic.) Gala Lucía Gonzalez Barrios \par}
 
 \vfill
 
@@ -272,7 +281,7 @@ Fecha de defensa: mes y año $\lvert$ Locación (Ej. Saenz Peña), Argentina \\
 %-----------------ANEXO-----------------
 \newpage
 \appendix
-\section*{ANEXO I. \quad FORMATO INTERNO} 
+\section*{ANEXO I} 
     \input{Secciones/Anexo}
 \end{document}
 

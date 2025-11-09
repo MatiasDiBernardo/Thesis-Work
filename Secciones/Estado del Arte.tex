@@ -2,7 +2,7 @@
 {\color{red}FALTA: Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.}
 
 \subsection{CADENAS DE PRE PROCESAMIENTO}
-En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
+En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. El objetivo de estas cadenas de preprocesamiento es mejorar, filtrar y estandarizar un conjunto de datos de audios grandes proveniente de diferentes fuentes (dataset ITW). Como el procesamiento implica diferentes etapas, y varia según las necesidades de los modelos a entrenar, han surgido muchas propuestas de implementación, todas con sus respectivas particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
 
 \begin{table*}[ht]
 \centering
@@ -37,7 +37,7 @@ Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNS MOS: 3 & VoiceBo
 \end{tabularx}
 \end{table*}
 
-La gran discrepancia entre modelos de las diferentes implementaciones es una da las motivaciones para el desarrollo de esta tesis.
+Las diferencias entre las etapas planteadas en esta Tabla se explican en la Sección \ref{sec:pipeline-desarrollo}, donde se explica las particularidades de la implementación propia de la cadena de procesamientos. La gran discrepancia entre modelos de las diferentes implementaciones es una da las motivaciones para el desarrollo de esta tesis, con el objetivo que esclaracer el desarrollo de este tipo de procesamientos en el desarrollo de conjuntos de datos.
 
 \subsection{CONJUNTOS DE DATOS DEL HABLA EN ESPAÑOL}
 Es relevante mencionar la falta de conjuntos de datos del habla en español, en principal de la variante español de Argentina. En la Tabla \ref{tab:datasets_resumen} se recopilaron diferentes conjuntos de datos de habla en español, especificando la cantidad de horas y hablante, la región que lingüística que representa y el tipo. Los diferentes tipos hacen referencia a la fuente de donde fueron recopilados los datos. Además de los conjuntos profesionales e \emph{in-the-wild} que ya fueron discutidos, se presentan dataset de tipo conversacional (de entrevistas o llamadas telefónicas) y los dataset \emph{crowdsourced}, donde se recopilan audios de voces de voluntarios a través de internet. 
