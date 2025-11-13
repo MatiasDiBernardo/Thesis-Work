@@ -144,10 +144,54 @@ La mejor configuración es la que utiliza Demucs como algoritmo de denoiser y DN
 Es interesante analizar como la cadena que alcanza la mejor puntuación general, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
 
 \subsubsection{Análisis del peso de cada métrica}
-Se analiza la varianza de cada métrica en función de las distintas configuraciones para determinar cual métrica tiene mas peso en el ordenamiento propuesto por la metodología de evaluación.
+Se analiza la varianza de cada métrica en función de las distintas configuraciones para determinar cual métrica tiene mas peso en el ordenamiento propuesto por la metodología de evaluación. En los resultados presentados cada conjunto de métrica tiene el mismo peso, pero al analizar la varianza de los resultados a traves de la diferentes configuraciones se evidencia que por las características del dataset, ciertas métricas tienen mayor influencia que otra. En la Tabla \ref{tab:varianza_pipelines}, se presentan los resultados de este análisis comparando desvío estándar y máxima desviación para todas las métricas conjuntas.
+
+\begin{table}[ht]
+\centering
+\small
+\caption{Desvío estándar y máxima desviación para cada métrica compuesta respecto a las diferentes configuraciones de cadena bajo evaluación.}
+\label{tab:varianza_pipelines}
+\begin{tabular}{@{} l c c c c @{}}
+\toprule
+ & \makecell[c]{\textbf{RD: Reducción} \\ \textbf{datos}} &
+   \makecell[c]{\textbf{CS: Calidad} \\ \textbf{señal}} &
+   \makecell[c]{\textbf{CA: Condiciones} \\ \textbf{acústicas}} &
+   \makecell[c]{\textbf{DH: Diferencias} \\ \textbf{del habla}} \\
+\midrule
+Desvío & 0,28 & 0,20 & 0,18 & 0,22 \\
+$\Delta_{\max}$ & 0,92 & 0,62 & 0,58 & 0,74 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+En concordancia con los resultados, el conjunto de métricas que tiene mas variación es la reducción de datos. Esto tiene sentido dado que los filtrados mas permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral mas agresivo reducían considerablemente la cantidad de horas del conjunto de datos. 
+
+{\color{red}FALTA: Variar los pesos que se le da a cada métrica para que el desvío quede igual y analizar como queda el ranking de la mejor configuración con este ajuste.}
 
 \subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
-Comparar entre conjuntos de datos profesionales vs datos ITW (por parámetros acústicos)
+\subsubsection{Análisis de calidad datasets profesionales}
+{\color{red}FALTA: Hacer una tabla de los resultados de cada subdataset que lleva a la métrica total representativa de un dataset profesional.}
+
+\subsubsection{Dataset profesional vs procesado}
+Del valor global obtenido como referencia al evaluar diferentes conjuntos de datos profesionales, se llega a un valor representativo del estándar de calidad que se utiliza en la confección de datos de máxima calidad. En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base, el peor y mejor resultado de la cadena, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas. 
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=15cm]{Figuras/Pro_vs_Pipe/pro_vs_pipe_PESQ.png}}
+  \caption{Diferencias del valor de PESQ promedio según diferentes conjuntos de datos.}
+    \label{fig:pro_vs_p_PESQ}
+\end{figure}
+
+En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberancia promedio alcanzada por el promedio de dataset tradicionales Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia.
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=15cm]{Figuras/Pro_vs_Pipe/pro_vs_pipe_T30.png}}
+  \caption{Diferencias del valor de T30 promedio según diferentes conjuntos de datos.}
+    \label{fig:pro_vs_p_T30}
+\end{figure}
+
+{\color{red}FALTA: Continuar el análisis para cada métrica y hacer conclusión general de esta comparación.}
 
 \subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
 {\color{red}FALTA: Comparar entre conjuntos de datos profesionales vs datos ITW (por estimación de densidad).}
