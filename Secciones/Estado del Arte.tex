@@ -1,6 +1,10 @@
 \subsection{MODELOS DE TTS}
 {\color{red}FALTA: Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.}
-
+\begin{itemize}
+    \item Modelos autoregresivos: Tacotron2, DurIAN, FastSpeech2.
+    \item Modelos no autoregresivos: VITS, GradTTS, F5 TTS.
+    \item Modelos basados en difusión: Diff-TTS, ProDiff, DiffSpeech.
+    
 \subsection{CADENAS DE PRE PROCESAMIENTO}
 En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. El objetivo de estas cadenas de preprocesamiento es mejorar, filtrar y estandarizar un conjunto de datos de audios grandes proveniente de diferentes fuentes (dataset ITW). Como el procesamiento implica diferentes etapas, y varia según las necesidades de los modelos a entrenar, han surgido muchas propuestas de implementación, todas con sus respectivas particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
 
