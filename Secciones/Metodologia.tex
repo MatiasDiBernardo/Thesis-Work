@@ -1,7 +1,7 @@
 \subsection{RECOPILACIÓN DE BASES DE DATOS}
 
 \subsubsection{Datos \emph{in-the-wild}}
-Para evaluar las cadenas de procesamiento sobre conjuntos de datos de habla se emplea el corpus en español de Argentina recopilado por el grupo de investigación Intercambios Transorgánicos. Este corpus consta de 24 horas de grabaciones realizadas en condiciones heterogéneas —tanto en calidad de audio como en diversidad de hablantes— y proviene mayoritariamente de fuentes públicas en internet. Por su variabilidad y carácter no controlado, este conjunto \emph{in-the-wild} resulta idóneo para validar procedimientos de preprocesado de audio. En lo sucesivo, se hará referencia a esta colección como el conjunto de datos \emph{original} (versión sin procesamientos).
+Para evaluar las cadenas de procesamiento sobre conjuntos de datos de habla se emplea el corpus en español de Argentina recopilado por el grupo de investigación Intercambios Transorgánicos. Este corpus consta de 24 horas de grabaciones realizadas en condiciones heterogéneas, tanto en calidad de audio como en diversidad de hablantes, y proviene mayoritariamente de fuentes públicas en internet. Por su variabilidad y carácter no controlado, este conjunto \emph{in-the-wild} resulta idóneo para validar procedimientos de preprocesado de audio. En lo sucesivo, se hará referencia a esta colección como el conjunto de datos \emph{original} (versión sin procesamientos).
 
 Con el objetivo de captar diferencias dialectales relevantes para Argentina, la selección de hablantes sigue la clasificación regional propuesta por (\cite{Fontanella2004español}). En concreto, el corpus incluye 32 hablantes con acento bonaerense y 27 con acento centro, para un total de 59 hablantes. La estrategia a futuro consiste en ampliar la cobertura dialectal para incorporar todas las variedades representativas del país; sin embargo, en esta tesis se valida inicialmente la cadena de preprocesamiento sobre estas dos variantes representativas.
 
@@ -149,13 +149,19 @@ DH_{P}
 \Big\}
 \end{equation}
 
-Con esta formulación, configuraciones que mantienen mayor cantidad de horas, mejoran la calidad de señal, mejoran (o mantienen) condiciones acústicas y preservan características del hablante obtendrán puntuaciones más bajas (mejor). Se propone una configuración inicial donde todos los bloques tienen el mismo peso; la elección de pesos distintos permite priorizar, por ejemplo, la preservación vocal frente a la cantidad de horas si el objetivo es síntesis con alta fidelidad de identidad.
+Con esta formulación, configuraciones que mantienen mayor cantidad de horas, mejoran la calidad de señal, mejoran (o mantienen) condiciones acústicas y preservan características del hablante obtendrán puntuaciones más bajas (mejor). Se propone una configuración inicial donde todos los bloques tienen el mismo peso; la elección de pesos distintos permite priorizar, por ejemplo, la preservación vocal frente a la cantidad de horas si el objetivo es síntesis con alta fidelidad identitaria.
 
 \subsection{ENTRENAMIENTO DEL MODELO DE ESTIMACIÓN DE DENSIDAD}
-{\color{red}FALTA: Explicar porque necesito hacer lo del modelo de estimación de densidad.}
+Si bien la evaluación mediante métricas acústicas tradicionales (Sección 4.3) ofrece una aproximación robusta e interpretable para caracterizar los conjuntos de datos, este análisis presenta limitaciones inherentes al restringir la evaluación a un conjunto discreto de características diseñadas manualmente. Estas métricas, aunque útiles, pueden introducir sesgos al no capturar la totalidad de las dependencias complejas y de alta dimensión presentes en la señal de audio y del problema en sí.
 
-\subsubsection{Validación con medelo zero-shot}
-{\color{red}FALTA: Definir modelo y explicar la justificación de este experimento.}
+Para mitigar estas limitaciones y proporcionar una perspectiva complementaria, se propone un método de evaluación basado en el aprendizaje de representaciones, utilizando un modelo de estimación de densidad. El objetivo fundamental de estos modelos es aprender la distribución de probabilidad intrínseca $p_{data}(x)$ de un conjunto de datos de entrenamiento, obteniendo una aproximación de la función de densidad de probabilidad (PDF) subyacente. La principal ventaja de este enfoque \textit{data-driven} radica en su naturaleza no supervisada: el modelo extrae patrones latentes y características comunes de la distribución de referencia sin depender de etiquetas explícitas o de la selección arbitraria de parámetros acústicos, reduciendo así la intervención humana exclusivamente a la curaduría del conjunto de entrenamiento.
+
+En el contexto de esta tesis, se adopta la arquitectura y metodología propuestas por \cite{danilo2025_quality}, quienes utilizan modelos generativos basados en difusión probabilística para modelar la distribución del habla. Su investigación demuestra que, al utilizar audios de alta fidelidad como referencia para aprender la distribución base, el modelo es capaz de estimar la calidad de muestras fuera del conjunto de entrenamiento mediante la evaluación de su verosimilitud. Los resultados reportados indican que este enfoque presenta una correlación con la calidad perceptual superior a métricas tradicionales como PESQ o SNR, y una mayor alineación con la preferencia subjetiva humana en comparación con el MOS predicho.
+
+La implementación propuesta en este trabajo utiliza el mismo principio de aprendizaje no supervisado, empleando el conjunto de datos profesionales (descrito en la Sección 4.1.2) para entrenar el modelo. De esta forma, se establece una distribución de referencia que representa el "habla de alta calidad en español". Una vez entrenado, el modelo permite calcular la verosimilitud de los audios pertenecientes a los distintos sub-datasets generados por la cadena de procesamiento. Bajo la hipótesis de que una mayor verosimilitud indica una mayor cercanía a la distribución de calidad profesional, este método permite ordenar las diferentes variantes de la cadena de procesamiento según su similitud acústica y estadística con el corpus profesional, determinando así qué configuración logra preservar mejor las características deseables de la señal.
+
+\subsubsection{Configuración del modelo e hiperparámetros}
+{\color{red}FALTA: Dar datos de los hiperparámetros utilizados para entrenar, tiempo de entrenamiento y specs de la PC donde se entrenó el modelo.}
 
 \subsection{DESCRIPCIÓN DE PRUEBAS ESTADÍSTICAS}
 {\color{red}FALTA: Detallar un poco las validaciones estadísticas que se van a realizar.}

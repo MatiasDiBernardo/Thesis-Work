@@ -166,14 +166,14 @@ $\Delta_{\max}$ & 0,92 & 0,62 & 0,58 & 0,74 \\
 
 En concordancia con los resultados, el conjunto de métricas que tiene mas variación es la reducción de datos. Esto tiene sentido dado que los filtrados mas permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral mas agresivo reducían considerablemente la cantidad de horas del conjunto de datos. 
 
-{\color{red}FALTA: Variar los pesos que se le da a cada métrica para que el desvío quede igual y analizar como queda el ranking de la mejor configuración con este ajuste.}
+{\color{red}FALTA: Variar los pesos que se le da a cada métrica para que el desvío quede igual y analizar como queda el ranking de la mejor configuración con este ajuste (a esta altura me parece agregar un layer más de complejidad que no se si suma mucho, lo dejaría para trabajos futuros).}
 
 \subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
 \subsubsection{Análisis de calidad datasets profesionales}
 {\color{red}FALTA: Hacer una tabla de los resultados de cada subdataset que lleva a la métrica total representativa de un dataset profesional.}
 
 \subsubsection{Dataset profesional vs procesado}
-Del valor global obtenido como referencia al evaluar diferentes conjuntos de datos profesionales, se llega a un valor representativo del estándar de calidad que se utiliza en la confección de datos de máxima calidad. En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base, el peor y mejor resultado de la cadena, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas. 
+Del valor global obtenido como referencia al evaluar diferentes conjuntos de datos profesionales (descrito en la Sección 4.1.2), se llega a un valor representativo del estándar de calidad que se utiliza en la confección de datos de máxima calidad. En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base, el peor y mejor resultado de la cadena, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas. 
 
 \begin{figure}[h]
   \centering
@@ -191,7 +191,7 @@ En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con 
     \label{fig:pro_vs_p_T30}
 \end{figure}
 
-{\color{red}FALTA: Continuar el análisis para cada métrica y hacer conclusión general de esta comparación.}
+{\color{red}FALTA: Continuar el análisis para cada métrica y hacer conclusión general de esta comparación (hacer tabla general de esta comparación y determinar si hablo en concreto de alguna métrica más o pongo el resultado general y listo).}
 
 \subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
 {\color{red}FALTA: Comparar entre conjuntos de datos profesionales vs datos ITW (por estimación de densidad).}
