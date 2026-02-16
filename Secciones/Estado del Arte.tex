@@ -1,10 +1,29 @@
 \subsection{MODELOS DE TTS}
-{\color{red}FALTA: Describir la parte de TTS basados en modelos de difusión hasta llegar a F5 TTS.}
-\begin{itemize}
-    \item Modelos autoregresivos: Tacotron2, DurIAN, FastSpeech2.
-    \item Modelos no autoregresivos: VITS, GradTTS, F5 TTS.
-    \item Modelos basados en difusión: Diff-TTS, ProDiff, DiffSpeech.
-    
+El desarrollo de sistemas de síntesis de voz basados en redes neuronales ha experimentado una rápida evolución, transitando desde modelos secuenciales complejos hacia arquitecturas generativas probabilísticas. A continuación, se describe la progresión tecnológica de estos sistemas, clasificados según su paradigma de generación.
+
+\subsubsection{Modelos Autoregresivos}
+La primera generación de modelos neuronales de alta fidelidad se basó en el paradigma autoregresivo, donde la generación de cada segmentos del espectrograma de mel depende del segmento generado anteriormente.
+
+El modelo más representativo de esta etapa es Tacotron 2 (\cite{shen2018natural}). Esta arquitectura combina una red recurrente (LSTM) con un mecanismo de atención para mapear la secuencia de caracteres a un espectrograma de Mel, el cual es posteriormente convertido a forma de onda mediante un vocoder (originalmente WaveNet). Si bien Tacotron 2 estableció un nuevo estándar de naturalidad, su mecanismo de atención es propenso a errores de alineación, resultando en problemas de robustez como la repetición o la omisión de palabras.
+
+Para mitigar los fallos de robustez del mecanismo de atención, surgió DurIAN (Duration Informed Attention Network) (\cite{yu2019durian}). Este modelo reemplaza el mecanismo de atención tradicional por un modelo de alineación que utiliza la duración de los fonemas (predicha o extraída mediante alineamiento forzado). Aunque DurIAN sigue generando los cuadros acústicos de manera autoregresiva, la incorporación de información explicita de duración mejora significativamente la estabilidad de la síntesis, eliminando gran parte de los artefactos presentes en Tacotron 2.
+
+\subsubsection{Modelos No Autoregresivos y Paralelos}
+La principal limitación de los modelos autoregresivos es su lenta velocidad de inferencia, dado que la generación no puede paralelizarse. Para resolver esto, surgieron arquitecturas capaces de generar el espectrograma completo en un solo paso.
+
+FastSpeech 2 (\cite{ren2020fastspeech}) marcó un hito en esta categoría al proponer una red totalmente "feed-forward" basada en bloques de transformador (transformers). A diferencia de sus predecesores, FastSpeech 2 entrena predictores de varianza explícitos (duración, energía y frecuencia fundamental $F_0$) directamente sobre la entrada de texto. Esto no solo permite una inferencia extremadamente rápida (paralela), sino que también otorga un mayor control sobre la prosodia y una mayor robustez frente a datos ruidosos.
+
+Posteriormente, el modelo VITS (Variational Inference with adversarial learning for end-to-end Text-to-Speech) (\cite{kim2021conditional}) propuso un enfoque unificado. VITS combina flujos de normalización (Normalizing Flows) y una arquitectura de Autoencoder Variacional (VAE) con entrenamiento adversario (GAN). A diferencia de los sistemas en dos etapas (modelo acústico + vocoder), VITS es un sistema "end-to-end" que genera directamente la forma de onda, logrando una calidad de estado del arte con una naturalidad superior a los modelos de dos etapas previos.
+
+\subsubsection{Modelos basados en Difusión y Flow Matching}
+Con el auge de la Inteligencia Artificial Generativa, los modelos basados en difusión probabilística (DDPM) y, más recientemente, el paradigma de \textit{Flow Matching}, han demostrado capacidades superiores para modelar la compleja distribución de la voz humana, especialmente en tareas de adaptación de hablante y \textit{zero-shot}.
+
+Diff-TTS (\cite{jeong2021diff}) fue uno de los pioneros en aplicar modelos de difusión probabilística para la estimación de espectrogramas de Mel. Este modelo formula la síntesis como un proceso de refinamiento iterativo, transformando ruido gaussiano en una señal de voz condicionada por el texto. Si bien la calidad es alta, el costo computacional de los múltiples pasos de muestreo es elevado.
+
+Para abordar la latencia inherente a la difusión, Grad-TTS (\cite{popov2021grad}) introdujo un marco basado en ecuaciones diferenciales estocásticas (SDE) con un alineamiento monótono estricto, permitiendo un trade-off flexible entre velocidad y calidad. En la misma línea de optimización, ProDiff (\cite{huang2022prodiff}) emplea técnicas de destilación progresiva (progressive distillation) para reducir drásticamente el número de pasos de muestreo requeridos, permitiendo síntesis de alta calidad en tan solo 2 o 4 pasos de difusión.
+
+Finalmente, el estado del arte actual ha convergido hacia el paradigma de \textit{Flow Matching}, una generalización de los modelos de difusión que aprende campos vectoriales para transformar distribuciones simples en distribuciones de datos complejas mediante trayectorias más rectas y eficientes. El modelo F5-TTS (\cite{chen2024f5}) representa la culminación actual de esta tendencia. F5-TTS utiliza una arquitectura basada en \textit{Diffusion Transformers} (DiT) con un esquema de entrenamiento \textit{Flow Matching}. A diferencia de los modelos anteriores que requieren alineamientos complejos o predictores de duración explícitos, F5-TTS entrena con un sistema de máscaras binarias (bloquea segmentos aleatorios del audio y dejo que el modelo aprenda a predecir ese segmento), permitiendo capacidades de clonación de voz \textit{zero-shot} y control de emociones con una naturalidad sin precedentes y una velocidad de inferencia competitiva gracias a la eficiencia del Flow Matching.
+
 \subsection{CADENAS DE PRE PROCESAMIENTO}
 En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. El objetivo de estas cadenas de preprocesamiento es mejorar, filtrar y estandarizar un conjunto de datos de audios grandes proveniente de diferentes fuentes (dataset ITW). Como el procesamiento implica diferentes etapas, y varia según las necesidades de los modelos a entrenar, han surgido muchas propuestas de implementación, todas con sus respectivas particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
 
