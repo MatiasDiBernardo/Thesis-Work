@@ -163,8 +163,32 @@ La implementación propuesta en este trabajo utiliza el mismo principio de apren
 \subsubsection{Configuración del modelo e hiperparámetros}
 {\color{red}FALTA: Dar datos de los hiperparámetros utilizados para entrenar, tiempo de entrenamiento y specs de la PC donde se entrenó el modelo.}
 
-\subsection{DESCRIPCIÓN DE PRUEBAS ESTADÍSTICAS}
-{\color{red}FALTA: Detallar un poco las validaciones estadísticas que se van a realizar.}
-
 \subsection{MODELO DE TTS ZERO-SHOT}
 {\color{red}FALTA: Definir el modelo de TTS a usar, el porque de la selección y la descripción del último experimento.}
+
+La finalidad de la cadena de procesamientos es seleccionar el mejor conjunto de datos para mejorar el rendimiento de síntesis de modelos de TTS. Lo ideal sería entrenar un modelo de cero para cada variante propuesta de la cadena de procesamiento, pero esto no es factible por el coste computacional y por la cantidad de datos utilizados.
+
+Ante esta problemática, se propone utilizar un modelo de TTS zero-shot, y clonar voces con diferentes tipos de calidad (según los criterios establecidos con métricas objetivas y con la estimación de densidad) para poder correlacionar calidad de síntesis respecto a calidad del audio original (en este caso la referencia del modelo zero-shot).  
+
+Con este propósito, el último experimento de esta tesis propone utilizar el modelo de F5-TTS (\cite{chen2024f5}) para realizar clonaciones de voz con audios de los diferentes sub dataset como referencia. Estos samples van a ser representativos de diferentes condiciones de la métrica conjunto de calidad, como de los valores de similitud por estimación de densidad. Este modelo se selecciona porque es open source, y porque tiene un rendimiento de síntesis de alta calidad, con una capacidad de clonación de voz que se ha demostrado efectiva incluso con muestras de referencia de corta duración (menos de 30 segundos). Esta característica es especialmente relevante para este experimento, dado que algunos sub dataset resultantes de la cadena de procesamiento pueden tener una cantidad limitada de material utilizable tras el filtrado. Además, se base en la arquitectura de difusión, al igual que el modelo de estimación de densidad, lo que permite una mayor coherencia metodológica entre las etapas de evaluación y síntesis.
+
+Para cubrir la mayor cantidad de fonemas representativos, las oraciones a generar van a salir de el texto \textit{Los Sentidos} de (\cite{lossentidos}) diseñado específicamente para garantizar la diversidad fonética del español de Argentina. Para evaluar la calidad de síntesis de los modelos, se utiliza un predictor de MOS entrenado específicamente para TTS en Español (\cite{sosawelford25_interspeech}).
+
+
+\section{MODELO DE TTS ZERO-SHOT}
+
+La validación exhaustiva de una cadena de curaduría de datos requeriría, en un escenario ideal, el entrenamiento completo  de un modelo de síntesis para cada uno de los subconjuntos de datos generados. Sin embargo, debido a las restricciones de cómputo y a los tiempos de convergencia asociados al entrenamiento de múltiples modelos neuronales, esta aproximación resulta inviable en los contextos de esta investigación. Además, de las limitaciones estructurales, este método tendrías sus propias limitaciones metodológicas, dado que la variabilidad inherente al proceso de entrenamiento de modelos de síntesis podría introducir ruido en la evaluación, dificultando la atribución de diferencias en la calidad de síntesis exclusivamente a las características del conjunto de datos utilizado.
+
+Ante esta limitación, se propone una estrategia alternativa basada en la clonación de voz mediante modelos de TTS \textit{zero-shot}. La hipótesis metodológica subyacente postula que existe una correlación directa entre la calidad acústica de la muestra de referencia (el audio proveniente de la cadena de procesamiento) y la calidad perceptual de la voz sintetizada.
+
+Para la ejecución de este experimento, se seleccionó el modelo \textbf{F5-TTS} \cite{chen2024f5}. Esta elección se fundamenta en tres características críticas para la investigación:
+
+\begin{enumerate}
+    \item Capacidad de clonación con referencias cortas: El modelo ha demostrado un rendimiento robusto utilizando muestras de referencia de muy corta duración (inferiores a 30 segundos). Esta característica es indispensable, dado que las configuraciones más estrictas de la cadena de procesamiento (e.g., umbrales altos de NISQA) pueden resultar en subconjuntos de datos con una disponibilidad limitada de segmentos continuos.
+    \item Coherencia Arquitectónica: F5-TTS se basa en el paradigma de \textit{Flow Matching}, una generalización de los modelos de difusión. Esto alinea la arquitectura del modelo de síntesis con la del modelo de estimación de densidad utilizado para la evaluación (Sección 4.4), manteniendo una consistencia metodológica en el uso de modelos generativos modernos.
+    \item Disponibilidad y Reproducibilidad: Al ser un modelo de código abierto (\textit{open source}), garantiza la reproducibilidad de los resultados y permite la inspección de su funcionamiento interno.
+\end{enumerate}
+
+El protocolo experimental consiste en utilizar audios representativos de los diferentes sub-datasets (seleccionados tanto por métricas objetivas como por estimación de densidad) como entradas de referencias para el sistema F5-TTS. Para garantizar que la evaluación no esté sesgada por el contenido lingüístico, las oraciones a sintetizar se extraen del corpus \textit{"Los Sentidos"} \cite{lossentidos}. Este texto ha sido seleccionado específicamente por su diseño para cubrir la diversidad fonética y alofónica característica del español de Argentina.
+
+Finalmente, para cuantificar la calidad de las síntesis resultantes y cerrar el ciclo de evaluación, se emplea un predictor de MOS (\textit{Mean Opinion Score}) entrenado específicamente para evaluar sistemas de TTS en idioma español \cite{sosawelford25_interspeech}, lo que permite obtener una métrica de calidad perceptual automatizada y consistente.
