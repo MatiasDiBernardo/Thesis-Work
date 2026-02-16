@@ -169,11 +169,13 @@ En concordancia con los resultados, el conjunto de métricas que tiene mas varia
 {\color{red}FALTA: Variar los pesos que se le da a cada métrica para que el desvío quede igual y analizar como queda el ranking de la mejor configuración con este ajuste (a esta altura me parece agregar un layer más de complejidad que no se si suma mucho, lo dejaría para trabajos futuros).}
 
 \subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
-\subsubsection{Análisis de calidad datasets profesionales}
-{\color{red}FALTA: Hacer una tabla de los resultados de cada subdataset que lleva a la métrica total representativa de un dataset profesional.}
 
 \subsubsection{Dataset profesional vs procesado}
-Del valor global obtenido como referencia al evaluar diferentes conjuntos de datos profesionales (descrito en la Sección 4.1.2), se llega a un valor representativo del estándar de calidad que se utiliza en la confección de datos de máxima calidad. En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base, el peor y mejor resultado de la cadena, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas. 
+El conjunto de datos profesionales detallado en (\ref{sec:datos_profesionales}), utiliza condiciones de grabación óptimas, con micrófonos de alta calidad, entornos controlados y técnicas de post-procesamiento avanzadas. Esto se traduce en una calidad acústica superior, con menor ruido de fondo, menor reverberación y una representación más fiel de la voz humana. En contraste, el dataset \emph{in-the-wild} procesado mediante la cadena propuesta, aunque mejora significativamente la calidad del audio original, sigue presentando limitaciones inherentes a las condiciones de grabación no controladas.
+
+Al utilizar las mismas métricas de análisis para caracterizar al dataset profesional, se puede evaluar el grado de mejora alcanzado por la cadena de procesamiento y comparar objetivamente las condiciones acústicas y de calidad entre ambos conjuntos de datos. Este análisis permite identificar en qué aspectos específicos el dataset procesado se acerca o se aleja de las condiciones ideales representadas por el dataset profesional, y así determinar si la cadena de procesamiento logra mitigar efectivamente las limitaciones del material \emph{in-the-wild} o si persisten brechas significativas en términos de calidad acústica, ruido residual o variabilidad prosódica, que no se pueden resolver únicamente con procesamiento de señales.
+
+En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base (dataset \emph{in-the-wild} sin procesar), el peor y mejor resultado de la cadena de procesamiento, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas. 
 
 \begin{figure}[h]
   \centering
@@ -183,6 +185,8 @@ Del valor global obtenido como referencia al evaluar diferentes conjuntos de dat
 \end{figure}
 
 En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberancia promedio alcanzada por el promedio de dataset tradicionales Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia.
+
+{\color{red}FALTA: Rehacer estos gráficos y agregar desvío, pueden ser box plot también, tengo que evaluar que queda mejor.}
 
 \begin{figure}[h]
   \centering

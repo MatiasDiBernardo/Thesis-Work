@@ -6,15 +6,16 @@ Para evaluar las cadenas de procesamiento sobre conjuntos de datos de habla se e
 Con el objetivo de captar diferencias dialectales relevantes para Argentina, la selección de hablantes sigue la clasificación regional propuesta por (\cite{Fontanella2004español}). En concreto, el corpus incluye 32 hablantes con acento bonaerense y 27 con acento centro, para un total de 59 hablantes. La estrategia a futuro consiste en ampliar la cobertura dialectal para incorporar todas las variedades representativas del país; sin embargo, en esta tesis se valida inicialmente la cadena de preprocesamiento sobre estas dos variantes representativas.
 
 \subsubsection{Datos profesionales}
+\label{sec:datos_profesionales}
 Para complementar el corpus \emph{in-the-wild} y disponer de material de mayor calidad contra el cual contrastar el análisis objetivo, se incorporan conjuntos de datos profesionales disponibles en trabajos previos. Dado que no existe una colección pública extensa exclusivamente de español de Argentina, se incluyen también recursos con variantes dialectales cercanas cuando procede.
 
 \begin{itemize}
 \item ELRA Dataset (\cite{google-arg}): aproximadamente 8 horas de audio con dialecto bonaerense, 44 hablantes.
-\item Emilia (\cite{datset_arg}): aproximadamente 4 horas de audio (dialecto bonaerense). % Si se dispone del número de hablantes, añadir aquí.
-\item HaCASpa Dataset (\cite{dataset_hamburg}): aproximadamente 10 horas de audio con dialecto bonaerense, 50 hablantes.
+\item CML Dataset (\cite{cml-dataset}): subset de 8 horas de audio con dialecto en español de España, 15 hablantes.
+\item HaCASpa Dataset (\cite{dataset_hamburg}): aproximadamente 10 horas de audio con dialecto de mendoza, 50 hablantes.
 \end{itemize}
 
-El conjunto profesional suma un total de 22 horas. 
+El conjunto profesional suma un total de 26 horas y 109 hablantes, con una distribución de acentos que refleja la diversidad regional. Este material se utiliza como referencia para evaluar la calidad acústica y las condiciones de grabación alcanzables mediante la cadena de preprocesamiento aplicada al corpus \emph{in-the-wild}. 
 
 \subsection{DESARROLLO DE LA CADENA DE PRE PROCESAMIENTO}
 \label{sec:pipeline-desarrollo}
