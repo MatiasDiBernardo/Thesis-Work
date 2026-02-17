@@ -179,23 +179,34 @@ En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la con
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=15cm]{Figuras/Pro_vs_Pipe/pro_vs_pipe_PESQ.png}}
+  \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets PESQ.pdf}}
   \caption{Diferencias del valor de PESQ promedio según diferentes conjuntos de datos.}
     \label{fig:pro_vs_p_PESQ}
 \end{figure}
 
-En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberancia promedio alcanzada por el promedio de dataset tradicionales Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia.
-
-{\color{red}FALTA: Rehacer estos gráficos y agregar desvío, pueden ser box plot también, tengo que evaluar que queda mejor.}
+En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberancia promedio alcanzada por el promedio de dataset tradicionales Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia. Esta tendencia se repite para $C_{50}$, donde la mejor variante de la cadena de procesamiento mejora el valor promedio del dataset profesional, mientras que métricas de calidad como SNR y SI-SDR, aunque mejoran respecto al dataset original, no alcanzan el valor promedio del dataset profesional. Todos los resultados se de esta comparación para las métricas individuales se presentan en el Anexo C.
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=15cm]{Figuras/Pro_vs_Pipe/pro_vs_pipe_T30.png}}
+  \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets T30.pdf}}
   \caption{Diferencias del valor de T30 promedio según diferentes conjuntos de datos.}
     \label{fig:pro_vs_p_T30}
 \end{figure}
 
-{\color{red}FALTA: Continuar el análisis para cada métrica y hacer conclusión general de esta comparación (hacer tabla general de esta comparación y determinar si hablo en concreto de alguna métrica más o pongo el resultado general y listo).}
+{\color{red}FALTA: Agregar en el anexo los gráficos que faltan de esta sección.}
+
+Estos resultados son congruentes con las agrupaciones realizadas en el estudio de métricas, donde se evidenció que las métricas de calidad de señal y acústica no necesariamente están correlacionadas, y que el procesamiento puede mejorar ciertas condiciones acústicas sin necesariamente mejorar la calidad de señal en la misma proporción.
+
+Por último, para analizar la variabilidad prosódica y de identidad del hablante, se compara la frecuencia fundamental promedio de los hablantes de los dataset evaluados Figura \ref{fig:pro_vs_p_F0}, donde el dataset ITW presenta una mayor variabilidad y un valor promedio mayor, indicando que no hay ningún tipo de sesgo hacia hablantes con voz mas grave, como suele ocurrir en los dataset profesionales, donde se tiende a seleccionar hablantes con voz mas grave para evitar problemas de sibilancia y ruido. Además, el valor de $F0\text{-}STD$ es mayor para el dataset ITW, lo que indica una mayor variabilidad en la frecuencia fundamental, lo cual es positivo para tareas de síntesis de voz que requieren diversidad prosódica.
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets F0.pdf}}
+  \caption{Diferencias del valor de F0 promedio según diferentes conjuntos de datos.}
+    \label{fig:pro_vs_p_F0}
+\end{figure}
+
+Estos resultados evidencian la necesidad de incorporar conjuntos de datos \emph{in-the-wild} si se busca capturar el fenómeno del habla en su diversidad y complejidad real, ya que los dataset profesionales, aunque de alta calidad, pueden presentar sesgos significativos en términos de identidad de hablante y patrones prosódicos, lo cual limita su aplicabilidad para tareas que requieren generalización a condiciones reales de uso.
 
 \subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
 {\color{red}FALTA: Comparar entre conjuntos de datos profesionales vs datos ITW (por estimación de densidad).}
