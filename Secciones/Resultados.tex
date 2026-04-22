@@ -210,9 +210,41 @@ Estos resultados evidencian la necesidad de incorporar conjuntos de datos \emph{
 
 \subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
 {\color{red}FALTA: Comparar entre conjuntos de datos profesionales vs datos ITW (por estimación de densidad).}
-Cosas de esta sección
+
+El modelo de predicción de densidad data driven, permite ordenar las diferentes variantes de la cadena de procesamiento según su similitud acústica y estadística con el corpus profesional, donde el criterio es basa en la capacidad de los modelos de difusión para estimar la verosimilitud al aprender la distribución intrínseca de los datos. Bajo la hipótesis de que una mayor verosimilitud indica una mayor cercanía a la distribución de calidad profesional, este método permite evaluar objetivamente qué configuración logra preservar mejor las características deseables de la señal, sin necesidad de recurrir a métricas objetivas específicas o evaluaciones subjetivas.
+
+En la Sección \ref{sec:model_config}, se describen los detalles de la configuración usada para entrenar el modelo. En la Tabla \ref{tab:model_training} se resumen los resultados mas importantes del proceso de entrenamiento, donde se puede ver lo costoso que es entrenar un modelo de difusión de alta fidelidad. 
+
+\begin{table}[htbp]
+\centering
+\caption{Especificaciones técnicas e hiperparámetros del entrenamiento del modelo de difusión.}
+\label{tab:model_training}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parámetro / Recurso}           & \textbf{Valor / Descripción} \\ \midrule
+Duración total del entrenamiento       & 33,554 kwav (33.5M de muestras) \\
+Tiempo de cómputo total                & $\approx$ 92 horas \\
+Función de pérdida final (\textit{Loss}) & $-1.218$ \\
+Mecanismo de promediado                & EMA (Exponential Moving Average) 0.100 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+En la Figura \ref{fig:perdida_entrenamiento} se muestra la función de pérdida en función de los audios evaluados (la unidad 1 kwav equivale a 1000 audios evaluados), donde se observa que el entrenamiento ha convergido de manera efectiva, lo cual indica que el modelo ha aprendido a estimar la distribución de los datos, permitiendo así realizar comparaciones significativas entre las diferentes variantes de la cadena de procesamiento.
+
+\begin{figure}[h]
+  \centering
+\centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/loss_time.png}}
+  \caption{Función de pérdida en función de los audios evaluados durante el entrenamiento del modelo de difusión.}
+    \label{fig:perdida_entrenamiento}
+\end{figure}
+
 \begin{itemize}
   \item Presentar tabla con el promedio y desvío de similaridad de cada configuración de la cadena
+\end{itemize}
+
+\subsection{COMPARACIÓN ENTRE MÉTRICAS OBJETIVAS Y ESTIMACIÓN DE DENSIDAD}
+
+\begin{itemize}
   \item Comparar el orden de la versión por estimación de densidad vs el orden por métricas objetivas
 \end{itemize}
 

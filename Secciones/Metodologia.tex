@@ -162,21 +162,31 @@ En el contexto de esta tesis, se adopta la arquitectura y metodología propuesta
 La implementación propuesta en este trabajo utiliza el mismo principio de aprendizaje no supervisado, empleando el conjunto de datos profesionales (descrito en la Sección 4.1.2) para entrenar el modelo. De esta forma, se establece una distribución de referencia que representa el "habla de alta calidad en español". Una vez entrenado, el modelo permite calcular la verosimilitud de los audios pertenecientes a los distintos sub-datasets generados por la cadena de procesamiento. Bajo la hipótesis de que una mayor verosimilitud indica una mayor cercanía a la distribución de calidad profesional, este método permite ordenar las diferentes variantes de la cadena de procesamiento según su similitud acústica y estadística con el corpus profesional, determinando así qué configuración logra preservar mejor las características deseables de la señal.
 
 \subsubsection{Configuración del modelo e hiperparámetros}
-{\color{red}FALTA: Dar datos de los hiperparámetros utilizados para entrenar, tiempo de entrenamiento y specs de la PC donde se entrenó el modelo.}
+\label{sec:model_config}
+
+El entrenamiento del modelo de estimación de densidad se realizó utilizando un entorno de computación de alto rendimiento, centrado en una GPU NVIDIA GeForce RTX 5090 con 32 GB de memoria de video (VRAM). Este recurso fue fundamental para gestionar la carga computacional requerida por los modelos de difusión de alta fidelidad, permitiendo un consumo de potencia de aproximadamente 532W durante los picos de entrenamiento. Queremos expresar nuestro agradecimiento al [{\color{red}Nombre de la institución o laboratorio}] por facilitar el acceso a este equipamiento de última generación.
+
+La arquitectura del modelo de (\cite{danilo2025_quality}) se basa en el framework EDM2 (Elucidating the Design Space of Diffusion-Based Generative Models), configurada para operar con audios a una tasa de muestreo de 16 kHz. A diferencia de los modelos de difusión discretos tradicionales, se empleó un esquema de ruido continuo, optimizando el entrenamiento mediante la minimización de la función de pérdida de score-matching. Los hiperparámetros específicos utilizados se detallan en la Tabla \ref{tab:especificaciones_entrenamiento}. 
+
+\begin{table}[htbp]
+\centering
+\caption{Tiempo y métricas de control del entrenamiento del modelo de difusión.}
+\label{tab:especificaciones_entrenamiento}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parámetro / Recurso}           & \textbf{Valor / Descripción} \\ \midrule
+Arquitectura del modelo                & EDM2-Diffusion (Tiempo continuo) \\
+Unidad de Procesamiento Gráfico (GPU)  & NVIDIA GeForce RTX 5090 \\
+Memoria de video (VRAM)                & 32 GB GDDR7 \\
+Entorno de software                    & PyTorch 2.6 / CUDA 13.1 \\
+Tamaño de lote (\textit{Batch size})   & 16 muestras por GPU \\
+Precisión de cálculo                  & Punto flotante de 16 bits (fp16) \\
+Tasa de aprendizaje máxima ($\alpha_{ref}$) & $1.09 \times 10^{-2}$ \\
+\end{tabular}
+\end{table}
+
 
 \subsection{MODELO DE TTS ZERO-SHOT}
-{\color{red}FALTA: Definir el modelo de TTS a usar, el porque de la selección y la descripción del último experimento.}
-
-La finalidad de la cadena de procesamientos es seleccionar el mejor conjunto de datos para mejorar el rendimiento de síntesis de modelos de TTS. Lo ideal sería entrenar un modelo de cero para cada variante propuesta de la cadena de procesamiento, pero esto no es factible por el coste computacional y por la cantidad de datos utilizados.
-
-Ante esta problemática, se propone utilizar un modelo de TTS zero-shot, y clonar voces con diferentes tipos de calidad (según los criterios establecidos con métricas objetivas y con la estimación de densidad) para poder correlacionar calidad de síntesis respecto a calidad del audio original (en este caso la referencia del modelo zero-shot).  
-
-Con este propósito, el último experimento de esta tesis propone utilizar el modelo de F5-TTS (\cite{chen2024f5}) para realizar clonaciones de voz con audios de los diferentes sub dataset como referencia. Estos samples van a ser representativos de diferentes condiciones de la métrica conjunto de calidad, como de los valores de similitud por estimación de densidad. Este modelo se selecciona porque es open source, y porque tiene un rendimiento de síntesis de alta calidad, con una capacidad de clonación de voz que se ha demostrado efectiva incluso con muestras de referencia de corta duración (menos de 30 segundos). Esta característica es especialmente relevante para este experimento, dado que algunos sub dataset resultantes de la cadena de procesamiento pueden tener una cantidad limitada de material utilizable tras el filtrado. Además, se base en la arquitectura de difusión, al igual que el modelo de estimación de densidad, lo que permite una mayor coherencia metodológica entre las etapas de evaluación y síntesis.
-
-Para cubrir la mayor cantidad de fonemas representativos, las oraciones a generar van a salir de el texto \textit{Los Sentidos} de (\cite{lossentidos}) diseñado específicamente para garantizar la diversidad fonética del español de Argentina. Para evaluar la calidad de síntesis de los modelos, se utiliza un predictor de MOS entrenado específicamente para TTS en Español (\cite{sosawelford25_interspeech}).
-
-
-\section{MODELO DE TTS ZERO-SHOT}
 
 La validación exhaustiva de una cadena de curaduría de datos requeriría, en un escenario ideal, el entrenamiento completo  de un modelo de síntesis para cada uno de los subconjuntos de datos generados. Sin embargo, debido a las restricciones de cómputo y a los tiempos de convergencia asociados al entrenamiento de múltiples modelos neuronales, esta aproximación resulta inviable en los contextos de esta investigación. Además, de las limitaciones estructurales, este método tendrías sus propias limitaciones metodológicas, dado que la variabilidad inherente al proceso de entrenamiento de modelos de síntesis podría introducir ruido en la evaluación, dificultando la atribución de diferencias en la calidad de síntesis exclusivamente a las características del conjunto de datos utilizado.
 
