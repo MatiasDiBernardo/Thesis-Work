@@ -63,6 +63,8 @@ Históricamente pueden agruparse en tres grandes enfoques:
     \item Enfoque neuronal: Emplean redes neuronales para mapear texto a representaciones intermedias (p.\,ej. mel-espectrogramas) y vocoders neuronales para generar la forma de onda. Dentro de este grupo hay variantes auto regresivas (mayor fidelidad pero más lentas) y no-autoregresivas (más rápidas y escalables). Los sistemas actuales de mayor calidad combinan un modelo de predicción de espectrogramas, como pueden ser Tacotron2 (\cite{tacotron}) o FastSpeech (\cite{fastspeech}), con un vocoder neural, como pueden ser WaveNet (\cite{wavenet}) o HiFi-GAN (\cite{hifigan}). 
 \end{itemize}
 
+ En el presente trabajo se explora las opciones de síntesis neuronal, que han demostrado un salto cualitativo en calidad y flexibilidad, aunque requieren grandes cantidades de datos y potencia computacional para entrenamiento. La evoluación de estos sistemas de desarrolla en la Sección \ref{sec:estado_arte_tts}.
+
 \subsection{REDES NEURONALES}
 Las redes neuronales son modelos parametrizados por capas de neuronas artificiales que aprenden funciones complejas a partir de datos (\cite{goodfellow}).
 En TTS y procesamiento de audio se emplean arquitecturas diversas: redes convolucionales (CNN) para extracción de características tiempo-frecuencia; redes recurrentes y Transformers (\cite{attention}) para modelado secuencial; y mecanismos de \emph{attention} en tareas seq2seq.
