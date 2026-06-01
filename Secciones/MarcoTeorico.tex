@@ -7,9 +7,12 @@ PESQ es un índice objetivo diseñado para predecir la calidad percibida de la v
 
 Esta métrica tiene la limitación del rango de frecuencia que evalúa (va entre 200 Hz a 3500 Hz), para un análisis mas completo surge la métrica denominada POLQA, que es la tercera generación de métricas ITU para evaluación de calidad de voz end-to-end ITU-T P.863 (\cite{ITU-T_P.863_2018}). Mejora y extiende PESQ en ancho de banda (incluye super-wideband y fullband), es más robusta frente a ciertas distorsiones modernas (ecualización, delays, codificación amplia banda) y proporciona predicciones MOS más fiables en escenarios actuales.
 
-Desde un lado objetivo de la calidad de la señal se tienen métricas como el SNR y el SI-SDR. El SNR (relación señal a ruido por sus siglas en inglés) es la relación entre la potencia de la señal útil y la potencia del ruido de fondo, normalmente expresada en decibelios. Es una medida física simple, muy útil para caracterizar condiciones de captura o transmisión, pero su correlación con la percepción humana puede ser pobre cuando las distorsiones son no-gaussianas, no-aditivas o hay alteraciones de fase y tiempo; por ello suele utilizarse junto con métricas perceptuales.
+Desde un lado objetivo de la calidad de la señal se tienen métricas como el SNR y el SI-SDR. El SNR (relación señal a ruido por sus siglas en inglés) es la relación entre la potencia de la señal útil y la potencia del ruido de fondo, normalmente expresada en decibelios (Ecuación \ref{eq:snr}). Es una medida física simple, muy útil para caracterizar condiciones de captura o transmisión, pero su correlación con la percepción humana puede ser pobre cuando las distorsiones son no-gaussianas, no-aditivas o hay alteraciones de fase y tiempo; por ello suele utilizarse junto con métricas perceptuales.
 
-% Poner ecuación SNR y alguna refe
+\begin{equation}
+    \label{eq:snr}
+    \text{SNR}_{\text{dB}} = 10 \log_{10} \left( \frac{P_{\text{señal}}}{P_{\text{ruido}}} \right)
+\end{equation}
 
 El SI-SDR (relación invariante de distorsión a señal por sus siglas en inglés) es una versión modificada y más robusta del SDR tradicional diseñada para evitar penalizaciones por escalado de amplitud entre referencia y estimado (\cite{SISDR}). En la práctica, SI-SDR proyecta la señal estimada sobre la referencia (elimina la diferencia de escala) y calcula la relación señal/residuo resultante; por su formulación, es ampliamente usada en separación de fuentes y evaluación de redes de denoising o separación en el dominio temporal. Su definición y discusión de ventajas frente a SDR clásico están recogidas en la literatura sobre evaluación objetiva de separación.
 
