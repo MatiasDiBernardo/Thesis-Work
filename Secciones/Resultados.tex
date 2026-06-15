@@ -227,8 +227,6 @@ Mecanismo de promediado                & EMA (Exponential Moving Average) 0.100 
 
 En la Figura \ref{fig:perdida_entrenamiento} se muestra la función de pérdida en función de los audios evaluados (la unidad 1 kwav equivale a 1000 audios evaluados), donde se observa que el entrenamiento ha convergido de manera efectiva, lo cual indica que el modelo ha aprendido a estimar la distribución de los datos, permitiendo así realizar comparaciones significativas entre las diferentes variantes de la cadena de procesamiento.
 
- 
-
 \begin{figure}[h]
   \centering
 \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/loss_time.png}}
@@ -236,20 +234,81 @@ En la Figura \ref{fig:perdida_entrenamiento} se muestra la función de pérdida 
     \label{fig:perdida_entrenamiento}
 \end{figure}
 
-\begin{itemize}
-  \item Presentar tabla con el promedio y desvío de similaridad de cada configuración de la cadena
-\end{itemize}
+Los modelos de difusión son costosos de entrenar, pero también tienen un alto tiempo de ejecución en la etapa de inferencia (para procesar 10 horas de audio se necesitan aproximadamente 24 horas de cómputo). Para optimizar los recursos de infraestructura, se evalúa el modelo de difusión en 8 variantes de la cadena, seleccionando variantes representativas de cada categoría de métricas objetivas. 
+
+Al igual que con el cálculo de métricas objetivas, se sample de forma aleatoria muestras de cada variante para clasificar la calidad de ese conjunto. Se toma la mitad de muestras por configuración y se recorta los primeros 5 segundos del audio para evitar saturaciones de memoria del modelo de difusión, lo cual es un problema común al procesar audios largos con este tipo de modelos. Si bien esta simplificación es necesaria para poder hacer el cálculo, trajo el inconveniente de distorsionar los resultados cuando el inicio del audio casi no contenía voz, lo cual pasa en una sección muy menor del total de los audios, pero distorsiona los resultados ya que dichas secciones presenta un valor de calidad muy alto, y no es representativo de la calidad general del audio. Para solucionar este problema, se implementó un filtro adicional para eliminar los audios que presentaban un valor de calidad muy alto, lo cual permitió obtener resultados mas representativos de la calidad general del audio.
+
+En la Tabla \ref{tab:comparacion_likelihood_tot} se presentan los resultados de la estimación de densidad para cada variante seleccionada, además, se adjunta el valor de calidad final según el análisis por métricas objetivas. Una mayor similitud (mayor log-likelihood) implica que el conjunto de datos resultante de la variante bajo estudio, se parece mas a la distribución de los datos originales, que al ser audios de calidad sacados del corpus profesional, una mayor similitud indica una mayor calidad de audio. 
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Comparación entre métricas de estimación de densidad (Likelihood) y la métrica objetiva total (TOT), ordenado por verosimilitud.}
+\label{tab:comparacion_likelihood_tot}
+\begin{tabular}{@{} l S[table-format=1.1] l S[table-format=1.5] S[table-format=1.5] S[table-format=1.2] @{}}
+\toprule
+Filtrado & {Umbral} & Denoiser & {Likelihood $\uparrow$} & {TOT $\downarrow$} \\
+\midrule
+DNSMOS  & 2.7 & DeepFilterNet & 2.37  & 4.65 \\
+NISQA   & 3.8 & DeepFilterNet & 2.29  & 5.13 \\
+DNSMOS  & 2.7 & No denoising  & 2.12  & 4.93 \\
+NISQA   & 4.2 & No denoising  & 2.01  & 5.53 \\
+DNSMOS  & 3.4 & Demucs        & 1.87  & 5.05 \\
+NISQA   & 4.2 & Demucs        & 1.85  & 4.68 \\
+DNSMOS  & 2.7 & Demucs        & 1.72  & 4.08 \\
+NISQA   & 3.0 & Demucs        & 1.69  & 4.31 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Similar a lo que se observa en el análisis de las métricas objetivas, el umbral y tipo de filtrado no presentan un tendencia clara en la estimación del modelo de densidad, mientras que el algoritmo de densoising es el factor que mas influye en la verosimilitud, donde la variante con DeepFilterNet obtiene los mejores resultados, seguida por la condición sin denoising, y por último la variante con Demucs. Este resultado, se debe a que el modelo de difusión califica negativamente el procesamiento agresivo de Demucs, el cual aunque mejora la calidad objetiva del audio, también introduce artefactos que afectan la distribución de los datos y, por ende, la verosimilitud estimada por el modelo de difusión. En contraposición, DeepFilterNet, que es un algoritmo de denoising mas suave, logra mejorar la calidad del audio sin introducir artefactos tan severos, lo cual se refleja en una mayor verosimilitud según el modelo de difusión.
+
+En la Figura \ref{fig:likelihood_distribution} se presenta la distribución (estimada mediante el método de Kernel Density Estimation) de la verosimilitud para 3 configuraciones usando diferentes algoritmos de denoising. Se puede observar, que si bien Demucs tiene el promedio mas bajo, también tiene una distribución mas estrecha, lo cual indica que aunque el promedio es menor, la mayoría de los audios presentan una verosimilitud similar, mientras que en la condición sin denoising y con DeepFilterNet, aunque el promedio es mayor, también hay una mayor variabilidad entre los audios.
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/density_likelihood.pdf}}
+  \caption{Distribución de la verosimilitud para diferentes algoritmos de denoising.}
+    \label{fig:likelihood_distribution}
+\end{figure}
+
+Según el modelo de densidad, Demucs se comporta como un algoritmo de denoising agresivo, que puede introducir artefactos que hagan que no suene natural, pero logra unificar la distribución de los datos y tener un conjunto de mas homogéneo. En cambio, aplicar DeepFilterNet es menos invasivo, lo cual mejora la calidad del audio sin introducir artefactos tan severos, pero no logra una unificar las diferentes condiciones originales. En la condición sin denoising, aunque el promedio de verosimilitud es mayor que con Demucs, también hay una mayor variabilidad entre los audios, lo cual indica que el modelo de difusión valora la diversidad de condiciones acústicas presentes en el dataset original, pero también penaliza la presencia de segmentos con baja calidad.
+
+Cuando el objetivo final de los datos es entrenar un modelo de TTS, tener una base de datos homogénea es fundamental para garantizar que el modelo pueda converger con facilidad y generar audio de buena calidad de forma consistente. En general, esto se consigue a costa de disminuir la naturalidad y flexibilidad del modelo, lo cual puede ser un problema para tareas de síntesis de voz que requieren generalización a condiciones reales de uso. Dentro de este paradigma que presenta un compromiso entre calidad y diversidad, utilizar Demucs prioriza la homogeneidad del dataset, lo cual puede ser beneficioso para tareas de síntesis que requieren alta calidad y consistencia, pero puede limitar la capacidad del modelo para generalizar a condiciones acústicas variadas. En cambio, utilizar DeepFilterNet o no aplicar denoising prioriza la diversidad de condiciones acústicas, lo cual puede ser beneficioso para tareas de síntesis que requieren generalización a condiciones reales de uso, pero puede dificultar la convergencia del modelo y generar audio de menor calidad de forma consistente.
 
 \subsection{COMPARACIÓN ENTRE MÉTRICAS OBJETIVAS Y ESTIMACIÓN DE DENSIDAD}
 
-\begin{itemize}
-  \item Comparar el orden de la versión por estimación de densidad vs el orden por métricas objetivas
-\end{itemize}
+El análisis comparativo entre la metodología tradicional, basada en un conjunto de métricas objetivas y la metodología basada en la estimación de densidad mediante modelos de difusión, revela una divergencia fundamental en la forma en que ambas aproximaciones conceptualizan la "calidad" del audio.
+
+Al observar la Tabla \ref{tab:comparacion_likelihood_tot}, resulta evidente que el ordenamiento de las variantes de la cadena de procesamiento se invierte drásticamente dependiendo del criterio utilizado. Esta contradicción no representa un fallo metodológico, sino que expone las limitaciones y los sesgos inherentes de cada sistema de evaluación.
+
+El hallazgo más significativo es el posicionamiento diametralmente opuesto de los algoritmos de separación de fuentes. Según la métrica objetivas, la configuración óptima para procesar el dataset recae invariablemente en Demucs (logrando el mínimo global de $4.08$). Las métricas intrusivas clásicas (como PESQ o SI-SDR) premian de manera casi lineal la ausencia de energía en las bandas donde se espera silencio, favoreciendo la agresividad de Demucs al remover el ruido de fondo.
+
+Sin embargo, desde la perspectiva de la estimación de densidad, Demucs obtiene los peores puntajes de verosimilitud (alrededor de $1.72$ a $1.87$). El modelo de difusión fue entrenado con un corpus masivo que contiene las sutilezas acústicas y el piso de ruido natural propio de las grabaciones físicas. Cuando Demucs opera sobre la señal, genera "agujeros espectrales" (silencios absolutos en ciertas bandas de frecuencia rodeados de energía) que son topológicamente imposibles en el mundo real. El solucionador de la Ecuación Diferencial Ordinaria (ODE) del modelo de difusión detecta estos vacíos antinaturales como anomalías severas en el espectrograma, alejando drásticamente el audio de la distribución de entrenamiento y, por ende, castigando su likelihood. En la Figura \ref{fig:denoising_spectrograms} se puede observar un ejemplo comparando 3 espectrogramas (sin procesar, procesado con Demucs y procesado con DeepFilterNet) donde se aprecian los huecos espectrales generados por Demucs, que no se encuentran presentes en el audio sin procesar ni en el audio procesado con DeepFilterNet, lo cual explica la baja verosimilitud de los audios procesados con Demucs según el modelo de difusión.
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/denoising_example.PNG}}
+  \caption{Ejemplo del mismo audio procesado con diferentes algoritmos de denoising.}
+    \label{fig:denoising_spectrograms}
+\end{figure}
+
+Por el contrario, DeepFilterNet domina el ranking de estimación de densidad (con valores superiores a $2.29$). Al estar diseñado bajo un paradigma de realce perceptual en lugar de separación ciega de fuentes, respeta la envolvente espectral y preserva componentes armónicas sutiles. Para el modelo de difusión, un audio con DeepFilterNet sigue perteneciendo a la distribución "natural" del habla humana, aunque bajo el microscopio de las métricas objetivas (TOT $\approx 4.65 - 5.13$) sea penalizado por dejar residuos de ruido.
+
+Cabe aclarar que la métrica por estimación de densidad no contempla la reducción de datos que si contempla el resultado total de las métricas objetivas, pero al analizar la tendencia solo con los valores de calidad de señal (CS) y condiciones acústicas (CA), se observa que la tendencia es la misma, Demucs obtiene los mejores resultados en comparación a DeepFilterNet.
+
+\subsubsection{Conclusión del Análisis Cruzado}
+La integración de ambas metodologías demuestra que evaluar pipelines de procesamiento de habla exige definir claramente el objetivo del sistema downstream.
+
+Si el objetivo es alimentar un sistema de reconocimiento automático del habla (ASR), donde la claridad de la formante vocal es más crítica que la naturalidad del fondo, el ordenamiento provisto por las métricas objetivas y el uso de separadores agresivos como Demucs es el camino adecuado.
+
+No obstante, si el corpus resultante se destinará al entrenamiento de modelos generativos, como síntesis de texto a voz (TTS) o clonación de voz, la métrica de estimación de densidad resulta ser un evaluador más robusto y orgánico. En este escenario, priorizar algoritmos de realce conservadores como DeepFilterNet o, en su defecto, depender exclusivamente del filtrado estricto por umbrales (sin aplicar denoising), garantiza que los datos de entrenamiento no hereden distorsiones espectrales que el modelo generativo inevitablemente replicaría.
+
+Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando esta esta pensada para ser aplicada a grandes cantidades de datos.
 
 \subsection{VALIDACIÓN MODELO DE TTS ZERO-SHOT}
 {\color{red}FALTA: Compara calidad de clonación respecto a la calidad o subset del audio original.}
 Para minimizar los tiempos de evaluación de esta prueba, se tomaron 100 audios de forma aleatorio de cada variante de la cadena, y se utilizaron como referencia para el modelo de TTS zero-shot. La elección de tomar esta cantidad de muestras se debe a las limitaciones de infraestructura para poder escalar el experimento. 
-
 
 \begin{itemize}
   \item Presentar gráficos de MOS vs Metricas compuestas 
