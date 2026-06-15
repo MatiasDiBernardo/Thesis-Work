@@ -295,7 +295,14 @@ Sin embargo, desde la perspectiva de la estimación de densidad, Demucs obtiene 
 
 Por el contrario, DeepFilterNet domina el ranking de estimación de densidad (con valores superiores a $2.29$). Al estar diseñado bajo un paradigma de realce perceptual en lugar de separación ciega de fuentes, respeta la envolvente espectral y preserva componentes armónicas sutiles. Para el modelo de difusión, un audio con DeepFilterNet sigue perteneciendo a la distribución "natural" del habla humana, aunque bajo el microscopio de las métricas objetivas (TOT $\approx 4.65 - 5.13$) sea penalizado por dejar residuos de ruido.
 
-Cabe aclarar que la métrica por estimación de densidad no contempla la reducción de datos que si contempla el resultado total de las métricas objetivas, pero al analizar la tendencia solo con los valores de calidad de señal (CS) y condiciones acústicas (CA), se observa que la tendencia es la misma, Demucs obtiene los mejores resultados en comparación a DeepFilterNet.
+Cabe aclarar que la métrica por estimación de densidad no contempla la reducción de datos que si contempla el resultado total de las métricas objetivas, pero al analizar la tendencia solo con los valores de calidad de señal (CS) y condiciones acústicas (CA). Para analizar esta diferencia se presentan la Figura \ref{fig:calidad_vs_likelihood} donde se compara la predicción del modelo de difusión con respecto a la métricas de calidad de señal y condiciones acústicas. Se puede ver que sigue una tendencia similar a la métrica conjunta, donde el algoritmo de denoising es el factor que mas influye en la verosimilitud, mientras que el umbral de filtrado no presenta una tendencia clara. Al las métricas por separado, se comprueba el mismo patrón donde Demucs obtiene mejores resultados objetivos pero peores resultados de verosimilitud, mientras que DeepFilterNet obtiene mejores resultados de verosimilitud pero peores resultados objetivos. 
+
+\begin{figure}[h]
+  \centering
+  \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/calidad_vs_likelihood.pdf}}
+  \caption{Comparación de la predicción del modelo de difusión con las métricas de calidad de señal y condiciones acústicas.}
+    \label{fig:calidad_vs_likelihood}
+\end{figure}
 
 \subsubsection{Conclusión del Análisis Cruzado}
 La integración de ambas metodologías demuestra que evaluar pipelines de procesamiento de habla exige definir claramente el objetivo del sistema downstream.
@@ -307,6 +314,8 @@ No obstante, si el corpus resultante se destinará al entrenamiento de modelos g
 Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando esta esta pensada para ser aplicada a grandes cantidades de datos.
 
 \subsection{VALIDACIÓN MODELO DE TTS ZERO-SHOT}
+Para esta validación, se seleccionaron las mimas 8 configuraciones que se seleccionaron para el modelo de estimación de densidad, con el objetivo de comparar los resultados obtenidos por el modelo de difusión con los resultados de MOS obtenidos al evaluar los modelos de TTS zero-shot.
+
 {\color{red}FALTA: Compara calidad de clonación respecto a la calidad o subset del audio original.}
 Para minimizar los tiempos de evaluación de esta prueba, se tomaron 100 audios de forma aleatorio de cada variante de la cadena, y se utilizaron como referencia para el modelo de TTS zero-shot. La elección de tomar esta cantidad de muestras se debe a las limitaciones de infraestructura para poder escalar el experimento. 
 
