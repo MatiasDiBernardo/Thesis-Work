@@ -187,12 +187,11 @@ Tasa de aprendizaje máxima ($\alpha_{ref}$) & $1.09 \times 10^{-2}$ \\
 
 
 \subsection{MODELO DE TTS ZERO-SHOT}
-
 La validación exhaustiva de una cadena de curaduría de datos requeriría, en un escenario ideal, el entrenamiento completo  de un modelo de síntesis para cada uno de los subconjuntos de datos generados. Sin embargo, debido a las restricciones de cómputo y a los tiempos de convergencia asociados al entrenamiento de múltiples modelos neuronales, esta aproximación resulta inviable en los contextos de esta investigación. Además, de las limitaciones estructurales, este método tendrías sus propias limitaciones metodológicas, dado que la variabilidad inherente al proceso de entrenamiento de modelos de síntesis podría introducir ruido en la evaluación, dificultando la atribución de diferencias en la calidad de síntesis exclusivamente a las características del conjunto de datos utilizado.
 
-Ante esta limitación, se propone una estrategia alternativa basada en la clonación de voz mediante modelos de TTS \textit{zero-shot}. La hipótesis metodológica subyacente postula que existe una correlación directa entre la calidad acústica de la muestra de referencia (el audio proveniente de la cadena de procesamiento) y la calidad perceptual de la voz sintetizada.
+Ante esta limitación, se propone una estrategia alternativa basada en la clonación de voz mediante modelos de TTS \textit{zero-shot}. La hipótesis metodológica subyacente postula que existe una correlación directa entre la calidad acústica de la muestra de referencia (el audio proveniente de la cadena de procesamiento) y la calidad perceptual de la voz sintetizada. Se tomaron solo 200 muestras de cada configuración, para garantizar que la evaluación sea representativa y estadísticamente significativa, sin incurrir en un costo computacional prohibitivo, aunque se reconoce que un mayor número de muestras podría ofrecer una visión más completa de la variabilidad de la síntesis.
 
-Para la ejecución de este experimento, se seleccionó el modelo \textbf{F5-TTS} \cite{chen2024f5}. Esta elección se fundamenta en tres características críticas para la investigación:
+Para la ejecución de este experimento, se seleccionaron dos modelos representativos del estado del arte en síntesis \textit{zero-shot}, fundamentados en paradigmas generativos diametralmente opuestos. En primer lugar, se utilizó el modelo F5-TTS \cite{chen2024f5}. Esta elección se fundamenta en tres características críticas para la investigación:
 
 \begin{enumerate}
     \item Capacidad de clonación con referencias cortas: El modelo ha demostrado un rendimiento robusto utilizando muestras de referencia de muy corta duración (inferiores a 30 segundos). Esta característica es indispensable, dado que las configuraciones más estrictas de la cadena de procesamiento (e.g., umbrales altos de NISQA) pueden resultar en subconjuntos de datos con una disponibilidad limitada de segmentos continuos.
@@ -200,6 +199,15 @@ Para la ejecución de este experimento, se seleccionó el modelo \textbf{F5-TTS}
     \item Disponibilidad y Reproducibilidad: Al ser un modelo de código abierto (\textit{open source}), garantiza la reproducibilidad de los resultados y permite la inspección de su funcionamiento interno.
 \end{enumerate}
 
+Para contrastar y enriquecer este análisis, se incorporó un segundo sintetizador: Qwen TTS (Hue et al., 2026). La selección de esta segunda arquitectura, basada en Modelos de Lenguaje Grande (LLMs), introduce un contrapeso metodológico fundamental:
+
+\begin{enumerate}
+    \item Contraste Arquitectónico (Espacio Discreto vs. Continuo): A diferencia de la naturaleza continua de F5-TTS, los modelos basados en LLMs operan sobre representaciones discretizadas del audio generadas mediante \textit{codecs} neuronales (\textit{tokens} acústicos). Esto permite evaluar cómo reacciona un modelo de naturaleza autoregresiva frente a los mismos datos de referencia.
+    \item Resiliencia a Artefactos y Filtrado Intrínseco: El proceso de discretización de los \textit{codecs} neuronales actúa como un filtro de normalización intrínseco, otorgando al modelo una mayor resiliencia computacional frente a ruidos residuales o distorsiones leves de fase. Su inclusión permite determinar si el impacto destructivo o beneficioso del preprocesamiento afecta de manera uniforme a todos los sintetizadores, o si depende intrínsecamente de su arquitectura subyacente.
+\end{enumerate}
+
 El protocolo experimental consiste en utilizar audios representativos de los diferentes sub-datasets (seleccionados tanto por métricas objetivas como por estimación de densidad) como entradas de referencias para el sistema F5-TTS. Para garantizar que la evaluación no esté sesgada por el contenido lingüístico, las oraciones a sintetizar se extraen del corpus \textit{"Los Sentidos"} \cite{lossentidos}. Este texto ha sido seleccionado específicamente por su diseño para cubrir la diversidad fonética y alofónica característica del español de Argentina.
 
 Finalmente, para cuantificar la calidad de las síntesis resultantes y cerrar el ciclo de evaluación, se emplea un predictor de MOS (\textit{Mean Opinion Score}) entrenado específicamente para evaluar sistemas de TTS en idioma español \cite{sosawelford25_interspeech}, lo que permite obtener una métrica de calidad perceptual automatizada y consistente.
+
+Es fundamental remarcar que los resultados de este último experimento presenta un carácter preliminar y exploratorio. La predicción de la percepción subjetiva de calidad (MOS del TTS) está sujeta a múltiples factores inherentes a los propios modelos sintetizadores (como su entrenamiento previo, su capacidad de adaptación al locutor y la complejidad del texto objetivo). Por tanto, si bien este análisis revela tendencias de suma importancia, se requiere de futuras evaluaciones con metodologías estandarizadas de pruebas de escucha humana y validación cruzada para establecer conclusiones categóricas.

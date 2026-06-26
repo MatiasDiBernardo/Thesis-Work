@@ -324,3 +324,57 @@ Para minimizar los tiempos de evaluación de esta prueba, se tomaron 100 audios 
   \item Presentar gráficos de MOS vs estimación densidad 
   \item Concluir cual es la mejor métrica según análisis subjetivo 
 \end{itemize}
+
+
+\subsection{EVALUACIÓN EXPLORATORIA EN TAREAS DE SÍNTESIS ZERO-SHOT}
+A continuación, se presentan los resultados comparativos entre la capacidad predictiva de las métricas objetivas (TOT) y la estimación de densidad (Log-Likelihood) frente a la calidad del habla sintetizada.
+
+\subsubsection{Predicción basada en Métricas Objetivas (TOT)}
+En la Figura \ref{fig:mos_vs_objetive} se ilustra la relación entre la puntuación total de métricas objetivas (TOT) en el eje horizontal y la calidad subjetiva estimada del audio sintetizado (MOS del TTS) en el eje vertical.
+
+\begin{figure}[h]
+\centering
+\centerline{\includegraphics[width=14cm]{Figuras/Resultados/MOS_vs_objetive.png}}
+\caption{Relación entre la métrica objetiva total (TOT) y la calidad subjetiva sintetizada (MOS).}
+\label{fig:mos_vs_objetive}
+\end{figure}
+
+Como se observa en el gráfico, se observa una tendencia contraria a la esperada: las variantes con menos puntuación total (recordando que la métrica se define como un valor a minimizar) no producen audios sintéticos de mayor preferencia, de hecho observamos una correlación negativa entre la métrica TOT y la calidad subjetiva del audio sintetizado. Esto indica que las métricas objetivas no son un buen predictor de la calidad percibida por los oyentes en el contexto de síntesis de voz \textit{zero-shot}.
+
+Este resultado esta sesgado por la penalización de otorgamos a la variable de reducción de datos, ya que al tratarse modelos de TTS \textit{zero-shot}, la cantidad de datos no es un factor relevante para la calidad del audio sintetizado.
+
+Al realizar el análisis estadístico, la regresión lineal arroja una correlación de Pearson de $r = 0.5822$ ($p = 0.0774$) para Qwen TTS y $r = 0.4912$ ($p = 0.1494$) para F5 TTS. En ambos casos, el \textit{p-value} es superior al nivel de significancia estricto del $5\%$ ($\alpha = 0.05$). Esto implica que no existe evidencia estadística significativa para afirmar que la métrica objetiva TOT es inversamente proporcional al MOS esperado por modelos TTS \textit{zero-shot}.
+
+\subsubsection{Predicción basada en Estimación de Densidad (Log-Likelihood)}
+Por el contrario, al evaluar la capacidad predictiva del modelo de estimación de densidad basado en difusión, el panorama cambia drásticamente. La Figura \ref{fig:mos_vs_likelihood} muestra la dispersión de los datos utilizando el \textit{Log-Likelihood} promedio en el eje horizontal.
+
+\begin{figure}[h]
+\centering
+\centerline{\includegraphics[width=14cm]{Figuras/Resultados/MOS_vs_likelihood.png}}
+\caption{Relación entre la estimación de densidad (Log-Likelihood) y la calidad subjetiva sintetizada (MOS).}
+\label{fig:mos_vs_likelihood}
+\end{figure}
+
+La regresión sobre estos datos revela una correlación positiva fuerte y consistente para ambos sintetizadores: $r = 0.8191$ ($p = 0.0128$) para Qwen TTS y $r = 0.8111$ ($p = 0.0145$) para F5 TTS. Al obtener un \textit{p-value} $< 0.05$, la correlación es estadísticamente significativa al nivel del $5\%$.
+
+Este resultado evidencia que un aumento en el puntaje de verosimilitud otorgado por el modelo de difusión se traduce linealmente en una mejora perceptible en la calidad de la síntesis de voz generada. Las configuraciones de preprocesamiento agrupadas a la izquierda del gráfico (baja verosimilitud, correspondientes a filtrados agresivos con Demucs) resultaron de forma consistente en audios sintetizados de menor calidad ($\text{MOS} < 3.2$). En contraposición, las variantes que preservaron la topología original de la señal (DeepFilterNet y No Denoising), ubicadas a la derecha del espectro de verosimilitud, permitieron a los modelos TTS \textit{zero-shot} alcanzar las puntuaciones más altas de MOS ($\approx 3.4 - 3.6$).
+
+\subsubsection{Discusión Final}
+Los resultados de este experimento exploratorio convergen con la hipótesis planteada en las secciones anteriores. Las métricas objetivas intrusivas, al enfocarse primordialmente en la relación señal a ruido y en modelos psicoacústicos tradicionales (PESQ), fallan al intentar capturar la integridad estructural requerida por las redes neuronales generativas modernas.
+
+La capacidad del modelo de estimación de densidad para predecir de forma estadísticamente significativa el desempeño en tareas de TTS refuerza la postura de que los modelos fundacionales de habla son altamente sensibles a las distorsiones algorítmicas (artefactos de fase, huecos espectrales). Así, la verosimilitud computada mediante modelos de difusión continua emerge no solo como una métrica teórica de distancia distribucional, sino como un indicador empíricamente válido para seleccionar corpus de entrenamiento destinados a sistemas generativos.
+
+Esto es fundamental en el diseño de pipelines de preprocesamiento de audio para sistemas de ASR y TTS, donde la elección de algoritmos de denoising y filtrado no debe basarse únicamente en métricas objetivas tradicionales, sino también en la preservación de la topología acústica que los modelos generativos esperan encontrar.
+
+La conclusión final también pone en evidencia la necesidad la necesidad de explorar nuevas métricas de evaluación de calidad acústica que sean funcionales a las arquitecturas de modelos generativos actuales, y así poder optimizar todas las etapas de la cadena de procesamiento de audio, desde la captura hasta la síntesis, garantizando que los datos de entrenamiento sean representativos y útiles para el aprendizaje profundo.
+
+\subsubsection{Sensibilidad Arquitectónica: Modelos Autoregresivos frente a Modelos de Difusión}
+Un hallazgo secundario, pero sumamente revelador en este experimento, es la brecha de rendimiento sistemática observada entre los dos sintetizadores evaluados. Al analizar las curvas de regresión (Figuras \ref{fig:mos_vs_objetive} y \ref{fig:mos_vs_likelihood}), resulta evidente que Qwen TTS logra puntuaciones subjetivas (MOS) consistentemente superiores a las de F5 TTS para prácticamente la totalidad de las configuraciones evaluadas, desplazando su recta de regresión verticalmente de manera uniforme.
+
+Esta disparidad empírica puede fundamentarse en la naturaleza intrínseca de las arquitecturas subyacentes de cada modelo:
+
+Por un lado, Qwen TTS es un sistema basado en Modelos de Lenguaje Grande (LLMs). Esta arquitectura de naturaleza autoregresiva no opera directamente sobre las ondas de sonido continuas, sino sobre representaciones discretizadas del audio generadas mediante codecs neuronales (cuantización de vectores). En escenarios \textit{zero-shot} con audios in-the-wild, este proceso de discretización en tokens acústicos actúa como un poderoso filtro de normalización intrínseco. El codec tiende a ignorar micro-artefactos, ruido residual de fondo o distorsiones de fase leves al momento de asignar el token, mientras que el fuerte condicionamiento lingüístico del LLM impone un conocimiento previo muy sólido sobre cómo debe sonar la prosodia humana, "rescatando" la síntesis incluso si el audio de referencia prompt es deficiente.
+
+Por otro lado, F5 TTS es una arquitectura fundamentada en flow-matching y modelos de difusión. A diferencia del LLM, los modelos de difusión operan resolviendo ecuaciones diferenciales estocásticas en espacios latentes o espectrogramas continuos. Su objetivo matemático es el emparejamiento exacto de distribuciones. Esta característica los hace instrumentos de extremada alta fidelidad, pero a la vez, hiper-sensibles a la condición inicial. Si el audio de referencia ha sido procesado con un algoritmo agresivo (como Demucs) y presenta "huecos espectrales" o variaciones antinaturales, el modelo de difusión intentará modelar y reproducir fielmente esa anomalía acústica, propagando la degradación a la voz sintetizada final.
+
+En conclusión, los resultados sugieren que los modelos TTS basados en difusión (F5) son evaluadores más estrictos y transparentes de la calidad topológica real de un dataset, ya que no enmascaran los defectos de la señal. Los modelos autoregresivos basados en LLMs (Qwen), en cambio, ofrecen una mayor resiliencia computacional y robustez acústica en entornos de producción donde los audios de referencia no pueden garantizarse bajo estándares estrictos de estudio.
