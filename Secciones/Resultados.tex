@@ -314,20 +314,7 @@ No obstante, si el corpus resultante se destinará al entrenamiento de modelos g
 Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando esta esta pensada para ser aplicada a grandes cantidades de datos.
 
 \subsection{VALIDACIÓN MODELO DE TTS ZERO-SHOT}
-Para esta validación, se seleccionaron las mimas 8 configuraciones que se seleccionaron para el modelo de estimación de densidad, con el objetivo de comparar los resultados obtenidos por el modelo de difusión con los resultados de MOS obtenidos al evaluar los modelos de TTS zero-shot.
-
-{\color{red}FALTA: Compara calidad de clonación respecto a la calidad o subset del audio original.}
-Para minimizar los tiempos de evaluación de esta prueba, se tomaron 100 audios de forma aleatorio de cada variante de la cadena, y se utilizaron como referencia para el modelo de TTS zero-shot. La elección de tomar esta cantidad de muestras se debe a las limitaciones de infraestructura para poder escalar el experimento. 
-
-\begin{itemize}
-  \item Presentar gráficos de MOS vs Metricas compuestas 
-  \item Presentar gráficos de MOS vs estimación densidad 
-  \item Concluir cual es la mejor métrica según análisis subjetivo 
-\end{itemize}
-
-
-\subsection{EVALUACIÓN EXPLORATORIA EN TAREAS DE SÍNTESIS ZERO-SHOT}
-A continuación, se presentan los resultados comparativos entre la capacidad predictiva de las métricas objetivas (TOT) y la estimación de densidad (Log-Likelihood) frente a la calidad del habla sintetizada.
+A continuación, se presentan los resultados comparativos entre la capacidad predictiva de las métricas objetivas (TOT) y la estimación de densidad (Log-Likelihood) frente a la calidad del habla sintetizada por modelos de TTS \textit{zero-shot}.
 
 \subsubsection{Predicción basada en Métricas Objetivas (TOT)}
 En la Figura \ref{fig:mos_vs_objetive} se ilustra la relación entre la puntuación total de métricas objetivas (TOT) en el eje horizontal y la calidad subjetiva estimada del audio sintetizado (MOS del TTS) en el eje vertical.
