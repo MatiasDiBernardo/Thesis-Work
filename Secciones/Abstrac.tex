@@ -3,6 +3,10 @@
 
 \end{centering}
 
-Ídem que para castellano. \\
+Text-to-speech systems based on deep neural networks critically depend on the quantity and quality of their training data, which poses a significant barrier for low-resource languages and dialectal varieties such as Argentine Spanish. To overcome this limitation, datasets gathered from heterogeneous internet sources (\textit{in-the-wild}) constitute an attractive alternative, although they require preprocessing pipelines to filter and standardize the material. The aim of this work was to evaluate, through objective and subjective parameters, the impact of such processing pipelines on \textit{in-the-wild} speech datasets intended for training speech synthesis models.
 
-\textbf{Keywords:} 
+To this end, a modular and reproducible preprocessing pipeline was developed, comprising voice activity detection, signal enhancement, non-intrusive perceptual quality filtering, and automatic transcription stages, and it was applied under multiple configurations, contrasting different denoising algorithms (DeepFilterNet, Demucs, and the no-enhancement condition), quality estimation models (NISQA and DNSMOS), and filtering thresholds. The evaluation was structured around a composite metric integrating corpus reduction, signal quality, acoustic conditions, and speaker characteristic preservation. Complementarily, a density estimation model based on probabilistic diffusion was trained on a professional reference corpus, and the findings were validated on voice cloning tasks using \textit{zero-shot} synthesis models.
+
+The results revealed a fundamental divergence between both evaluation criteria: whereas intrusive objective metrics rewarded aggressive noise suppression, density estimation penalized the structural distortions introduced by such processing and favored conservative enhancement algorithms. Furthermore, the composite objective metric failed to predict the subjective quality of synthesized speech, while the likelihood estimated by the diffusion model exhibited a linear and statistically significant correlation. It is concluded that the choice of both the evaluation criterion and the processing algorithm must be subordinated to the goal of the downstream system, and that \textit{in-the-wild} datasets prove indispensable for capturing the prosodic variability and dialectal representativeness of Argentine Spanish.
+
+\noindent\textbf{Keywords:} speech synthesis, speech datasets, audio preprocessing, low-resources languages
