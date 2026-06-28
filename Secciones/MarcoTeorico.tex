@@ -49,12 +49,13 @@ Las métricas del habla describen propiedades prosódicas y espectrales de la vo
 
 % Tal vez agregar diagramita
 
-Otra métrica muy utilizada en el análisis de sistemas de TTS es la distorsión media cepstral (MCD por sus siglas en ingles). MCD (a veces llamado Mel-Cepstral Distance) cuantifica la distancia entre dos secuencias de coeficientes mel-cepstrales (por ejemplo, señal natural vs. señal sintetizada) y se expresa en dB (\cite{mcd_metric}). La expresión de esta métrica es la siguiente:
+Otra métrica muy utilizada en el análisis de sistemas de TTS es la distorsión media cepstral (MCD por sus siglas en inglés). MCD (a veces llamado Mel-Cepstral Distance) cuantifica la distancia entre dos secuencias de coeficientes mel-cepstrales (por ejemplo, señal natural vs. señal sintetizada) y se expresa en dB (\cite{mcd_metric}). La expresión matemática de esta métrica para un cuadro de tiempo $t$ es la siguiente:
 
-% Agregar formula
+\begin{equation}
+    \text{MCD} = \frac{10}{\ln 10} \sqrt{2 \sum_{k=1}^{K} (y_{t,k} - \hat{y}_{t,k})^2}
+\end{equation}
 
-Se calcula comúnmente como una raíz cuadrada de la suma de cuadrados normalizada entre vectores de coeficientes y es ampliamente utilizada para evaluar la calidad espectral en TTS y vocoders; sin embargo, su correlación con la calidad percibida no es perfecta y debe complementarse con pruebas perceptuales. La métrica fue propuesta en trabajos clásicos sobre evaluación objetiva de síntesis.
-
+donde $y_{t,k}$ y $\hat{y}_{t,k}$ representan el $k$-ésimo coeficiente mel-cepstral de la señal de referencia y de la señal evaluada respectivamente, y $K$ es el número total de coeficientes considerados. Se calcula comúnmente como una raíz cuadrada de la suma de cuadrados normalizada entre vectores de coeficientes y es ampliamente utilizada para evaluar la calidad espectral en TTS y vocoders; sin embargo, su correlación con la calidad percibida no es perfecta y debe complementarse con pruebas perceptuales.
 
 \subsection{TEXT-TO-SPEECH (TTS)}
 Los sistemas de text-to-speech (TTS) convierten texto en señal de voz (\cite{survey1}).

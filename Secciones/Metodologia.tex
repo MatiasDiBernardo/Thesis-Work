@@ -1,4 +1,5 @@
 \subsection{RECOPILACIÓN DE BASES DE DATOS}
+Con el fin de garantizar la reproducibilidad y transparencia de los experimentos, se han recopilado todo el código utilizado para generar los gráficos y resultados parciales presentados en esta tesis. Se puede encontrar todo el material en el siguiente repositorio: \url{https://github.com/MatiasDiBernardo/Audio-Analysis-Tesis}.
 
 \subsubsection{Datos \emph{in-the-wild}}
 Para evaluar las cadenas de procesamiento sobre conjuntos de datos de habla se emplea el corpus en español de Argentina recopilado por el grupo de investigación Intercambios Transorgánicos. Este corpus consta de 24 horas de grabaciones realizadas en condiciones heterogéneas, tanto en calidad de audio como en diversidad de hablantes, y proviene mayoritariamente de fuentes públicas en internet. Por su variabilidad y carácter no controlado, este conjunto \emph{in-the-wild} resulta idóneo para validar procedimientos de preprocesado de audio. En lo sucesivo, se hará referencia a esta colección como el conjunto de datos \emph{original} (versión sin procesamientos).
@@ -67,7 +68,9 @@ En la Figura \ref{fig:pipeline_variants} se presentan de manera gráfica las dif
     \label{fig:pipeline_variants}
 \end{figure}
 
-No se contemplaron variaciones en el orden de las etapas de la cadena por una limitación de los algoritmos de denoising utilizados. Sería interesante evaluar el rendimiento de la cadena si el primer proceso aplicado es el denoising en vez del VAD, pero la implementación de Demucs no soporta audios de gran duración (por problemas de saturación de memoria). De la misma forma, los algoritmos de estimación de calidad de audio, trabajan con segmentos cortos, antes estás limitaciones, se mantiene siempre el orden establecido, donde el VAD segmenta audios de larga duración para que puedan ser procesados por las etapas siguientes sin problemas de saturación de memoria.  
+No se contemplaron variaciones en el orden de las etapas de la cadena por una limitación de los algoritmos de denoising utilizados. Sería interesante evaluar el rendimiento de la cadena si el primer proceso aplicado es el denoising en vez del VAD, pero la implementación de Demucs no soporta audios de gran duración (por problemas de saturación de memoria). De la misma forma, los algoritmos de estimación de calidad de audio, trabajan con segmentos cortos, antes estás limitaciones, se mantiene siempre el orden establecido, donde el VAD segmenta audios de larga duración para que puedan ser procesados por las etapas siguientes sin problemas de saturación de memoria.
+
+El desarrollo de esta cadena sigue los principios de código libre y reproducible, de modo que otros grupos puedan replicar los experimentos y comparar variantes de configuración sin necesidad de disponer de hardware especializado. El código presenta un principio de diseño modular para que pueda ser fácilmente adaptado y extendido, con el fin de poder adaptar las distintas partes de la cadena. La implementación completa se encuentra disponible en el repositorio \url{https://github.com/MatiasDiBernardo/Lowcost-ITW-curation}.
 
 \subsection{EVALUACIÓN DE LOS CONJUNTOS DE DATOS}
 \label{sec:metricas_description}

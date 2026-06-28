@@ -97,6 +97,8 @@ Se analizaron y compararon todas las combinaciones de las diferentes métricas. 
     \label{fig:CS_vs_CA}
 \end{figure}
 
+El mismo comportamiento se observa en las diferentes variantes de comparación. Se adjuntan más gráficos en el Anexo \ref{sec:metricas-compuestas}.
+
 \subsubsection{Optimización de la cadena}
 Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se puede ordenar las variantes de la cadena y así definir cual es la configuración optima para procesar un conjunto de datos del habla.
 
@@ -166,8 +168,6 @@ $\Delta_{\max}$ & 0,92 & 0,62 & 0,58 & 0,74 \\
 
 En concordancia con los resultados, el conjunto de métricas que tiene mas variación es la reducción de datos. Esto tiene sentido dado que los filtrados mas permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral mas agresivo reducían considerablemente la cantidad de horas del conjunto de datos. 
 
-{\color{red}FALTA: Variar los pesos que se le da a cada métrica para que el desvío quede igual y analizar como queda el ranking de la mejor configuración con este ajuste (a esta altura me parece agregar un layer más de complejidad que no se si suma mucho, lo dejaría para trabajos futuros).}
-
 \subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
 
 \subsubsection{Dataset profesional vs procesado}
@@ -192,8 +192,6 @@ En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con 
   \caption{Diferencias del valor de T30 promedio según diferentes conjuntos de datos.}
     \label{fig:pro_vs_p_T30}
 \end{figure}
-
-{\color{red}FALTA: Agregar en el anexo los gráficos que faltan de esta sección.}
 
 Estos resultados son congruentes con las agrupaciones realizadas en el estudio de métricas, donde se evidenció que las métricas de calidad de señal y acústica no necesariamente están correlacionadas, y que el procesamiento puede mejorar ciertas condiciones acústicas sin necesariamente mejorar la calidad de señal en la misma proporción.
 
