@@ -1,7 +1,7 @@
 \subsection{RESULTADOS DE LAS DIFERENTES VARIANTES DE LA CADENA}
 
 \subsubsection{Ejemplo de cálculo}
-Se calcula el promedio de cada métrica para las diferentes configuraciones propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Las resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
+Se calcula el promedio de cada métrica para las diferentes configuraciones propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
 
 \begin{table}[ht]
 \centering
@@ -79,7 +79,7 @@ Este análisis pone en evidencia las relaciones de compromiso entre las métrica
 \subsubsection{Métricas compuestas}
 Una vez validado el comportamiento de cada métricas de forma individual, se analiza las métricas compuestas definidas en la Sección \ref{sec:metricas_description}. Primero, la calidad de la señal, presenta el comportamiento similar a la tendencia explicada al analizar PESQ. Esto es evidente, ya que tanto PESQ, SI-SDR y SNR sigen la misma tendencia, como se presenta en las gráficas completas en el Anexo A.
 
-En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción de datos (RD), respeto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
+En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción de datos (RD), respecto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
 
 \begin{figure}[h]
   \centering
@@ -276,7 +276,7 @@ Cuando el objetivo final de los datos es entrenar un modelo de TTS, tener una ba
 
 \subsection{COMPARACIÓN ENTRE MÉTRICAS OBJETIVAS Y ESTIMACIÓN DE DENSIDAD}
 
-El análisis comparativo entre la metodología tradicional, basada en un conjunto de métricas objetivas y la metodología basada en la estimación de densidad mediante modelos de difusión, revela una divergencia fundamental en la forma en que ambas aproximaciones conceptualizan la "calidad" del audio.
+El análisis comparativo entre la metodología tradicional, basada en un conjunto de métricas objetivas y la metodología basada en la estimación de densidad mediante modelos de difusión, revela una divergencia fundamental en la forma en que ambas aproximaciones conceptualizan la calidad del audio.
 
 Al observar la Tabla \ref{tab:comparacion_likelihood_tot}, resulta evidente que el ordenamiento de las variantes de la cadena de procesamiento se invierte drásticamente dependiendo del criterio utilizado. Esta contradicción no representa un fallo metodológico, sino que expone las limitaciones y los sesgos inherentes de cada sistema de evaluación.
 
@@ -328,7 +328,7 @@ Como se observa en el gráfico, se observa una tendencia contraria a la esperada
 
 Este resultado esta sesgado por la penalización de otorgamos a la variable de reducción de datos, ya que al tratarse modelos de TTS \textit{zero-shot}, la cantidad de datos no es un factor relevante para la calidad del audio sintetizado.
 
-Al realizar el análisis estadístico, la regresión lineal arroja una correlación de Pearson de $r = 0.5822$ ($p = 0.0774$) para Qwen TTS y $r = 0.4912$ ($p = 0.1494$) para F5 TTS. En ambos casos, el \textit{p-value} es superior al nivel de significancia estricto del $5\%$ ($\alpha = 0.05$). Esto implica que no existe evidencia estadística significativa para afirmar que la métrica objetiva TOT es inversamente proporcional al MOS esperado por modelos TTS \textit{zero-shot}.
+Al realizar el análisis estadístico, la regresión lineal arroja una correlación de Pearson de $r = 0.58$ ($p = 0.08$) para Qwen TTS y $r = 0.49$ ($p = 0.15$) para F5 TTS. En ambos casos, el \textit{p-value} es superior al nivel de significancia estricto del $5\%$ ($\alpha = 0.05$). Esto implica que no existe evidencia estadística significativa para afirmar que la métrica objetiva TOT es inversamente proporcional al MOS esperado por modelos TTS \textit{zero-shot}.
 
 \subsubsection{Predicción basada en Estimación de Densidad (Log-Likelihood)}
 Por el contrario, al evaluar la capacidad predictiva del modelo de estimación de densidad basado en difusión, el panorama cambia drásticamente. La Figura \ref{fig:mos_vs_likelihood} muestra la dispersión de los datos utilizando el \textit{Log-Likelihood} promedio en el eje horizontal.
@@ -359,6 +359,6 @@ Esta disparidad empírica puede fundamentarse en la naturaleza intrínseca de la
 
 Por un lado, Qwen TTS es un sistema basado en Modelos de Lenguaje Grande (LLMs). Esta arquitectura de naturaleza autoregresiva no opera directamente sobre las ondas de sonido continuas, sino sobre representaciones discretizadas del audio generadas mediante codecs neuronales (cuantización de vectores). En escenarios \textit{zero-shot} con audios in-the-wild, este proceso de discretización en tokens acústicos actúa como un poderoso filtro de normalización intrínseco. El codec tiende a ignorar micro-artefactos, ruido residual de fondo o distorsiones de fase leves al momento de asignar el token, mientras que el fuerte condicionamiento lingüístico del LLM impone un conocimiento previo muy sólido sobre cómo debe sonar la prosodia humana, "rescatando" la síntesis incluso si el audio de referencia prompt es deficiente.
 
-Por otro lado, F5 TTS es una arquitectura fundamentada en flow-matching y modelos de difusión. A diferencia del LLM, los modelos de difusión operan resolviendo ecuaciones diferenciales estocásticas en espacios latentes o espectrogramas continuos. Su objetivo matemático es el emparejamiento exacto de distribuciones. Esta característica los hace instrumentos de extremada alta fidelidad, pero a la vez, hiper-sensibles a la condición inicial. Si el audio de referencia ha sido procesado con un algoritmo agresivo (como Demucs) y presenta "huecos espectrales" o variaciones antinaturales, el modelo de difusión intentará modelar y reproducir fielmente esa anomalía acústica, propagando la degradación a la voz sintetizada final.
+Por otro lado, F5 TTS es una arquitectura fundamentada en flow-matching y modelos de difusión. A diferencia del LLM, los modelos de difusión operan resolviendo ecuaciones diferenciales estocásticas en espacios latentes o espectrogramas continuos. Su objetivo matemático es el emparejamiento exacto de distribuciones. Esta característica los hace instrumentos de extremada alta fidelidad, pero a la vez, hiper-sensibles a la condición inicial. Si el audio de referencia ha sido procesado con un algoritmo agresivo (como Demucs) y presenta huecos espectrales o variaciones antinaturales, el modelo de difusión intentará modelar y reproducir fielmente esa anomalía acústica, propagando la degradación a la voz sintetizada final.
 
 En conclusión, los resultados sugieren que los modelos TTS basados en difusión (F5) son evaluadores más estrictos y transparentes de la calidad topológica real de un dataset, ya que no enmascaran los defectos de la señal. Los modelos autoregresivos basados en LLMs (Qwen), en cambio, ofrecen una mayor resiliencia computacional y robustez acústica en entornos de producción donde los audios de referencia no pueden garantizarse bajo estándares estrictos de estudio.
