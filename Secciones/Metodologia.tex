@@ -35,7 +35,7 @@ La implementación enfatiza portabilidad y bajo costo computacional, de modo que
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=18cm]{Figuras/Desarrollo/diagrama_flujo_cadena.PNG}}
+  \centerline{\includegraphics[width=18cm]{Figuras/Desarrollo/diagrama_cadena.PNG}}
   \caption{Diagrama de flujo del proceso completo para generar el dataset.}
     \label{fig:pipeline_flowchart}
 \end{figure}
@@ -54,7 +54,7 @@ La selección de umbrales parte de un análisis empírico presentado en la Figur
 
 \begin{figure}[h]
   \centering
-  \centerline{\includegraphics[width=13cm]{Figuras/Desarrollo/mos_pred_dist.pdf}}
+  \centerline{\includegraphics[width=13cm]{Figuras/Desarrollo/mos_dist.png}}
   \caption{Resultado de MOS por cantidad de segmentos del dataset original para los 2 modelos a comparar.}
     \label{fig:original_mos}
 \end{figure}
@@ -80,7 +80,7 @@ La evaluación se articula alrededor de cuatro bloques de métricas complementar
 Todas las métricas buscan cuantificar diferencias relativas entre el dataset original y los sub datasets resultantes de las diferentes variantes; de esta forma, se pueden aplicar esta misma metodología de procesamiento para caracterizar el funcionamiento de la cadena de procesamientos, independientemente de las características del conjunto de datos de partida.
 
 \subsubsection{Reducción del corpus}
-El tamaño del dataset se mide en duración total (horas) y la \emph{reducción de datos} (RD) se cuantifica según Ecuación \ref{eq:horas}, donde el subíndice P hace referencia a las diferentes variantes del dataset procesado, y el subíndice O hace referencia a la cantidad de horas del dataset original.
+El tamaño del dataset se mide en duración total (horas) y la \emph{reducción de datos} (RD) se cuantifica según la Ecuación \ref{eq:horas}, donde el subíndice P hace referencia a las diferentes variantes del dataset procesado, y el subíndice O hace referencia a la cantidad de horas del dataset original.
 
 
 \begin{equation}
@@ -88,12 +88,12 @@ El tamaño del dataset se mide en duración total (horas) y la \emph{reducción 
 RD_P = 1 - \frac{\mathrm{HORAS}_P}{\mathrm{HORAS}_O}
 \end{equation}
 
-Un valor de RD más pequeño es preferible (menos pérdida de datos). Esta medida captura el trade-off básico entre condiciones del filtrado agresivas y cantidad de material utilizable. 
+Un valor de RD más pequeño es preferible (menos pérdida de datos). Esta medida captura la relación de compromiso básico entre condiciones del filtrado agresivas y cantidad de material utilizable. 
 
 \subsubsection{Calidad de la grabación}
 La evaluación de la calidad de la grabación tiene por objetivo cuantificar, de forma objetiva y reproducible, las mejoras perceptuales y la fidelidad de la señal obtenidas tras aplicar las distintas etapas de la cadena (por ejemplo, denoising y filtrado). Para ello se emplean medidas complementarias: PESQ, SI-SDR y SNR; en un principio se contempla la posibilidad de utilizar también el STOI como un parámetro para cuantificar inteligibilidad, pero empíricamente no se encontraron diferencias significativas de este valor, con lo cual fue descartado. 
 
-PESQ (Perceptual Evaluation of Speech Quality) se utiliza como un indicador aproximado de la calidad subjetiva de la señal comparando la versión procesada con la referencia original; SI-SDR (Scale-Invariant Signal-to-Distortion Ratio) mide la fidelidad de la señal de forma robusta frente a cambios de escala y permite evaluar cuánto contenido de la señal original se preserva tras el procesamiento; la definición teórica para calcular estos parámetros requiere de tener una versión original de la señal y una versión degradada, como en este caso se quiere comparar ambos dataset de forma independiente, se utiliza el modulo Pytorch Squim (\cite{squim}), que permite predecir los valores de PESQ, SI-SDR de forma no intrusiva (estimación ciega).
+PESQ (Perceptual Evaluation of Speech Quality) se utiliza como un indicador aproximado de la calidad subjetiva de la señal comparando la versión procesada con la referencia original; SI-SDR (Scale-Invariant Signal-to-Distortion Ratio) mide la fidelidad de la señal de forma robusta frente a cambios de escala y permite evaluar cuánto contenido de la señal original se preserva tras el procesamiento; la definición teórica para calcular estos parámetros requiere de tener una versión original de la señal y una versión degradada, como en este caso se quiere comparar ambos datasets de forma independiente, se utiliza el modulo Pytorch Squim (\cite{squim}), que permite predecir los valores de PESQ, SI-SDR de forma no intrusiva (estimación ciega).
 
 El SNR se estima mediante WADA-SNR (\cite{wada}) para obtener una cifra robusta de relación señal-ruido basada en la distribución de la amplitud de la onda. Todas estas métricas se computan a nivel de segmento y luego se resumen mediante la media y la desviación estándar para cada subconjunto, de modo que sea posible comparar distribuciones antes y después del procesamiento. Finalmente, las puntuaciones individuales se integran en el bloque \emph{Calidad señal} (CS) donde se suma la influencia de todos estos valores Ecuación \ref{eq:cs}, teniendo en cuenta que se espera que los valores de PESQ, SI-SDR y SNR suban (mejoría) al aplicar la cadena de procesamientos. Los subindices respetan la condiciones anterior donde P es por procesado y O es original, estos subíndices se mantiene consistentes para todas las métricas.
 
@@ -110,7 +110,7 @@ Las métricas acústicas buscan describir las condiciones de sala y la presencia
 
 Nuevamente, es necesario calcular estos parámetros de forma ciega y sin referencia de las condiciones del entorno original,con estas limitaciones, estas métricas se estiman mediante un modelo CNN que fue entrenado para calcular parámetros acústicos de forma ciega, y fue validado para voces del español argentino, de manera que la estimación sea práctica sobre material \emph{in-the-wild} sin requerir respuestas impulsivas de sala (\cite{Maxi2}). Las mediciones se calculan por segmento y se agregan mediante estadísticos (media y desvío) para cada subconjunto; en la métrica compuesta se incorporan las mejores relativas para evaluar si una configuración reduce la reverberación y mejora la claridad respecto del conjunto original. 
 
-En este caso, estas dos métricas se suman para contabilizar la influencia de las \emph{Condiciones acústicas} (CA) en la Ecuación \ref{eq:ca}, donde el $T_{30}$ mejora si disminuye, pero el $C_{50}$ mejora si se incrementa. Se descarta el $D_{50}$ ya que los resultados empíricos fueron muy similares al análisis del $C_{50}$, con lo cual no se estaría agregando información redundante y se decide en consecuencia eliminar el aporte de esta métrica. El análisis de estas variables permite discriminar configuraciones que mejoran la «condición de sala» del corpus sin sacrificar en exceso otros atributos.
+En este caso, estas dos métricas se suman para contabilizar la influencia de las \emph{Condiciones acústicas} (CA) en la Ecuación \ref{eq:ca}, donde el $T_{30}$ mejora si disminuye, pero el $C_{50}$ mejora si se incrementa. Se descarta el $D_{50}$ ya que los resultados empíricos fueron muy similares al análisis del $C_{50}$, con lo cual se estaría agregando información redundante y se decide en consecuencia eliminar el aporte de esta métrica. El análisis de estas variables permite discriminar configuraciones que mejoran la «condición de sala» del corpus sin sacrificar en exceso otros atributos.
 
 \begin{equation}
 \label{eq:ca}
@@ -137,7 +137,7 @@ DH_P =
 \label{sec:metrica-conjunta}
 Para ordenar configuraciones se propone una métrica compuesta que suma los cuatro bloques anteriores: reducción del dataset (RD), calidad de señal (CS), condiciones acústicos (CA) y diferencias de habla (DH). Esta métrica compuesta, plantea de forma matemática las relaciones de compromiso que se asumen con la cadena de procesamientos. 
 
-Se plantea la métrica compuesta como un objetivo de optimización Ecuación \ref{eq:metric_total}, donde se busca minimizar el aporte negativo de cada variable para poder identificar la mejor variante P de la cadena de procesamientos.
+Se plantea la métrica compuesta como un objetivo de optimización en la Ecuación \ref{eq:metric_total}, donde se busca minimizar el aporte negativo de cada variable para poder identificar la mejor variante P de la cadena de procesamientos.
 
 \begin{equation}
 \label{eq:metric_total}
@@ -167,7 +167,7 @@ La implementación propuesta en este trabajo utiliza el mismo principio de apren
 \subsubsection{Configuración del modelo e hiperparámetros}
 \label{sec:model_config}
 
-El entrenamiento del modelo de estimación de densidad se realizó utilizando un entorno de computación de alto rendimiento, centrado en una GPU NVIDIA GeForce RTX 5090 con 32 GB de memoria de video (VRAM). Este recurso fue fundamental para gestionar la carga computacional requerida por los modelos de difusión de alta fidelidad, permitiendo un consumo de potencia de aproximadamente 532W durante los picos de entrenamiento. Queremos expresar nuestro agradecimiento al [{\color{red}Nombre de la institución o laboratorio}] por facilitar el acceso a este equipamiento de última generación.
+El entrenamiento del modelo de estimación de densidad se realizó utilizando un entorno de computación de alto rendimiento, centrado en una GPU NVIDIA GeForce RTX 5090 con 32 GB de memoria de video (VRAM). Este recurso fue fundamental para gestionar la carga computacional requerida por los modelos de difusión de alta fidelidad, permitiendo un consumo de potencia de aproximadamente 532W durante los picos de entrenamiento. Queremos expresar nuestro agradecimiento a la Subgerencia de Tecnología y Aplicaciones de Aceleradores de la Comisión Nacional de Energía Atómica por facilitar el acceso a este equipamiento de última generación.
 
 La arquitectura del modelo de (\cite{danilo2025_quality}) se basa en el framework EDM2 (Elucidating the Design Space of Diffusion-Based Generative Models), configurada para operar con audios a una tasa de muestreo de 16 kHz. A diferencia de los modelos de difusión discretos tradicionales, se empleó un esquema de ruido continuo, optimizando el entrenamiento mediante la minimización de la función de pérdida de score-matching. Los hiperparámetros específicos utilizados se detallan en la Tabla \ref{tab:especificaciones_entrenamiento}. 
 
@@ -182,7 +182,7 @@ Arquitectura del modelo                & EDM2-Diffusion (Tiempo continuo) \\
 Unidad de Procesamiento Gráfico (GPU)  & NVIDIA GeForce RTX 5090 \\
 Memoria de video (VRAM)                & 32 GB GDDR7 \\
 Entorno de software                    & PyTorch 2.6 / CUDA 13.1 \\
-Tamaño de lote (\textit{Batch size})   & 16 muestras por GPU \\
+Tamaño de lote (\textit{Batch size})   & 16 muestras por batch \\
 Precisión de cálculo                  & Punto flotante de 16 bits (fp16) \\
 Tasa de aprendizaje máxima ($\alpha_{ref}$) & $1.09 \times 10^{-2}$ \\
 \end{tabular}
@@ -209,8 +209,8 @@ Para contrastar y enriquecer este análisis, se incorporó un segundo sintetizad
     \item Resiliencia a Artefactos y Filtrado Intrínseco: El proceso de discretización de los \textit{codecs} neuronales actúa como un filtro de normalización intrínseco, otorgando al modelo una mayor resiliencia computacional frente a ruidos residuales o distorsiones leves de fase. Su inclusión permite determinar si el impacto destructivo o beneficioso del preprocesamiento afecta de manera uniforme a todos los sintetizadores, o si depende intrínsecamente de su arquitectura subyacente.
 \end{enumerate}
 
-El protocolo experimental consiste en utilizar audios representativos de los diferentes sub-datasets (seleccionados tanto por métricas objetivas como por estimación de densidad) como entradas de referencias para el sistema F5-TTS. Para garantizar que la evaluación no esté sesgada por el contenido lingüístico, las oraciones a sintetizar se extraen del corpus \textit{"Los Sentidos"} \cite{lossentidos}. Este texto ha sido seleccionado específicamente por su diseño para cubrir la diversidad fonética y alofónica característica del español de Argentina.
+El protocolo experimental consiste en utilizar audios representativos de los diferentes sub-datasets (seleccionados tanto por métricas objetivas como por estimación de densidad) como entradas de referencias para el sistema F5-TTS. Para garantizar que la evaluación no esté sesgada por el contenido lingüístico, las oraciones a sintetizar se extraen del corpus \textit{"Los Sentidos"} (\cite{lossentidos}). Este texto ha sido seleccionado específicamente por su diseño para cubrir la diversidad fonética y alofónica característica del español de Argentina.
 
-Finalmente, para cuantificar la calidad de las síntesis resultantes y cerrar el ciclo de evaluación, se emplea un predictor de MOS (\textit{Mean Opinion Score}) entrenado específicamente para evaluar sistemas de TTS en idioma español \cite{sosawelford25_interspeech}, lo que permite obtener una métrica de calidad perceptual automatizada y consistente.
+Finalmente, para cuantificar la calidad de las síntesis resultantes y cerrar el ciclo de evaluación, se emplea un predictor de MOS (\textit{Mean Opinion Score}) entrenado específicamente para evaluar sistemas de TTS en idioma español (\cite{sosawelford25_interspeech}), lo que permite obtener una métrica de calidad perceptual automatizada y consistente.
 
-Es fundamental remarcar que los resultados de este último experimento presenta un carácter preliminar y exploratorio. La predicción de la percepción subjetiva de calidad (MOS del TTS) está sujeta a múltiples factores inherentes a los propios modelos sintetizadores (como su entrenamiento previo, su capacidad de adaptación al locutor y la complejidad del texto objetivo). Por tanto, si bien este análisis revela tendencias de suma importancia, se requiere de futuras evaluaciones con metodologías estandarizadas de pruebas de escucha humana y validación cruzada para establecer conclusiones categóricas.
+Es fundamental remarcar que los resultados de este último experimento presentan un carácter preliminar y exploratorio. La predicción de la percepción subjetiva de calidad (MOS del TTS) está sujeta a múltiples factores inherentes a los propios modelos sintetizadores (como su entrenamiento previo, su capacidad de adaptación al locutor y la complejidad del texto objetivo). Por tanto, si bien este análisis revela tendencias de suma importancia, se requiere de futuras evaluaciones con metodologías estandarizadas de pruebas de escucha humana y validación cruzada para establecer conclusiones categóricas.
