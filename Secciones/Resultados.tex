@@ -1,7 +1,7 @@
 \subsection{RESULTADOS DE LAS DIFERENTES VARIANTES DE LA CADENA}
 
 \subsubsection{Ejemplo de cálculo}
-Se calcula el promedio de cada métrica para las diferentes configuraciones propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
+Se calcula el promedio de cada métrica para las diferentes variantes propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
 
 \begin{table}[ht]
 \centering
@@ -99,10 +99,10 @@ Se analizaron y compararon todas las combinaciones de las diferentes métricas. 
 
 El mismo comportamiento se observa en las diferentes variantes de comparación. Se adjuntan más gráficos en el Anexo II.
 
-\subsubsection{Optimización de la cadena}
-Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se pueden ordenar las variantes de la cadena y así definir cual es la configuración optima para procesar un conjunto de datos del habla.
+\subsubsection{Optimización de la cadena de procesamiento}
+Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se pueden ordenar las variantes de la cadena y así definir cuál es la combinación óptima para procesar un conjunto de datos del habla.
 
-En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métrica parcial y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variantes y máximo la peor variante). En la tabla se presentan las métricas parciales abreviadas, donde $RD$ es reducción del dataset, $CS$ es calidad de señal, $CA$ es calidad acústica, $DH$ es diferencias del habla, y $TOT$ es la métrica conjunta, que contempla la suma de todas las métricas parciales.
+En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métrica parcial y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variante y el máximo la peor variante). En la tabla se presentan las métricas parciales abreviadas, donde $RD$ es reducción del dataset, $CS$ es calidad de señal, $CA$ es calidad acústica, $DH$ es diferencias del habla, y $TOT$ es la métrica conjunta, que contempla la suma de todas las métricas parciales.
 
 \begin{table}[h]
 \centering
@@ -141,7 +141,7 @@ NISQA   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 \end{tabular}
 \end{table}
 
-La mejor configuración es la que utiliza Demucs como algoritmo de denoiser y DNSMOS como algoritmo de filtrado con umbral de MOS en 2.7. Esta configuración obtiene un valor total de 4.08, mientras que la peor variante alcanza un valor total de 5.53
+La mejor configuración es la que utiliza Demucs como algoritmo de denoiser y DNSMOS como algoritmo de filtrado con umbral de MOS en 2.7, que obtiene un valor total de 4.08, mientras que la peor variante alcanza un valor total de 5.53
 
 Es interesante analizar como la cadena que alcanza la mejor puntuación general, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
 
@@ -280,7 +280,7 @@ El análisis comparativo entre la metodología tradicional, basada en un conjunt
 
 Al observar la Tabla \ref{tab:comparacion_likelihood_tot}, resulta evidente que el ordenamiento de las variantes de la cadena de procesamiento se invierte drásticamente dependiendo del criterio utilizado. Esta contradicción no representa un fallo metodológico, sino que expone las limitaciones y los sesgos inherentes de cada sistema de evaluación.
 
-El hallazgo más significativo es el posicionamiento diametralmente opuesto de los algoritmos de separación de fuentes. Según las métricas objetivas, la configuración óptima para procesar el dataset recae invariablemente en Demucs (logrando el mínimo global de $4.08$). Las métricas intrusivas clásicas (como PESQ o SI-SDR) premian de manera casi lineal la ausencia de energía en las bandas donde se espera silencio, favoreciendo la agresividad de Demucs al remover el ruido de fondo.
+El hallazgo más significativo es el posicionamiento diametralmente opuesto de los algoritmos de separación de fuentes. Según las métricas objetivas, la combinación óptima para procesar el dataset recae invariablemente en Demucs (logrando el mínimo global de $4.08$). Las métricas intrusivas clásicas (como PESQ o SI-SDR) premian de manera casi lineal la ausencia de energía en las bandas donde se espera silencio, favoreciendo la agresividad de Demucs al remover el ruido de fondo.
 
 Sin embargo, desde la perspectiva de la estimación de densidad, Demucs obtiene los peores puntajes de verosimilitud (alrededor de $1.72$ a $1.87$). El modelo de difusión fue entrenado con un corpus masivo que contiene las sutilezas acústicas y el piso de ruido natural propio de las grabaciones físicas. Cuando Demucs opera sobre la señal, genera agujeros espectrales (silencios absolutos en ciertas bandas de frecuencia rodeados de energía) que son topológicamente imposibles en el mundo real. El solucionador de la Ecuación Diferencial Ordinaria (ODE) del modelo de difusión detecta estos vacíos antinaturales como anomalías severas en el espectrograma, alejando drásticamente el audio de la distribución de entrenamiento y, por ende, castigando su likelihood. En la Figura \ref{fig:denoising_spectrograms} se puede observar un ejemplo comparando 3 espectrogramas (sin procesar, procesado con Demucs y procesado con DeepFilterNet) donde se aprecian los huecos espectrales generados por Demucs, que no se encuentran presentes en el audio sin procesar ni en el audio procesado con DeepFilterNet, lo cual explica la baja verosimilitud de los audios procesados con Demucs según el modelo de difusión.
 
