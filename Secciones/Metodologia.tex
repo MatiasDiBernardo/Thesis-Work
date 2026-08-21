@@ -31,7 +31,7 @@ La cadena de preprocesamiento diseñada en esta Tesis es una secuencia modular y
 \item Transcripción (STT): Obtención de transcripciones automáticas necesarias para obtener los pares texto-audio que se requieren para el entrenamiento; en esta etapa se prioriza la precisión a costa de un mayor tiempo de cómputo, dado el impacto de errores de transcripción en la calidad final del corpus. Se utiliza el modelo de Whisper Large para la transcripción (\cite{whisper}).
 \end{enumerate}
 
-La implementación enfatiza portabilidad y bajo costo computacional, de modo que grupos con recursos limitados puedan reproducir la cadena y comparar variantes de configuración sin necesidad de utilizar hardware de alto rendimiento como serían GPUs. El diagrama de flujo de toda  la cadena propuesta se presenta en la Figura \ref{fig:pipeline_flowchart}.
+La implementación enfatiza portabilidad y bajo costo computacional, de modo que grupos con recursos limitados puedan reproducir la cadena y comparar variantes del algoritmo sin necesidad de utilizar hardware de alto rendimiento como serían GPUs. El diagrama de flujo de toda  la cadena propuesta se presenta en la Figura \ref{fig:pipeline_flowchart}.
 
 \begin{figure}[h]
   \centering
@@ -59,7 +59,7 @@ La selección de umbrales parte de un análisis empírico presentado en la Figur
     \label{fig:original_mos}
 \end{figure}
 
-En la Figura \ref{fig:pipeline_variants} se presentan de manera gráfica las diferentes variantes a analizar. Cada una genera una subconjunto procesado sobre el que se calculan las métricas objetivas (ver sección siguiente) para permitir una comparación reproducible y dirigida por métrica sin necesidad de entrenar modelos TTS para cada variante. A estas variantes de procesamiento se las denomina sub dataset.
+En la Figura \ref{fig:pipeline_variants} se presentan de manera gráfica las diferentes variantes a analizar. Cada una genera una subconjunto procesado sobre el que se calculan las métricas objetivas (ver sección siguiente) para permitir una comparación reproducible y dirigida por métrica sin necesidad de entrenar modelos TTS para cada alternativa. A estas variantes de procesamiento se las denomina sub dataset.
 
 \begin{figure}[h]
   \centering
@@ -80,8 +80,7 @@ La evaluación se articula alrededor de cuatro bloques de métricas complementar
 Todas las métricas buscan cuantificar diferencias relativas entre el dataset original y los sub datasets resultantes de las diferentes variantes; de esta forma, se pueden aplicar esta misma metodología de procesamiento para caracterizar el funcionamiento de la cadena de procesamientos, independientemente de las características del conjunto de datos de partida.
 
 \subsubsection{Reducción del corpus}
-El tamaño del dataset se mide en duración total (horas) y la \emph{reducción de datos} (RD) se cuantifica según la Ecuación \ref{eq:horas}, donde el subíndice P hace referencia a las diferentes variantes del dataset procesado, y el subíndice O hace referencia a la cantidad de horas del dataset original.
-
+El tamaño del dataset se mide en duración total (horas) y la \emph{reducción de datos} (RD) se cuantifica según la Ecuación \ref{eq:horas}, donde el subíndice P hace referencia a las diferentes alternativas del dataset procesado, y el subíndice O hace referencia a la cantidad de horas del dataset original.
 
 \begin{equation}
 \label{eq:horas}
@@ -124,7 +123,7 @@ Las medidas de diferencias del habla están pensadas para garantizar que las eta
 
 El F0-STD captura la variabilidad prosódica de los hablantes; su cálculo se realiza a nivel de segmento usando el estimador PESTO (\cite{PESTO}) para extracción robusta de pitch, y se compara entre versión original y procesada para detectar reducciones anómalas de variabilidad que indiquen pérdida de naturalidad o sesgo en la selección de hablantes. El MCD se calcula entre los coeficientes mel-cepstrales de la señal original y de la señal procesada (especialmente relevante en audios sometidos a denoising) para cuantificar cambios tímbricos (\cite{mcd_metric}); en la formulación adoptada el MCD se expresa como incremento porcentual o normalizado respecto a un valor de referencia aceptable de 5 dB según (\cite{survey2}), de esta forma se penalizan los esquemas que alteran significativamente el timbre. 
 
-Estas dos componentes se combinan en el bloque \emph{Diferencias del habla} (DH), donde cualquier diferencia relativa de F0-STD es penalizada, y lo mismo para el MCD respecto al valor de referencia Ecuación \ref{eq:dh}. Cabe aclarar que el MCD solo se calcula para las variantes con denoising, esto favorece de alguna forma a las variantes sin denoising que no modifican las características del hablante.
+Estas dos componentes se combinan en el bloque \emph{Diferencias del habla} (DH), donde cualquier diferencia relativa de F0-STD es penalizada, y lo mismo para el MCD respecto al valor de referencia Ecuación \ref{eq:dh}. Cabe aclarar que el MCD solo se calcula para las variantes con denoising, esto favorece de alguna forma a las alternativas sin denoising que no modifican las características del hablante.
 
 \begin{equation}
 \label{eq:dh}
