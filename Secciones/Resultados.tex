@@ -259,9 +259,9 @@ NISQA   & 3.0 & Demucs        & 1.69 & 4.31 \\
 \end{tabular}
 \end{table}
 
-En las ocho configuraciones evaluadas, las dos medias de likelihood más altas corresponden a DeepFilterNet (2.37 y 2.30), seguidas por las dos configuraciones sin denoising (2.02 y 2.01); las cuatro configuraciones Demucs se sitúan entre 1.69 y 1.88. Las diferencias entre umbrales no siguen una tendencia única. Descriptivamente, la separación entre algoritmos de denoising parece más marcada que la variación entre umbrales, pero la selección limitada no permite atribuir causalidad ni generalizar este ordenamiento a configuraciones no evaluadas. Una posible explicación es que el procesamiento de Demucs introduce artefactos espectrales que reducen la compatibilidad con la distribución de referencia; esta interpretación es consistente con el ejemplo de espectrograma, aunque el análisis no prueba ese mecanismo.
+En las ocho configuraciones evaluadas, las dos medias de likelihood más altas corresponden a DeepFilterNet (2.37 y 2.30), seguidas por las dos configuraciones sin denoising (2.02 y 2.01); las cuatro configuraciones Demucs se sitúan entre 1.69 y 1.88. Las diferencias entre umbrales no siguen una tendencia única. Descriptivamente, la separación entre algoritmos de denoising parece más marcada que la variación entre umbrales, pero la selección limitada no permite atribuir causalidad ni generalizar este ordenamiento a configuraciones no evaluadas. Una posible explicación es que el procesamiento de Demucs introduce artefactos espectrales que reducen la compatibilidad con la distribución de referencia.
 
-En la Figura \ref{fig:likelihood_distribution} se muestran las distribuciones filtradas, estimadas mediante Kernel Density Estimation (KDE; \cite{parzen1962estimation}), para tres configuraciones: Demucs con NISQA 3.0, DeepFilterNet con DNSMOS 2.7 y sin denoising con DNSMOS 2.7. Para cada configuración se estima la densidad con los recortes retenidos por el criterio canónico: se excluyen observaciones individuales con log-likelihood mayor que 4.0 y se conservan las iguales o menores a ese umbral. El corte se aplica antes de la estimación KDE y no elimina configuraciones completas.
+En la Figura \ref{fig:likelihood_distribution} se muestran las distribuciones, estimadas mediante Kernel Density Estimation (KDE; \cite{parzen1962estimation}), para tres configuraciones: Demucs con NISQA 3.0, DeepFilterNet con DNSMOS 2.7 y sin denoising con DNSMOS 2.7.
 
 \begin{figure}[h]
   \centering
@@ -293,12 +293,12 @@ En la serie filtrada, las cuatro configuraciones Demucs presentan medias entre 1
 
 Las dos configuraciones DeepFilterNet evaluadas ocupan las primeras posiciones de la tabla de likelihood, con medias filtradas de 2.37 y 2.30. Este ordenamiento es descriptivo de las configuraciones ensayadas. La hipótesis de que un realce más conservador preserve rasgos próximos a la distribución profesional puede orientar análisis posteriores, aunque las medidas de este experimento no permiten identificar por sí solas el mecanismo ni establecer que el likelihood refleje la preferencia perceptual.
 
-La Figura \ref{fig:calidad_vs_likelihood} relaciona la media de likelihood filtrado de cada configuración con sus medias de calidad de señal (CS) y condiciones acústicas (CA). Cada punto representa una configuración, emparejada por algoritmo de denoising, métrica acústica y umbral; las métricas objetivas y el likelihood se comparan como promedios por configuración. En estas ocho configuraciones se aprecia una separación descriptiva por algoritmo, mientras que los umbrales no muestran una tendencia uniforme. Este patrón exploratorio no valida una relación lineal ni permite extrapolar a umbrales o configuraciones que no fueron evaluados.
+La Figura \ref{fig:calidad_vs_likelihood} relaciona la media de likelihood filtrado de cada configuración con sus medias de calidad de señal (CS) y condiciones acústicas (CA). Cada punto representa una configuración, emparejada por algoritmo de denoising, métrica acústica y umbral; las métricas objetivas y el likelihood se comparan como promedios por configuración. En estas ocho configuraciones se aprecia una separación descriptiva por algoritmo, mientras que los umbrales no muestran una tendencia uniforme.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/calidad_vs_likelihood.pdf}}
-  \caption{Relación entre la media de likelihood filtrado y las métricas de calidad de señal (CS) y condiciones acústicas (CA). El color indica el algoritmo de denoising, la forma distingue CS (círculo, eje izquierdo) de CA (cuadrado, eje derecho) y las etiquetas indican la métrica acústica y su umbral.}
+  \caption{Relación entre la media de likelihood y las métricas de calidad de señal (CS) y condiciones acústicas (CA). El color indica el algoritmo de denoising, la forma distingue CS (círculo, eje izquierdo) de CA (cuadrado, eje derecho) y las etiquetas indican la métrica acústica y su umbral.}
     \label{fig:calidad_vs_likelihood}
 \end{figure}
 
@@ -337,7 +337,7 @@ La Figura \ref{fig:mos_vs_likelihood} compara, para cada modelo TTS, la media de
 \begin{figure}[h]
 \centering
 \centerline{\includegraphics[width=14cm]{Figuras/Resultados/MOS_vs_likelihood.png}}
-\caption{Medias de likelihood filtrado y MOS emparejadas por configuración para seis configuraciones coincidentes.}
+\caption{Medias de likelihood y MOS emparejadas por configuración para seis configuraciones coincidentes.}
 \label{fig:mos_vs_likelihood}
 \end{figure}
 
@@ -346,7 +346,7 @@ Con estos seis pares de medias por configuración, la correlación de Pearson es
 La tendencia positiva debe interpretarse con cautela: se calcula sobre seis pares de promedios agregados por configuración y no describe una relación entre identificadores individuales de audio. Los resultados ofrecen una observación exploratoria sobre el orden de estas configuraciones, sin validar una relación lineal ni una capacidad predictiva del likelihood.
 
 \subsubsection{Discusión Final}
-Los resultados de este experimento muestran ordenamientos distintos entre las métricas objetivas y el likelihood para las configuraciones ensayadas. La asociación ordinal entre likelihood filtrado y MOS es más marcada en F5 que en Qwen, mientras que las correlaciones lineales de Pearson no alcanzan significancia estadística en ninguno de los dos modelos.
+Los resultados de este experimento muestran ordenamientos distintos entre las métricas objetivas y el likelihood para las configuraciones ensayadas. La correlación entre la estimaciñon de densidad y MOS es más marcada en F5 que en Qwen, mientras que las correlaciones lineales de Pearson no alcanzan significancia estadística en ninguno de los dos modelos.
 
 En consecuencia, el likelihood puede usarse aquí como criterio exploratorio para ordenar las configuraciones evaluadas, pero estos datos no lo validan como predictor lineal del desempeño TTS. Para evaluar su capacidad predictiva se requieren más configuraciones, más datos emparejados y validación independiente, idealmente con juicios de escucha humana.
 
@@ -358,6 +358,6 @@ En cinco de las seis configuraciones coincidentes, el MOS medio estimado por Qwe
 
 Una hipótesis para explorar es que las diferencias entre modelos dependan, en parte, de cómo sus arquitecturas representan las referencias acústicas. Qwen TTS genera a partir de representaciones discretizadas por codecs neuronales, mientras que F5 TTS se basa en flow-matching y difusión. El presente experimento no aisló estos mecanismos ni midió directamente su efecto sobre la calidad percibida.
 
-La mayor asociación ordinal observada para F5 en este conjunto de seis configuraciones puede motivar una comparación controlada de arquitecturas. Para establecer si la arquitectura explica ese patrón se necesitarían más cadenas, referencias emparejadas y evaluaciones directas de las síntesis.
+La correlación positiva observada para F5 en este conjunto de seis configuraciones puede motivar una comparación controlada de arquitecturas. Para establecer si la arquitectura explica ese patrón se necesitarían más cadenas, referencias emparejadas y evaluaciones directas de las síntesis.
 
 Por tanto, estos resultados no permiten concluir que F5 sea un evaluador más estricto ni que Qwen sea más robusto ante referencias no controladas. Ambas interpretaciones quedan como hipótesis para estudios con un diseño que evalúe esos mecanismos de forma directa.
