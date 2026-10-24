@@ -1,0 +1,448 @@
+PWD /home/diber/code/tesis/Thesis-Work
+INPUT /tmp/texlive/texmf.cnf
+INPUT /tmp/texlive/texmf-dist/web2c/texmf.cnf
+INPUT /tmp/texlive/texmf-var/web2c/xetex/xelatex.fmt
+INPUT main.tex
+OUTPUT main.log
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/article.cls
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/article.cls
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/size12.clo
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/size12.clo
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/size12.clo
+INPUT /tmp/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/babel.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/babel.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/xebabel.def
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel/locale/es/babel-es.ini
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT /tmp/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/inputenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/inputenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/fontenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/fontenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
+INPUT /tmp/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
+INPUT /tmp/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
+INPUT /tmp/texlive/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/trig.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/trig.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/psnfss/times.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/psnfss/times.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3kernel/l3backend-xetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3kernel/l3backend-xetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+INPUT /tmp/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/csquotes/csquotes.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/logreq/logreq.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/logreq/logreq.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/logreq/logreq.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/url/url.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/url/url.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.dbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.dbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.dbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-unicode.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-unicode.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-unicode.def
+INPUT /tmp/texlive/texmf-dist/tex/generic/unicode-data/UnicodeData.txt
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.cbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.cbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/apa.cbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/caption/caption.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/caption/caption.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/caption/caption3.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/floatrow/floatrow.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/float/float.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/appendix/appendix.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/appendix/appendix.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tabularray/tabularray.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tabularray/tabularray.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/physics/physics.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/physics/physics.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/changepage/changepage.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/changepage/changepage.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/refcount/refcount.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT /tmp/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT /tmp/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT /tmp/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT /tmp/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/tools/array.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/translations/translations.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/translations/translations.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/makecell/makecell.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/makecell/makecell.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/base/fontenc.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/color.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/color.sty
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /tmp/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT ./main.aux
+INPUT ./main.aux
+INPUT main.aux
+OUTPUT main.aux
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/spanish-apa.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/spanish-apa.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex-apa/spanish-apa.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx
+INPUT /tmp/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx
+OUTPUT main.bcf
+INPUT main.bbl
+INPUT ./main.bbl
+INPUT ./main.bbl
+INPUT ./main.bbl
+INPUT main.bbl
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
+INPUT ./main.out
+INPUT ./main.out
+INPUT main.out
+INPUT main.out
+INPUT ./main.out
+INPUT ./main.out
+OUTPUT main.out
+INPUT /tmp/texlive/texmf-dist/tex/latex/translations/translations-basic-dictionary-spanish.trsl
+INPUT /tmp/texlive/texmf-dist/tex/latex/translations/translations-basic-dictionary-spanish.trsl
+INPUT /tmp/texlive/texmf-dist/tex/latex/translations/translations-basic-dictionary-spanish.trsl
+INPUT ./Logo Untref.png
+INPUT ./Logo Untref.png
+INPUT ./Logo Untref.png
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+OUTPUT main.xdv
+INPUT ./Secciones/Agradecimientos.tex
+INPUT ./Secciones/Agradecimientos.tex
+INPUT ./Secciones/Agradecimientos.tex
+INPUT ./Secciones/Agradecimientos.tex
+INPUT Secciones/Agradecimientos.tex
+INPUT ./Secciones/Dedicatoria.tex
+INPUT ./Secciones/Dedicatoria.tex
+INPUT ./Secciones/Dedicatoria.tex
+INPUT ./Secciones/Dedicatoria.tex
+INPUT Secciones/Dedicatoria.tex
+INPUT ./main.toc
+INPUT ./main.toc
+INPUT main.toc
+OUTPUT main.toc
+INPUT ./main.lof
+INPUT ./main.lof
+INPUT main.lof
+OUTPUT main.lof
+INPUT ./main.lot
+INPUT ./main.lot
+INPUT main.lot
+OUTPUT main.lot
+INPUT ./Secciones/Resumen.tex
+INPUT ./Secciones/Resumen.tex
+INPUT ./Secciones/Resumen.tex
+INPUT ./Secciones/Resumen.tex
+INPUT Secciones/Resumen.tex
+INPUT ./Secciones/Abstrac.tex
+INPUT ./Secciones/Abstrac.tex
+INPUT ./Secciones/Abstrac.tex
+INPUT ./Secciones/Abstrac.tex
+INPUT Secciones/Abstrac.tex
+INPUT ./Secciones/Introduccion.tex
+INPUT ./Secciones/Introduccion.tex
+INPUT ./Secciones/Introduccion.tex
+INPUT ./Secciones/Introduccion.tex
+INPUT Secciones/Introduccion.tex
+INPUT ./Secciones/MarcoTeorico.tex
+INPUT ./Secciones/MarcoTeorico.tex
+INPUT ./Secciones/MarcoTeorico.tex
+INPUT ./Secciones/MarcoTeorico.tex
+INPUT Secciones/MarcoTeorico.tex
+INPUT ./Secciones/Estado del Arte.tex
+INPUT ./Secciones/Estado del Arte.tex
+INPUT ./Secciones/Estado del Arte.tex
+INPUT ./Secciones/Estado del Arte.tex
+INPUT Secciones/Estado del Arte.tex
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /tmp/texlive/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT ./Secciones/Metodologia.tex
+INPUT ./Secciones/Metodologia.tex
+INPUT ./Secciones/Metodologia.tex
+INPUT ./Secciones/Metodologia.tex
+INPUT Secciones/Metodologia.tex
+INPUT ./Figuras/Desarrollo/diagrama_cadena.png
+INPUT ./Figuras/Desarrollo/diagrama_cadena.png
+INPUT ./Figuras/Desarrollo/diagrama_cadena.png
+INPUT ./Figuras/Desarrollo/mos_dist.png
+INPUT ./Figuras/Desarrollo/mos_dist.png
+INPUT ./Figuras/Desarrollo/mos_dist.png
+INPUT ./Figuras/Desarrollo/variantes_diagrama.PNG
+INPUT ./Figuras/Desarrollo/variantes_diagrama.PNG
+INPUT ./Figuras/Desarrollo/variantes_diagrama.PNG
+INPUT ./Secciones/Resultados.tex
+INPUT ./Secciones/Resultados.tex
+INPUT ./Secciones/Resultados.tex
+INPUT ./Secciones/Resultados.tex
+INPUT Secciones/Resultados.tex
+INPUT ./Figuras/Pipeline/PESQ vs horas (nisqa).pdf
+INPUT ./Figuras/Pipeline/PESQ vs horas (nisqa).pdf
+INPUT ./Figuras/Pipeline/PESQ vs horas (nisqa).pdf
+INPUT ./Figuras/Pipeline/T30 vs horas (dnsmos).pdf
+INPUT ./Figuras/Pipeline/T30 vs horas (dnsmos).pdf
+INPUT ./Figuras/Pipeline/T30 vs horas (dnsmos).pdf
+INPUT ./Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf
+INPUT ./Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf
+INPUT ./Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf
+INPUT ./Figuras/Pipeline/RD vs CS (nisqa).pdf
+INPUT ./Figuras/Pipeline/RD vs CS (nisqa).pdf
+INPUT ./Figuras/Pipeline/RD vs CS (nisqa).pdf
+INPUT ./Figuras/Pipeline/CS vs CA (dnsmos).pdf
+INPUT ./Figuras/Pipeline/CS vs CA (dnsmos).pdf
+INPUT ./Figuras/Pipeline/CS vs CA (dnsmos).pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets PESQ.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets PESQ.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets PESQ.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets T30.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets T30.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets T30.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets F0.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets F0.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets F0.pdf
+INPUT ./Figuras/Desarrollo/loss_time.png
+INPUT ./Figuras/Desarrollo/loss_time.png
+INPUT ./Figuras/Desarrollo/loss_time.png
+INPUT ./Figuras/Desarrollo/density_likelihood.pdf
+INPUT ./Figuras/Desarrollo/density_likelihood.pdf
+INPUT ./Figuras/Desarrollo/density_likelihood.pdf
+INPUT ./Figuras/Resultados/spectrogram_pdf.pdf
+INPUT ./Figuras/Resultados/spectrogram_pdf.pdf
+INPUT ./Figuras/Resultados/spectrogram_pdf.pdf
+INPUT ./Figuras/Desarrollo/calidad_vs_likelihood.pdf
+INPUT ./Figuras/Desarrollo/calidad_vs_likelihood.pdf
+INPUT ./Figuras/Desarrollo/calidad_vs_likelihood.pdf
+INPUT ./Figuras/Resultados/MOS_vs_objetive.png
+INPUT ./Figuras/Resultados/MOS_vs_objetive.png
+INPUT ./Figuras/Resultados/MOS_vs_objetive.png
+INPUT ./Figuras/Resultados/MOS_vs_likelihood.png
+INPUT ./Figuras/Resultados/MOS_vs_likelihood.png
+INPUT ./Figuras/Resultados/MOS_vs_likelihood.png
+INPUT ./Secciones/Conclusiones.tex
+INPUT ./Secciones/Conclusiones.tex
+INPUT ./Secciones/Conclusiones.tex
+INPUT ./Secciones/Conclusiones.tex
+INPUT Secciones/Conclusiones.tex
+INPUT ./Secciones/Linea futuras de Invetigacion.tex
+INPUT ./Secciones/Linea futuras de Invetigacion.tex
+INPUT ./Secciones/Linea futuras de Invetigacion.tex
+INPUT ./Secciones/Linea futuras de Invetigacion.tex
+INPUT Secciones/Linea futuras de Invetigacion.tex
+INPUT ./Secciones/AnexoI.tex
+INPUT ./Secciones/AnexoI.tex
+INPUT ./Secciones/AnexoI.tex
+INPUT ./Secciones/AnexoI.tex
+INPUT Secciones/AnexoI.tex
+INPUT ./Figuras/Anexo-I/PESQ vs hours (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/PESQ vs hours (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/PESQ vs hours (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/SI-SDR vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/SI-SDR vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/SI-SDR vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/SNR vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/SNR vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/SNR vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/T30 vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/T30 vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/T30 vs horas (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/C50 vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/C50 vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/C50 vs horas (dnsmos)_page1.png
+INPUT ./Figuras/Anexo-I/F0-STD vs PESQ (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/F0-STD vs PESQ (nisqa)_page1.png
+INPUT ./Figuras/Anexo-I/F0-STD vs PESQ (nisqa)_page1.png
+INPUT ./Secciones/AnexoII.tex
+INPUT ./Secciones/AnexoII.tex
+INPUT ./Secciones/AnexoII.tex
+INPUT ./Secciones/AnexoII.tex
+INPUT Secciones/AnexoII.tex
+INPUT ./Figuras/Anexo-I/RD vs CA (dnsmos).pdf
+INPUT ./Figuras/Anexo-I/RD vs CA (dnsmos).pdf
+INPUT ./Figuras/Anexo-I/RD vs CA (dnsmos).pdf
+INPUT ./Figuras/Anexo-I/RD vs DH (dnsmos).pdf
+INPUT ./Figuras/Anexo-I/RD vs DH (dnsmos).pdf
+INPUT ./Figuras/Anexo-I/RD vs DH (dnsmos).pdf
+INPUT ./Secciones/AnexoIII.tex
+INPUT ./Secciones/AnexoIII.tex
+INPUT ./Secciones/AnexoIII.tex
+INPUT ./Secciones/AnexoIII.tex
+INPUT Secciones/AnexoIII.tex
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SI-SDR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SI-SDR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SI-SDR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SNR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SNR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets SNR.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets C50.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets C50.pdf
+INPUT ./Figuras/Pro_vs_Pipe/Comparación tipos datasets C50.pdf
+INPUT main.aux
+INPUT ./main.out
+INPUT ./main.out
+INPUT main.run.xml
+OUTPUT main.run.xml

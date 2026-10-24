@@ -42,6 +42,11 @@ donde $p(t)$ es la respuesta al impulso en la posición de escucha. Valores alto
 
 El $D_{50}$ (a menudo expresado en porcentaje) es la fracción de energía que llega en los primeros 50 ms respecto a la energía total; es otra forma de cuantificar claridad/inteligibilidad para voz (relacionado con $C_{50}$). Se calcula a partir de la respuesta al impulso y es relevante para evaluación de recintos educativos, salas de conferencia y estudios de grabación.
 
+\subsubsection{Estimación ciega de parámetros acústicos}
+Las definiciones normalizadas de $T_{30}$, $C_{50}$ y $D_{50}$ requieren medir la respuesta impulsiva de la sala. En grabaciones de habla obtenidas fuera de condiciones controladas, esa respuesta no suele estar disponible; la estimación ciega busca entonces inferir parámetros equivalentes a partir de la señal observada, sin conocer la fuente ni la geometría del recinto. Los primeros métodos modelaron estadísticamente la cola reverberante para estimar el tiempo de reverberación a partir de habla conectada \cite{ratnam2003blind}.
+
+Los métodos actuales aprenden esta relación a partir de ejemplos de habla y respuestas impulsivas conocidas. Por ejemplo, se ha propuesto estimar $C_{50}$ desde el espectrograma de habla monofónica mediante una red CNN--LSTM \cite{gamper2020c50}. Estas predicciones permiten comparar de forma práctica colecciones \emph{in-the-wild}, pero son estimaciones dependientes del dominio de entrenamiento y no sustituyen una medición física de la sala. En esta tesis se emplea un estimador basado en CNN, validado para voces del español argentino, para obtener $T_{30}$, $C_{50}$ y $D_{50}$ sin requerir mediciones de respuesta impulsiva \cite{Maxi2}.
+
 
 \subsubsection{Métricas del habla}
 
