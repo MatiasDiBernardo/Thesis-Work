@@ -33,16 +33,16 @@ En los últimos años se han desarrollado numerosas cadenas de procesamiento, to
 \caption{Comparación entre diferentes etapas en una cadena de pre procesamiento para TTS.}
 \label{tab:preproc-comparison}
 \small
-\begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X 
-                                >{\raggedright\arraybackslash}X 
-                                >{\raggedright\arraybackslash}X 
-                                >{\raggedright\arraybackslash}X 
+\begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X
+                                >{\raggedright\arraybackslash}X
+                                >{\raggedright\arraybackslash}X
+                                >{\raggedright\arraybackslash}X
                                 >{\raggedright\arraybackslash}X @{}}
 \toprule
-\makecell[b]{\textbf{Nombre}\\\textbf{del estudio}} & 
-\makecell[b]{\textbf{Algoritmo de}\\\textbf{Denoising}} & 
-\makecell[b]{\textbf{Voice Activity}\\\textbf{Detection}} & 
-\makecell[b]{\textbf{Estimador MOS}\\\textbf{y umbral}} & 
+\makecell[b]{\textbf{Nombre}\\\textbf{del estudio}} &
+\makecell[b]{\textbf{Algoritmo de}\\\textbf{Denoising}} &
+\makecell[b]{\textbf{Voice Activity}\\\textbf{Detection}} &
+\makecell[b]{\textbf{Estimador MOS}\\\textbf{y umbral}} &
 \makecell[b]{\textbf{Sistema TTS}\\\textbf{evaluados}} \\
 \midrule
 AutoPrep - (\cite{autoprep}) & BSRNN & TDNN & DNSMOS: 2.4 & DurIAN TTS \\
@@ -64,7 +64,7 @@ Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNSMOS: 3 & VoiceBox
 Las diferencias entre las etapas planteadas en esta Tabla se explican en la Sección \ref{sec:pipeline-desarrollo}, donde se explica las particularidades de la implementación propia de la cadena de procesamientos. La gran discrepancia entre modelos de las diferentes implementaciones es una de las motivaciones para el desarrollo de esta tesis, con el objetivo de esclarecer el desarrollo de este tipo de procesamientos en el desarrollo de conjuntos de datos.
 
 \subsection{CONJUNTOS DE DATOS DEL HABLA EN ESPAÑOL}
-Es relevante mencionar la falta de conjuntos de datos del habla en español, en principal de la variante español de Argentina. En la Tabla \ref{tab:datasets_resumen} se recopilaron diferentes conjuntos de datos de habla en español, especificando la cantidad de horas y de hablantes, la región lingüística que representa y el tipo. Los diferentes tipos hacen referencia a la fuente de donde fueron recopilados los datos. Además de los conjuntos profesionales e \emph{in-the-wild} que ya fueron discutidos, se presentan dataset de tipo conversacional (de entrevistas o llamadas telefónicas) y los dataset \emph{crowdsourced}, donde se recopilan audios de voces de voluntarios a través de internet.
+Existen diversos conjuntos de datos del habla en español, pero su disponibilidad no resuelve por sí sola la necesidad de corpus argentinos orientados a TTS. La Tabla \ref{tab:datasets_resumen} recopila conjuntos de datos de habla en español e indica la cantidad de horas y hablantes, la región lingüística representada y el tipo de fuente. Además de los conjuntos profesionales e \emph{in-the-wild} ya discutidos, se presentan conjuntos conversacionales (entrevistas o llamadas telefónicas) y \emph{crowdsourced}, recopilados mediante voces voluntarias en Internet. Esta comparación permite situar la disponibilidad de material, pero un corpus adecuado para TTS también requiere condiciones de reutilización claras, balance de hablantes y documentación de las variedades dialectales.
 
 \begin{table}[ht]
 \centering

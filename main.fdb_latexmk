@@ -1,17 +1,17 @@
 # Fdb version 4
-["biber main"] 1792833759.1329 "main.bcf" "main.bbl" "main" 1792833770.29215 0
-  "main.bcf" 1792833768.70508 139650 e7fc59b94304fbdbecbcffcdbe6da264 "xelatex"
+["biber main"] 1792833759.1329 "main.bcf" "main.bbl" "main" 1792834608.02034 0
+  "main.bcf" 1792834606.41882 139650 e7fc59b94304fbdbecbcffcdbe6da264 "xelatex"
   "references.bib" 1792833748.36771 28836 35f4214eb53bb2dc5907f6f3e34a99f3 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1792833768.80004 "main.xdv" "main.pdf" "main" 1792833770.29389 0
-  "main.xdv" 1792833768.70737 1512996 4efde4dc49b0958333017ce1549d25ad "xelatex"
+["xdvipdfmx"] 1792834606.51287 "main.xdv" "main.pdf" "main" 1792834608.02221 0
+  "main.xdv" 1792834606.41982 1510560 6d1698fa80b5d461a815a8c46592345e "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1792833766.02699 "main.tex" "main.xdv" "main" 1792833770.29223 0
+["xelatex"] 1792834603.65184 "main.tex" "main.xdv" "main" 1792834608.02043 0
   "/tmp/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/tmp/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/tmp/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -171,21 +171,21 @@
   "Secciones/AnexoIII.tex" 1791728310.26747 697 ead42e78a8fcc02844e7f723d5d90df4 ""
   "Secciones/Conclusiones.tex" 1792322603.50228 3014 cb6778208b3d2c89eaf3631917b26ae4 ""
   "Secciones/Dedicatoria.tex" 1791728310.26747 232 6fc08bf8c2d7bc90fe92a450eb4fd35c ""
-  "Secciones/Estado del Arte.tex" 1792328960.95459 11442 0cead64237f3d0ac663fe33316285745 ""
-  "Secciones/Introduccion.tex" 1792328937.22058 9861 ba46bc1fdb4039c71976b8cf3306f4e8 ""
+  "Secciones/Estado del Arte.tex" 1792834596.35159 11427 49c8e861cd6b4055ef3a0981b1ce47a9 ""
+  "Secciones/Introduccion.tex" 1792834596.26858 9628 c2275a96defddb91f6e0605ec9755e1d ""
   "Secciones/Linea futuras de Invetigacion.tex" 1791728310.26796 3921 2fe75af7ff59d6dfd465c280f5127f2b ""
   "Secciones/MarcoTeorico.tex" 1792833748.28271 16859 782d35680dd27a72a73b2574c9c41982 ""
   "Secciones/Metodologia.tex" 1792329004.85897 30358 607227e4c9a30566c8a4cc39a3af9610 ""
   "Secciones/Resultados.tex" 1792328937.22141 37749 605617db99b335323f3406f20975c225 ""
   "Secciones/Resumen.tex" 1792327706.32606 2165 b7d5aabd60580ff80e5abecb1157b5a8 ""
-  "main.aux" 1792833768.69208 41065 7a57f0f78783bd4e081b976db69a207a "xelatex"
+  "main.aux" 1792834606.40653 41065 28db02da7186af9f42b9179fe0fe6253 "xelatex"
   "main.bbl" 1792833760.41793 321888 76f1e0b66ee414439c25169389af0595 "biber main"
-  "main.lof" 1792833768.70737 4755 68b557275fce5322bfccc69d0fb3dcfa "xelatex"
-  "main.lot" 1792833768.70737 1311 264cab91d7abe2f5db75c79a74fcf3a3 "xelatex"
-  "main.out" 1792833768.70408 13275 dcb165165d4f5e5ae5eec2d556453670 "xelatex"
-  "main.run.xml" 1792833768.70737 2394 e3f37ec8bd61e07242d6487b68fbe496 "xelatex"
+  "main.lof" 1792834606.41967 4755 68b557275fce5322bfccc69d0fb3dcfa "xelatex"
+  "main.lot" 1792834606.41982 1311 264cab91d7abe2f5db75c79a74fcf3a3 "xelatex"
+  "main.out" 1792834606.41782 13275 dcb165165d4f5e5ae5eec2d556453670 "xelatex"
+  "main.run.xml" 1792834606.41967 2394 e3f37ec8bd61e07242d6487b68fbe496 "xelatex"
   "main.tex" 1792328960.95506 9058 0bd5fdefc88224f2b166fa625e374532 ""
-  "main.toc" 1792833768.70737 6187 5c600561462e23d0412a9c7f7ece96f6 "xelatex"
+  "main.toc" 1792834606.41967 6187 1f2ffc37466176ca9bf8db43a397a4b1 "xelatex"
   (generated)
   "main.aux"
   "main.bcf"
