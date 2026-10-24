@@ -1,7 +1,7 @@
 \subsection{RESULTADOS DE LAS DIFERENTES VARIANTES DE LA CADENA}
 
 \subsubsection{Ejemplo de cálculo}
-Se calcula el promedio de cada métrica para las diferentes variantes propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor mas bajo de SNR es de 19.89 dB, mientras que el valor mas alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora se puede ver en Tabla \ref{tab:snr-improvement}.
+Se calcula el promedio de cada métrica para las diferentes variantes propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor más bajo de SNR es de 19.89 dB, mientras que el valor más alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora pueden verse en la Tabla \ref{tab:snr-improvement}.
 
 \begin{table}[ht]
 \centering
@@ -61,23 +61,23 @@ En la Figura \ref{fig:T30_vs_horas} se relaciona la reducción porcentual de hor
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/T30 vs horas (dnsmos).pdf}}
-  \caption{Comparación entre T30 y cantidad de horas de diferentes variantes con DNS MOS.}
+  \caption{Comparación entre T30 y cantidad de horas de diferentes variantes con DNSMOS.}
     \label{fig:T30_vs_horas}
 \end{figure}
 
-Además de comparar la cantidad de horas, también se pueden relacionar otras variables, como puede ser la desviación de frecuencia fundamental \(F0\text{-}STD\) y la mejoría de calidad cuantificada por PESQ como se puede ver en la Figura \ref{fig:F0_vs_PESQ}. En este análisis se ilustra la relación entre la mejora relativa de PESQ (eje horizontal) y la diferencia porcentual en la desviación estándar de \(F0\) (\(F0\text{-}STD\), eje vertical) para las variantes evaluadas con DNSMOS. Esta representación revela un efecto colateral relevante: a medida que aumenta la mejora perceptual (PESQ) por filtrado más estricto, suele observarse una reducción de la variabilidad prosódica medida por \(F0\text{-}STD\). La explicación práctica es que el filtrado agresivo tiende a eliminar segmentos y hablantes de peor calidad, lo cual reduce la heterogeneidad prosódica del subconjunto retenido. No obstante, los métodos de realce que mejor preservan el timbre de voz muestran cambios menores en \(F0\text{-}STD\) ante el mismo grado de filtrado, esta es una de las principales diferencias entre DeepFilterNet contra Demucs, donde el primero mejorar la calidad percibida sin sacrificar tanto la variabilidad prosódica. En la práctica, la figura pone de manifiesto el compromiso entre mejorar la calidad objetiva del audio y mantener la diversidad de patrones de entonación: selección excesiva orientada únicamente a PESQ puede empobrecer la variabilidad del corpus, con posible impacto en tareas de síntesis que requieran conservar rasgos prosódicos y de identidad.
+Además de comparar la cantidad de horas, también se pueden relacionar otras variables, como puede ser la desviación de frecuencia fundamental \(F0\text{-}STD\) y la mejoría de calidad cuantificada por PESQ como se puede ver en la Figura \ref{fig:F0_vs_PESQ}. En este análisis se ilustra la relación entre la mejora relativa de PESQ (eje horizontal) y la diferencia porcentual en la desviación estándar de \(F0\) (\(F0\text{-}STD\), eje vertical) para las variantes evaluadas con DNSMOS. Esta representación revela un efecto colateral relevante: a medida que aumenta la mejora perceptual (PESQ) por filtrado más estricto, suele observarse una reducción de la variabilidad prosódica medida por \(F0\text{-}STD\). La explicación práctica es que el filtrado agresivo tiende a eliminar segmentos y hablantes de peor calidad, lo cual reduce la heterogeneidad prosódica del subconjunto retenido. No obstante, los métodos de realce que mejor preservan el timbre de voz muestran cambios menores en \(F0\text{-}STD\) ante el mismo grado de filtrado, esta es una de las principales diferencias entre DeepFilterNet contra Demucs, donde el primero mejora la calidad percibida sin sacrificar tanto la variabilidad prosódica. En la práctica, la figura pone de manifiesto el compromiso entre mejorar la calidad objetiva del audio y mantener la diversidad de patrones de entonación: selección excesiva orientada únicamente a PESQ puede empobrecer la variabilidad del corpus, con posible impacto en tareas de síntesis que requieran conservar rasgos prosódicos y de identidad.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf}}
-  \caption{Comparación entre F0-std y PESQ para diferentes variantes con DNS MOS.}
+  \caption{Comparación entre F0-std y PESQ para diferentes variantes con DNSMOS.}
     \label{fig:F0_vs_PESQ}
 \end{figure}
 
 Este análisis pone en evidencia las relaciones de compromiso entre las métricas seleccionadas y como la mejor variante no será la que alcance un mejor resultado en particular, sino la que logre un mejor balance de todos los criterios en conjunto.
 
 \subsubsection{Métricas compuestas}
-Una vez validado el comportamiento de cada métricas de forma individual, se analizan las métricas compuestas definidas en la Sección \ref{sec:metricas_description}. Primero, la calidad de la señal presenta un comportamiento similar a la tendencia explicada al analizar PESQ. Esto es evidente, ya que tanto PESQ, SI-SDR y SNR siguen la misma tendencia, como se presenta en las gráficas completas en el Anexo I.
+Una vez validado el comportamiento de cada métrica de forma individual, se analizan las métricas compuestas definidas en la Sección \ref{sec:metricas_description}. Primero, la calidad de la señal presenta un comportamiento similar a la tendencia explicada al analizar PESQ. Esto es evidente, ya que tanto PESQ, SI-SDR y SNR siguen la misma tendencia, como se presenta en las gráficas completas en el Anexo I.
 
 En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción de datos (RD), respecto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
 
@@ -88,7 +88,7 @@ En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción 
     \label{fig:RD_vs_CS}
 \end{figure}
 
-Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados mas destacados son la comparación entre calidad de señal y condiciones acústicas Figura \ref{fig:CS_vs_CA}, donde el agrupamiento de las métricas indica que el filtrado tiene muy poco impacto.
+Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados más destacados son la comparación entre calidad de señal y condiciones acústicas Figura \ref{fig:CS_vs_CA}, donde el agrupamiento de las métricas indica que el filtrado tiene muy poco impacto.
 
 \begin{figure}[h]
   \centering
@@ -146,7 +146,7 @@ La mejor versión de la cadena es la que utiliza Demucs como algoritmo de denois
 Es interesante analizar como la cadena que alcanza la mejor puntuación general, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
 
 \subsubsection{Análisis del peso de cada métrica}
-Se analiza la varianza de cada métrica en función de las distintas disposiciones de la cadena para determinar cual métrica tiene mas peso en el ordenamiento propuesto por la metodología de evaluación. En los resultados presentados cada conjunto de métrica tiene el mismo peso, pero al analizar la varianza de los resultados a traves de la diferentes configuraciones se evidencia que por las características del dataset, ciertas métricas tienen mayor influencia que otra. En la Tabla \ref{tab:varianza_pipelines}, se presentan los resultados de este análisis comparando desvío estándar y máxima desviación para todas las métricas conjuntas.
+Se analiza la varianza de cada métrica en función de las distintas disposiciones de la cadena para determinar cuál métrica tiene más peso en el ordenamiento propuesto por la metodología de evaluación. En los resultados presentados cada conjunto de métrica tiene el mismo peso, pero al analizar la varianza de los resultados a través de las diferentes configuraciones se evidencia que por las características del dataset, ciertas métricas tienen mayor influencia que otras. En la Tabla \ref{tab:varianza_pipelines}, se presentan los resultados de este análisis comparando desvío estándar y máxima desviación para todas las métricas conjuntas.
 
 \begin{table}[ht]
 \centering
@@ -166,7 +166,7 @@ $\Delta_{\max}$ & 0,92 & 0,62 & 0,58 & 0,74 \\
 \end{tabular}
 \end{table}
 
-En concordancia con los resultados, el conjunto de métricas que tiene mas variación es la reducción de datos. Esto tiene sentido dado que los filtrados mas permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral mas agresivo reducían considerablemente la cantidad de horas del conjunto de datos.
+En concordancia con los resultados, el conjunto de métricas que tiene más variación es la reducción de datos. Esto tiene sentido dado que los filtrados más permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral más agresivo reducían considerablemente la cantidad de horas del conjunto de datos.
 
 \subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
 
@@ -184,7 +184,7 @@ En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la con
     \label{fig:pro_vs_p_PESQ}
 \end{figure}
 
-En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberancia promedio alcanzada por el promedio de dataset tradicionales como se observa en la Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia. Esta tendencia se repite para $C_{50}$, donde la mejor variante de la cadena de procesamiento mejora el valor promedio del dataset profesional, mientras que métricas de calidad como SNR y SI-SDR, aunque mejoran respecto al dataset original, no alcanzan el valor promedio del dataset profesional. Todos los resultados se de esta comparación para las métricas individuales se presentan en el Anexo III.
+En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberación promedio alcanzada por el promedio de dataset tradicionales como se observa en la Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia. Esta tendencia se repite para $C_{50}$, donde la mejor variante de la cadena de procesamiento mejora el valor promedio del dataset profesional, mientras que métricas de calidad como SNR y SI-SDR, aunque mejoran respecto al dataset original, no alcanzan el valor promedio del dataset profesional. Todos los resultados de esta comparación para las métricas individuales se presentan en el Anexo III.
 
 \begin{figure}[h]
   \centering
@@ -195,7 +195,7 @@ En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con 
 
 Estos resultados son congruentes con las agrupaciones realizadas en el estudio de métricas, donde se evidenció que las métricas de calidad de señal y acústica no necesariamente están correlacionadas, y que el procesamiento puede mejorar ciertas condiciones acústicas sin necesariamente mejorar la calidad de señal en la misma proporción.
 
-Por último, para analizar la variabilidad prosódica y de identidad del hablante, en la Figura \ref{fig:pro_vs_p_F0} se compara la frecuencia fundamental promedio de los hablantes de los dataset evaluados, donde el dataset ITW presenta una mayor variabilidad y un valor promedio mayor, indicando que no hay ningún tipo de sesgo hacia hablantes con voz mas grave, como suele ocurrir en los dataset profesionales, donde se tiende a seleccionar hablantes con voz mas grave para evitar problemas de sibilancia y ruido. Además, el valor de $F0\text{-}STD$ es mayor para el dataset ITW, lo que indica una mayor variabilidad en la frecuencia fundamental, lo cual es positivo para tareas de síntesis de voz que requieren diversidad prosódica.
+Por último, para analizar la variabilidad prosódica y de identidad del hablante, en la Figura \ref{fig:pro_vs_p_F0} se compara la frecuencia fundamental promedio de los hablantes de los dataset evaluados, donde el dataset ITW presenta una mayor variabilidad y un valor promedio mayor, indicando que no hay ningún tipo de sesgo hacia hablantes con voz más grave, como suele ocurrir en los dataset profesionales, donde se tiende a seleccionar hablantes con voz más grave para evitar problemas de sibilancia y ruido. Además, el valor de $F0\text{-}STD$ es mayor para el dataset ITW, lo que indica una mayor variabilidad en la frecuencia fundamental, lo cual es positivo para tareas de síntesis de voz que requieren diversidad prosódica.
 
 \begin{figure}[h]
   \centering
@@ -207,7 +207,7 @@ Por último, para analizar la variabilidad prosódica y de identidad del hablant
 Estos resultados evidencian la necesidad de incorporar conjuntos de datos \emph{in-the-wild} si se busca capturar el fenómeno del habla en su diversidad y complejidad real, ya que los dataset profesionales, aunque de alta calidad, pueden presentar sesgos significativos en términos de identidad de hablante y patrones prosódicos, lo cual limita su aplicabilidad para tareas que requieren generalización a condiciones reales de uso.
 
 \subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
-En la Sección \ref{sec:model_config}, se describen los detalles de la configuración usada para entrenar el modelo. En la Tabla \ref{tab:model_training} se resumen los resultados mas importantes del proceso de entrenamiento, donde se puede ver lo costoso que es entrenar un modelo de difusión de alta fidelidad.
+En la Sección \ref{sec:model_config}, se describen los detalles de la configuración usada para entrenar el modelo. En la Tabla \ref{tab:model_training} se resumen los resultados más importantes del proceso de entrenamiento, donde se puede ver lo costoso que es entrenar un modelo de difusión de alta fidelidad.
 
 \begin{table}[htbp]
 \centering
@@ -309,7 +309,7 @@ Si el objetivo es alimentar un sistema de reconocimiento automático del habla (
 
 Para un corpus destinado a TTS o clonación de voz, la estimación de densidad aporta una perspectiva complementaria sobre la compatibilidad con el corpus profesional de referencia. En las ocho configuraciones ensayadas, las medias filtradas más altas correspondieron a DeepFilterNet, pero este resultado no demuestra que esas cadenas produzcan mejores modelos generativos ni que eviten artefactos en todos los escenarios. La evaluación directa de sistemas entrenados con esos datos es necesaria para respaldar una recomendación de uso.
 
-Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando esta esta pensada para ser aplicada a grandes cantidades de datos.
+Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando está pensada para ser aplicada a grandes cantidades de datos.
 
 \subsection{EVALUACIÓN EXPLORATORIA DE TTS ZERO-SHOT}
 A continuación, se describe la relación exploratoria entre las métricas objetivas (TOT), el likelihood filtrado y el MOS estimado para el habla sintetizada por modelos de TTS \textit{zero-shot}.
@@ -346,7 +346,7 @@ Con estos seis pares de medias por configuración, la correlación de Pearson es
 La tendencia positiva debe interpretarse con cautela: se calcula sobre seis pares de promedios agregados por configuración y no describe una relación entre identificadores individuales de audio. Los resultados ofrecen una observación exploratoria sobre el orden de estas configuraciones, sin validar una relación lineal ni una capacidad predictiva del likelihood.
 
 \subsubsection{Discusión Final}
-Los resultados de este experimento muestran ordenamientos distintos entre las métricas objetivas y el likelihood para las configuraciones ensayadas. La correlación entre la estimaciñon de densidad y MOS es más marcada en F5 que en Qwen, mientras que las correlaciones lineales de Pearson no alcanzan significancia estadística en ninguno de los dos modelos.
+Los resultados de este experimento muestran ordenamientos distintos entre las métricas objetivas y el likelihood para las configuraciones ensayadas. La correlación entre la estimación de densidad y MOS es más marcada en F5 que en Qwen, mientras que las correlaciones lineales de Pearson no alcanzan significancia estadística en ninguno de los dos modelos.
 
 En consecuencia, el likelihood puede usarse aquí como criterio exploratorio para ordenar las configuraciones evaluadas, pero estos datos no lo validan como predictor lineal del desempeño TTS. Para evaluar su capacidad predictiva se requieren más configuraciones, más datos emparejados y validación independiente, idealmente con juicios de escucha humana.
 

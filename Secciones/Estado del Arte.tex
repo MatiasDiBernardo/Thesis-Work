@@ -2,15 +2,15 @@
 \label{sec:estado_arte_tts}
 El desarrollo de sistemas de síntesis de voz basados en redes neuronales ha experimentado una rápida evolución, transitando desde modelos secuenciales complejos hacia arquitecturas generativas probabilísticas. A continuación, se describe la progresión tecnológica de estos sistemas, clasificados según su paradigma de generación.
 
-\subsubsection{Modelos Autoregresivos}
-La primera generación de modelos neuronales de alta fidelidad se basó en el paradigma autoregresivo, donde la generación de cada segmentos del espectrograma de mel depende del segmento generado anteriormente.
+\subsubsection{Modelos Autorregresivos}
+La primera generación de modelos neuronales de alta fidelidad se basó en el paradigma autorregresivo, donde la generación de cada segmento del espectrograma de mel depende del segmento generado anteriormente.
 
 El modelo más representativo de esta etapa es Tacotron 2 (\cite{shen2018natural}). Esta arquitectura combina una red recurrente (LSTM) con un mecanismo de atención para mapear la secuencia de caracteres a un espectrograma de Mel, el cual es posteriormente convertido a forma de onda mediante un vocoder (originalmente WaveNet). Si bien Tacotron 2 estableció un nuevo estándar de naturalidad, su mecanismo de atención es propenso a errores de alineación, resultando en problemas de robustez como la repetición o la omisión de palabras.
 
-Para mitigar los fallos de robustez del mecanismo de atención, surgió DurIAN (Duration Informed Attention Network) (\cite{yu2019durian}). Este modelo reemplaza el mecanismo de atención tradicional por un modelo de alineación que utiliza la duración de los fonemas (predicha o extraída mediante alineamiento forzado). Aunque DurIAN sigue generando los cuadros acústicos de manera autoregresiva, la incorporación de información explicita de duración mejora significativamente la estabilidad de la síntesis, eliminando gran parte de los artefactos presentes en Tacotron 2.
+Para mitigar los fallos de robustez del mecanismo de atención, surgió DurIAN (Duration Informed Attention Network) (\cite{yu2019durian}). Este modelo reemplaza el mecanismo de atención tradicional por un modelo de alineación que utiliza la duración de los fonemas (predicha o extraída mediante alineamiento forzado). Aunque DurIAN sigue generando los cuadros acústicos de manera autorregresiva, la incorporación de información explícita de duración mejora significativamente la estabilidad de la síntesis, eliminando gran parte de los artefactos presentes en Tacotron 2.
 
-\subsubsection{Modelos No Autoregresivos y Paralelos}
-La principal limitación de los modelos autoregresivos es su lenta velocidad de inferencia, dado que la generación no puede paralelizarse. Para resolver esto, surgieron arquitecturas capaces de generar el espectrograma completo en un solo paso.
+\subsubsection{Modelos No Autorregresivos y Paralelos}
+La principal limitación de los modelos autorregresivos es su lenta velocidad de inferencia, dado que la generación no puede paralelizarse. Para resolver esto, surgieron arquitecturas capaces de generar el espectrograma completo en un solo paso.
 
 FastSpeech 2 (\cite{ren2020fastspeech}) marcó un hito en esta categoría al proponer una red totalmente "\textit{feed-forward}", basada en bloques de transformers. A diferencia de sus predecesores, FastSpeech 2 entrena predictores de varianza explícitos (duración, energía y frecuencia fundamental $F_0$) directamente sobre la entrada de texto. Esto no solo permite una inferencia extremadamente rápida (paralela), sino que también otorga un mayor control sobre la prosodia y una mayor robustez frente a datos ruidosos.
 
@@ -26,7 +26,7 @@ Para abordar la latencia inherente a la difusión, Grad-TTS (\cite{popov2021grad
 Finalmente, el estado del arte ha convergido hacia el paradigma de \textit{Flow Matching}, una generalización de los modelos de difusión que aprende campos vectoriales para transformar distribuciones simples en distribuciones de datos complejas mediante trayectorias más rectas y eficientes. El modelo F5-TTS (\cite{chen2024f5}) representa la culminación actual de esta tendencia. F5-TTS utiliza una arquitectura basada en \textit{Diffusion Transformers} (DiT) con un esquema de entrenamiento \textit{Flow Matching}. A diferencia de los modelos anteriores que requieren alineamientos complejos o predictores de duración explícitos, F5-TTS entrena con un sistema de máscaras binarias (bloquea segmentos aleatorios del audio y deja que el modelo aprenda a predecir ese segmento), permitiendo capacidades de clonación de voz \textit{zero-shot} y control de emociones con una naturalidad sin precedentes y una velocidad de inferencia competitiva gracias a la eficiencia del Flow Matching.
 
 \subsection{CADENAS DE PRE PROCESAMIENTO}
-En los últimos años se han desarrollado numerosas cadena de procesamiento, todas con diferentes configuraciones y particularidades. El objetivo de estas cadenas de preprocesamiento es mejorar, filtrar y estandarizar un conjunto de datos de audios grandes proveniente de diferentes fuentes (dataset ITW). Como el procesamiento implica diferentes etapas, y varía según las necesidades de los modelos a entrenar, han surgido muchas propuestas de implementación, todas con sus respectivas particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
+En los últimos años se han desarrollado numerosas cadenas de procesamiento, todas con diferentes configuraciones y particularidades. El objetivo de estas cadenas de preprocesamiento es mejorar, filtrar y estandarizar un gran conjunto de audios provenientes de diferentes fuentes (dataset ITW). Como el procesamiento implica diferentes etapas, y varía según las necesidades de los modelos a entrenar, han surgido muchas propuestas de implementación, todas con sus respectivas particularidades. Para ilustrar las diferencias en las diferentes etapas se conforma la Tabla \ref{tab:preproc-comparison}, donde se comparan diferencias de modelos, configuraciones y criterios en el desarrollo de cadena de pre procesamiento automático para la creación de datasets.
 
 \begin{table*}[ht]
 \centering
@@ -45,17 +45,17 @@ En los últimos años se han desarrollado numerosas cadena de procesamiento, tod
 \makecell[b]{\textbf{Estimador MOS}\\\textbf{y umbral}} & 
 \makecell[b]{\textbf{Sistema TTS}\\\textbf{evaluados}} \\
 \midrule
-AutoPrep - (\cite{autoprep}) & BSRRN & TDNN & DNS MOS: 2.4 & DurIAN TTS \\
+AutoPrep - (\cite{autoprep}) & BSRNN & TDNN & DNSMOS: 2.4 & DurIAN TTS \\
 
 Text-to-Speech in the wild - (\cite{tts_wild}) & Demucs & Whisper X Pipeline & Nisqa: 3 & GradTTS y VITS \\
 
-WeNeetSpeech - (\cite{pipeline_tts2}) & MBTFNet & Rezamblyzer & DNS MOS: 3.6, 3.8, 4 & VALL-E y NS2 \\
+WenetSpeech4TTS - (\cite{pipeline_tts2}) & MBTFNet & Resemblyzer & DNSMOS: 3.6, 3.8, 4 & VALL-E y NS2 \\
 
-SCEP - (\cite{pipeline_data1}) & U-Net & Casual DNN & Usan SNR y PESQ & No evalúa \\
+SECP - (\cite{pipeline_data1}) & U-Net & causal DNN & Usan SNR y PESQ & No evalúa \\
 
-Muyan TTS - (\cite{pipeline_tts1}) & FRCRN y VoiceFixer & No usa & Nisqa: 3.8 & FireRedTTS y CozyVoice2 \\
+Muyan TTS - (\cite{pipeline_tts1}) & FRCRN y VoiceFixer & No usa & Nisqa: 3.8 & FireRedTTS y CosyVoice 2 \\
 
-Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNS MOS: 3 & VoiceBox \\
+Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNSMOS: 3 & VoiceBox \\
 
 \bottomrule
 \end{tabularx}
@@ -64,7 +64,7 @@ Emilia - (\cite{emilia}) & UVR-MDX-N et Inst & Silero VAD & DNS MOS: 3 & VoiceBo
 Las diferencias entre las etapas planteadas en esta Tabla se explican en la Sección \ref{sec:pipeline-desarrollo}, donde se explica las particularidades de la implementación propia de la cadena de procesamientos. La gran discrepancia entre modelos de las diferentes implementaciones es una de las motivaciones para el desarrollo de esta tesis, con el objetivo de esclarecer el desarrollo de este tipo de procesamientos en el desarrollo de conjuntos de datos.
 
 \subsection{CONJUNTOS DE DATOS DEL HABLA EN ESPAÑOL}
-Es relevante mencionar la falta de conjuntos de datos del habla en español, en principal de la variante español de Argentina. En la Tabla \ref{tab:datasets_resumen} se recopilaron diferentes conjuntos de datos de habla en español, especificando la cantidad de horas y hablante, la región que lingüística que representa y el tipo. Los diferentes tipos hacen referencia a la fuente de donde fueron recopilados los datos. Además de los conjuntos profesionales e \emph{in-the-wild} que ya fueron discutidos, se presentan dataset de tipo conversacional (de entrevistas o llamadas telefónicas) y los dataset \emph{crowdsourced}, donde se recopilan audios de voces de voluntarios a través de internet. 
+Es relevante mencionar la falta de conjuntos de datos del habla en español, en principal de la variante español de Argentina. En la Tabla \ref{tab:datasets_resumen} se recopilaron diferentes conjuntos de datos de habla en español, especificando la cantidad de horas y de hablantes, la región lingüística que representa y el tipo. Los diferentes tipos hacen referencia a la fuente de donde fueron recopilados los datos. Además de los conjuntos profesionales e \emph{in-the-wild} que ya fueron discutidos, se presentan dataset de tipo conversacional (de entrevistas o llamadas telefónicas) y los dataset \emph{crowdsourced}, donde se recopilan audios de voces de voluntarios a través de internet.
 
 \begin{table}[ht]
 \centering
@@ -93,4 +93,4 @@ Tedx Spanish - \cite{tedx-dataset}  & 24   & N/A & México                      
 \end{tabularx}
 \end{table}
 
-Este análisis de los dataset en el estado del arte pone en evidencia la necesidad de conformar un corpus del español de Argentina, donde es fundamental extender la representatividad cultural de nuestra región, y capturar los diferentes acentos de todas las regiones del país, ya que como se ve en la recopilación, casi todo el material disponible del dialecto de Argentina se centra en la región porteña. Los dataset calificados como dialecto diverso es porque en su confección no delimitaron entre los diferentes dialectos del español, y agruparon todo en una misma categoría, lo que incluya español de las diferentes regiones de Latino América y de España.
+Este análisis de los dataset en el estado del arte pone en evidencia la necesidad de conformar un corpus del español de Argentina, donde es fundamental extender la representatividad cultural de nuestra región, y capturar los diferentes acentos de todas las regiones del país, ya que como se ve en la recopilación, casi todo el material disponible del dialecto de Argentina se centra en la región porteña. Los dataset calificados como dialecto diverso es porque en su confección no delimitaron entre los diferentes dialectos del español, y agruparon todo en una misma categoría, lo que incluya español de las diferentes regiones de Latinoamérica y de España.
