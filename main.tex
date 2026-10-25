@@ -28,7 +28,7 @@
 \usepackage{titletoc}
 \usepackage{appendix}
 \usepackage{tabularray}
-\usepackage{tocloft} 
+\usepackage{tocloft}
 \usepackage{titlesec}
 \usepackage{physics}
 \usepackage{changepage}
@@ -54,7 +54,7 @@
 
 %-----------------CONFIGURACION-------------------------------
 
-% Configuracion de la Pagina 
+% Configuracion de la Pagina
 \geometry{
     a4paper,
     total={21cm,29.7cm},
@@ -75,7 +75,7 @@
 
 % Configuración del pie de página (new by chat)
 \fancyfoot[C]{\rule{\textwidth}{0.4pt}\\[0.5ex]%
-  \fontsize{11}{13}\selectfont Evaluación de cadenas de procesamiento en la creación de conjuntos de datos de habla.}
+  \fontsize{11}{13}\selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos de habla.}
 
 % número a la derecha, bajado con \raisebox (valor negativo baja)
 \fancyfoot[R]{\raisebox{-0.57cm}{\fontsize{12}{14}\selectfont\thepage}}
@@ -109,7 +109,7 @@
 \renewcommand{\cftsecfont}{\bfseries} % Establece la fuente del título de la sección en el índice como negrita
 \renewcommand{\cftsecpagefont}{\bfseries} % Establece la fuente de la página de la sección en el índice como negrita
 
-     
+
 % Definir el espaciado entre secciones y subsecciones
 \titlespacing*{\subsection}{1cm}{*4}{*1.5}
 
@@ -144,7 +144,7 @@ BoldItalicFont=Calibri Bold Italic.ttf,
 
 \vspace{36pt}
 
-{\bfseries\fontsize{22pt}{24pt} \selectfont Evaluación de cadenas de procesamiento en la creación de conjuntos de datos del habla \par}
+{\bfseries\fontsize{22pt}{24pt} \selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos del habla \par}
 
 \vspace{22pt}
 
@@ -163,9 +163,9 @@ BoldItalicFont=Calibri Bold Italic.ttf,
 \vfill
 
 \begin{table}[h]
-\hrulefill \\ 
+\hrulefill \\
 \begin{tabular}{c}
-Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
+Fecha de defensa: noviembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 \end{tabular}
 \end{table}
 \hrule
@@ -184,8 +184,8 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 \setcounter{page}{2} % Establece el número de página según sea necesario
 
 %-----------------Agradecimientos-----------------
-\newpage 
-\thispagestyle{plain} 
+\newpage
+\thispagestyle{plain}
 % \section*{AGRADECIMIENTOS} % Título centrado
 \input{Secciones/Agradecimientos}
 
@@ -198,8 +198,8 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 
 %-----------------Estado del Arte-----------------
 \newpage
-\thispagestyle{plain} 
-% \section*{DEDICATORIA} 
+\thispagestyle{plain}
+% \section*{DEDICATORIA}
 \input{Secciones/Dedicatoria}
 
 
@@ -210,14 +210,14 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 \newpage
 \listoffigures  % Índice de Figuras
 \newpage
-\listoftables   % Índice de Tablas 
+\listoftables   % Índice de Tablas
 
 
 %------------------Resumen------------------------
 
 \newpage
-\thispagestyle{plain} 
-% \section*{\centering RESUMEN} 
+\thispagestyle{plain}
+% \section*{\centering RESUMEN}
 \phantomsection
 \addcontentsline{toc}{section}{RESUMEN} % Agregar RESUMEN al índice
 \input{Secciones/Resumen}
@@ -226,8 +226,8 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 %------------------Abstrac------------------------
 
 \newpage
-\thispagestyle{plain} 
-% \section*{\centering ABSTRACT} 
+\thispagestyle{plain}
+% \section*{\centering ABSTRACT}
 \phantomsection
 \addcontentsline{toc}{section}{ABSTRACT} % Agregar ABSTRACT al índice
 \input{Secciones/Abstrac}
@@ -237,7 +237,7 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 %-----------------Introducción-----------------
 \clearpage % Asegúrate de que la sección de introducción comience en una nueva página
 \pagenumbering{arabic} % Restaurar numeración arábiga
-\section{INTRODUCCIÓN} 
+\section{INTRODUCCIÓN}
 \input{Secciones/Introduccion}
 
 
@@ -247,33 +247,33 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 
 %-----------------Marco Teorico-----------------
 \newpage
-\section{MARCO TEÓRICO} 
+\section{MARCO TEÓRICO}
     \input{Secciones/MarcoTeorico}
 
 %-----------------Estado del Arte-----------------
 \newpage
-\section{ESTADO DEL ARTE} 
+\section{ESTADO DEL ARTE}
     \input{Secciones/Estado del Arte}
 
 %-----------------Desarrollo-----------------
 \newpage
-\section{DESARROLLO} 
+\section{DESARROLLO}
     \input{Secciones/Metodologia}
 
 %-----------------Resultados y análisis-----------------
 \newpage
-\section{RESULTADOS Y ANÁLISIS} 
+\section{RESULTADOS Y ANÁLISIS}
     \input{Secciones/Resultados}
 
 
 %-----------------Conclusiones-----------------
 \newpage
-\section{CONCLUSIONES} 
+\section{CONCLUSIONES}
     \input{Secciones/Conclusiones}
 
 %-----------------Linea futuras de Invetigacion-----------------
 \newpage
-\section{LÍNEAS FUTURAS DE INVESTIGACIÓN} 
+\section{LÍNEAS FUTURAS DE INVESTIGACIÓN}
     \input{Secciones/Linea futuras de Invetigacion}
 
 %-----------------Bibliografia-----------------
@@ -297,6 +297,6 @@ Fecha de defensa: septiembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 \section*{ANEXO III: Comparación entre dataset ITW vs Profesional}
 \addcontentsline{toc}{section}{ANEXO III: Comparación entre dataset ITW vs Profesional}
     \input{Secciones/AnexoIII}
-  
+
 \end{document}
 
