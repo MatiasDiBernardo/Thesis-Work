@@ -1,30 +1,30 @@
-\subsection{RESULTADOS DE LAS DIFERENTES VARIANTES DE LA CADENA}
+\subsection{RESULTS OF THE DIFFERENT PIPELINE VARIANTS}
 
-\subsubsection{Ejemplo de cálculo}
-Se calcula el promedio de cada métrica para las diferentes variantes propuestas, y se calcula la mejora porcentual. Por ejemplo, para el SNR, el valor promedio calculado en el dataset original es de 19.08 dB. Al analizar el SNR para todas las variantes, se encuentra que el valor más bajo de SNR es de 19.89 dB, mientras que el valor más alto es de 33.78 dB. Los resultados ordenados según el porcentaje de mejora pueden verse en la Tabla \ref{tab:snr-improvement}.
+\subsubsection{Calculation example}
+The average of each metric is computed for the different proposed variants, and the percentage improvement is calculated. For example, for the Signal-to-Noise Ratio (SNR), the average value computed on the original dataset is 19.08 dB. When analyzing the SNR across all variants, the lowest SNR value is found to be 19.89 dB, while the highest value is 33.78 dB. The results sorted by percentage improvement can be seen in Table \ref{tab:snr-improvement}.
 
 \begin{table}[ht]
 \centering
 \small
-\caption{Mejora SNR por métrica de calidad y algoritmo de denoising.}
+\caption{SNR improvement by quality metric and denoising algorithm.}
 \label{tab:snr-improvement}
 \begin{tabular}{@{} l l r @{}}
 \toprule
-\shortstack{\textbf{Filtro de calidad}\\\textbf{y umbral}} &
-\shortstack{\textbf{Algoritmo}\\\textbf{de denoising}} &
-\shortstack{\textbf{Mejora}\\\textbf{SNR (\%)}} \\
+\shortstack{\textbf{Quality filter}\\\textbf{and threshold}} &
+\shortstack{\textbf{Denoising}\\\textbf{algorithm}} &
+\shortstack{\textbf{SNR}\\\textbf{improvement (\%)}} \\
 \midrule
-NISQA = 3    & Sin denoising    & 4.07 \\
-NISQA = 3.5  & Sin denoising    & 4.93 \\
-DNSMOS = 2.7 & Sin denoising    & 6.93 \\
-DNSMOS = 3.4 & Sin denoising    & 7.56 \\
-DNSMOS = 3.0 & Sin denoising    & 9.92 \\
-DNSMOS = 3.2 & Sin denoising    & 10.00 \\
+NISQA = 3    & No denoising     & 4.07 \\
+NISQA = 3.5  & No denoising     & 4.93 \\
+DNSMOS = 2.7 & No denoising     & 6.93 \\
+DNSMOS = 3.4 & No denoising     & 7.56 \\
+DNSMOS = 3.0 & No denoising     & 9.92 \\
+DNSMOS = 3.2 & No denoising     & 10.00 \\
 NISQA = 3.8  & DeepFilterNet    & 10.13 \\
-NISQA = 4.2  & Sin denoising    & 11.67 \\
+NISQA = 4.2  & No denoising     & 11.67 \\
 DNSMOS = 3.4 & DeepFilterNet    & 12.52 \\
 NISQA = 3.5  & DeepFilterNet    & 14.78 \\
-NISQA = 3.8  & Sin denoising    & 15.58 \\
+NISQA = 3.8  & No denoising     & 15.58 \\
 DNSMOS = 3.2 & DeepFilterNet    & 15.65 \\
 NISQA = 3.0  & DeepFilterNet    & 15.72 \\
 NISQA = 4.2  & DeepFilterNet    & 17.55 \\
@@ -42,76 +42,76 @@ DNSMOS = 2.7 & Demucs           & 43.52 \\
 \end{tabular}
 \end{table}
 
-Este análisis es el que se pondera para cada variable en las 4 categorías de métricas propuestas.
+This is the analysis that is weighted for each variable in the 4 proposed metric categories.
 
-\subsubsection{Métricas separadas}
-En una instancia exploratoria previa a la definición de la métrica conjunta, se exploran los resultados del dataset de prueba ante las diferentes métricas propuestas.
+\subsubsection{Separate metrics}
+In an exploratory stage prior to the definition of the joint metric, the results of the test dataset are explored with respect to the different proposed metrics.
 
-Primero se compara la relación entre calidad de audio y cantidad de horas del dataset. La Figura \ref{fig:horas_vs_pesq} muestra, en el eje horizontal, el porcentaje de reducción del dataset producido por el filtrado (más a la derecha significa pérdida de más horas) y, en el eje vertical, el incremento relativo de la puntuación PESQ expresado en porcentaje. Sobre la misma gráfica se comparan las tres variantes de la etapa de realce consideradas: DeepFilterNet, Demucs y la condición sin denoise. El comportamiento observado evidencia un trade-off claro entre cantidad y calidad: umbrales de filtrado más estrictos producen mejoras mayores en PESQ pero sacrifican un mayor número de horas de grabación. En concreto, las variantes con denoising aportan ganancias moderadas en PESQ (típicamente inferiores al 8\% según el umbral), mientras que la variante sin realce logra aumentos mayores en PESQ (superiores al 10\%) a costa de una reducción de dataset mucho más agresiva. Entre los métodos de realce usados, Demucs tiende a ofrecer las mayores mejoras de PESQ a lo largo de los umbrales evaluados, y DeepFilterNet presenta ganancias más pequeñas para filtros equivalentes; esta diferencia implica que la elección del algoritmo de realce y del umbral de NISQA debe hacerse en función del balance deseado entre calidad perceptual y preservación de horas útiles.
+First, the relationship between audio quality and the number of hours in the dataset is compared. Figure \ref{fig:horas_vs_pesq} shows, on the horizontal axis, the percentage of dataset reduction produced by the filtering (further to the right means more hours lost) and, on the vertical axis, the relative increase in the PESQ score expressed as a percentage. The three variants of the enhancement stage under consideration are compared on the same plot: DeepFilterNet, Demucs, and the no-denoising condition. The observed behavior reveals a clear trade-off between quantity and quality: stricter filtering thresholds produce larger improvements in PESQ but sacrifice a greater number of recording hours. Specifically, the variants with denoising provide moderate PESQ gains (typically below 8\% depending on the threshold), whereas the variant without enhancement achieves larger PESQ increases (above 10\%) at the cost of a much more aggressive dataset reduction. Among the enhancement methods used, Demucs tends to offer the largest PESQ improvements across the evaluated thresholds, and DeepFilterNet shows smaller gains for equivalent filters; this difference implies that the choice of enhancement algorithm and NISQA threshold should be made according to the desired balance between perceptual quality and the preservation of useful hours.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/PESQ vs horas (nisqa).pdf}}
-  \caption{Comparación entre PESQ y cantidad de horas de diferentes variantes con NISQA.}
+  \caption{Comparison between PESQ and number of hours for different variants with NISQA.}
     \label{fig:horas_vs_pesq}
 \end{figure}
 
-En la Figura \ref{fig:T30_vs_horas} se relaciona la reducción porcentual de horas con la mejora relativa en \(T_{30}\) (tiempo de reverberación estimado) cuando se emplea DNSMOS como métrica de filtrado. En la gráfica, un aumento en la mejora de \(T_{30}\) implica una reducción de la energía tardía y, por ende, una menor reverberación aparente en los segmentos retenidos. Los resultados muestran que el filtrado aporta ganancias en condiciones sin denoise de forma especialmente notable, cuando no se aplica realce previo el filtrado selecciona segmentos con menor reverberación y la mejora en \(T_{30}\) es sustancial. En cambio, una vez aplicada la supresión de ruido, las ganancias en \(T_{30}\) son más moderadas (por debajo aproximadamente del 5\% en los umbrales considerados). Además, no se detecta una diferencia significativa en \(T_{30}\) entre DeepFilterNet y Demucs. En conjunto, la figura subraya que el filtrado basado en DNSMOS puede reducir la reverberación del subconjunto resultante, pero el beneficio marginal depende fuertemente de si previamente se aplicó un algoritmo de realce y de la agresividad del umbral.
+Figure \ref{fig:T30_vs_horas} relates the percentage reduction in hours to the relative improvement in \(T_{30}\) (estimated reverberation time) when DNSMOS is used as the filtering metric. In the plot, an increase in the \(T_{30}\) improvement implies a reduction of the late energy and, consequently, lower apparent reverberation in the retained segments. The results show that filtering provides gains under no-denoising conditions in a particularly notable way: when no prior enhancement is applied, filtering selects segments with less reverberation and the improvement in \(T_{30}\) is substantial. In contrast, once noise suppression has been applied, the gains in \(T_{30}\) are more moderate (below approximately 5\% for the thresholds considered). Furthermore, no significant difference in \(T_{30}\) is detected between DeepFilterNet and Demucs. Overall, the figure highlights that DNSMOS-based filtering can reduce the reverberation of the resulting subset, but the marginal benefit depends strongly on whether an enhancement algorithm was previously applied and on the aggressiveness of the threshold.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/T30 vs horas (dnsmos).pdf}}
-  \caption{Comparación entre T30 y cantidad de horas de diferentes variantes con DNSMOS.}
+  \caption{Comparison between T30 and number of hours for different variants with DNSMOS.}
     \label{fig:T30_vs_horas}
 \end{figure}
 
-Además de comparar la cantidad de horas, también se pueden relacionar otras variables, como puede ser la desviación de frecuencia fundamental \(F0\text{-}STD\) y la mejoría de calidad cuantificada por PESQ como se puede ver en la Figura \ref{fig:F0_vs_PESQ}. En este análisis se ilustra la relación entre la mejora relativa de PESQ (eje horizontal) y la diferencia porcentual en la desviación estándar de \(F0\) (\(F0\text{-}STD\), eje vertical) para las variantes evaluadas con DNSMOS. Esta representación revela un efecto colateral relevante: a medida que aumenta la mejora perceptual (PESQ) por filtrado más estricto, suele observarse una reducción de la variabilidad prosódica medida por \(F0\text{-}STD\). La explicación práctica es que el filtrado agresivo tiende a eliminar segmentos y hablantes de peor calidad, lo cual reduce la heterogeneidad prosódica del subconjunto retenido. No obstante, los métodos de realce que mejor preservan el timbre de voz muestran cambios menores en \(F0\text{-}STD\) ante el mismo grado de filtrado, esta es una de las principales diferencias entre DeepFilterNet contra Demucs, donde el primero mejora la calidad percibida sin sacrificar tanto la variabilidad prosódica. En la práctica, la figura pone de manifiesto el compromiso entre mejorar la calidad objetiva del audio y mantener la diversidad de patrones de entonación: selección excesiva orientada únicamente a PESQ puede empobrecer la variabilidad del corpus, con posible impacto en tareas de síntesis que requieran conservar rasgos prosódicos y de identidad.
+In addition to comparing the number of hours, other variables can also be related, such as the fundamental frequency deviation \(F0\text{-}STD\) and the quality improvement quantified by PESQ, as can be seen in Figure \ref{fig:F0_vs_PESQ}. This analysis illustrates the relationship between the relative PESQ improvement (horizontal axis) and the percentage difference in the standard deviation of \(F0\) (\(F0\text{-}STD\), vertical axis) for the variants evaluated with DNSMOS. This representation reveals a relevant side effect: as the perceptual improvement (PESQ) increases through stricter filtering, a reduction in the prosodic variability measured by \(F0\text{-}STD\) is usually observed. The practical explanation is that aggressive filtering tends to remove lower-quality segments and speakers, which reduces the prosodic heterogeneity of the retained subset. Nevertheless, the enhancement methods that best preserve voice timbre show smaller changes in \(F0\text{-}STD\) for the same degree of filtering; this is one of the main differences between DeepFilterNet and Demucs, where the former improves perceived quality without sacrificing as much prosodic variability. In practice, the figure reveals the trade-off between improving the objective audio quality and maintaining the diversity of intonation patterns: excessive selection oriented solely towards PESQ may impoverish the variability of the corpus, with a possible impact on synthesis tasks that require preserving prosodic and identity traits.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/F0-STD vs PESQ (dnsmos).pdf}}
-  \caption{Comparación entre F0-std y PESQ para diferentes variantes con DNSMOS.}
+  \caption{Comparison between F0-std and PESQ for different variants with DNSMOS.}
     \label{fig:F0_vs_PESQ}
 \end{figure}
 
-Este análisis pone en evidencia las relaciones de compromiso entre las métricas seleccionadas y como la mejor variante no será la que alcance un mejor resultado en particular, sino la que logre un mejor balance de todos los criterios en conjunto.
+This analysis highlights the trade-offs between the selected metrics and how the best variant will not be the one that achieves the best result on any particular metric, but rather the one that achieves the best balance of all criteria as a whole.
 
-\subsubsection{Métricas compuestas}
-Una vez validado el comportamiento de cada métrica de forma individual, se analizan las métricas compuestas definidas en la Sección \ref{sec:metricas_description}. Primero, la calidad de la señal presenta un comportamiento similar a la tendencia explicada al analizar PESQ. Esto es evidente, ya que tanto PESQ, SI-SDR y SNR siguen la misma tendencia, como se presenta en las gráficas completas en el Anexo I.
+\subsubsection{Composite metrics}
+Once the behavior of each metric has been validated individually, the composite metrics defined in Section \ref{sec:metricas_description} are analyzed. First, signal quality shows a behavior similar to the trend explained when analyzing PESQ. This is to be expected, since PESQ, SI-SDR and SNR all follow the same trend, as shown in the complete plots in Appendix I.
 
-En la Figura \ref{fig:RD_vs_CS}, se compara la métrica compuesta de reducción de datos (RD), respecto a la calidad de la señal (CS). Como la métrica se diseñó para minimizar el objetivo total, se puede ver que el mínimo coincide con la variante que filtra menor cantidad de datos y utiliza Demucs como algoritmo de denoising, resultado que coincide con el análisis de las métricas de forma aislada.
+In Figure \ref{fig:RD_vs_CS}, the composite data reduction metric (RD) is compared against signal quality (CS). Since the metric was designed so that the total objective is minimized, it can be seen that the minimum coincides with the variant that filters the least amount of data and uses Demucs as the denoising algorithm, a result consistent with the analysis of the metrics in isolation.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/RD vs CS (nisqa).pdf}}
-  \caption{Comparación entre reducción de datos y calidad de señal para diferentes variantes con Nisqa.}
+  \caption{Comparison between data reduction and signal quality for different variants with NISQA.}
     \label{fig:RD_vs_CS}
 \end{figure}
 
-Se analizaron y compararon todas las combinaciones de las diferentes métricas. Los resultados más destacados son la comparación entre calidad de señal y condiciones acústicas Figura \ref{fig:CS_vs_CA}, donde el agrupamiento de las métricas indica que el filtrado tiene muy poco impacto.
+All combinations of the different metrics were analyzed and compared. The most notable results are the comparison between signal quality and acoustic conditions (Figure \ref{fig:CS_vs_CA}), where the clustering of the metrics indicates that filtering has very little impact.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pipeline/CS vs CA (dnsmos).pdf}}
-  \caption{Comparación entre calidad de señal y condiciones acústicas para diferentes variantes con DNSMOS.}
+  \caption{Comparison between signal quality and acoustic conditions for different variants with DNSMOS.}
     \label{fig:CS_vs_CA}
 \end{figure}
 
-El mismo comportamiento se observa en las diferentes variantes de comparación. Se adjuntan más gráficos en el Anexo II.
+The same behavior is observed in the other comparison variants. Additional plots are included in Appendix II.
 
-\subsubsection{Optimización de la cadena de procesamiento}
-Al sumar todas las métricas compuestas, se obtiene la métrica conjunta o total, con la cual se pueden ordenar las variantes de la cadena y así definir cuál es la combinación óptima para procesar un conjunto de datos del habla.
+\subsubsection{Processing pipeline optimization}
+By adding up all the composite metrics, the joint or total metric is obtained, with which the pipeline variants can be ranked in order to determine the optimal combination for processing a speech dataset.
 
-En la Tabla \ref{tab:metricas_ranking}, se presenta el valor de cada métrica parcial y el valor de la métrica conjunta, para todas las variantes, ordenadas de menor a mayor (siendo el mínimo la mejor variante y el máximo la peor variante). En la tabla se presentan las métricas parciales abreviadas, donde $RD$ es reducción del dataset, $CS$ es calidad de señal, $CA$ es calidad acústica, $DH$ es diferencias del habla, y $TOT$ es la métrica conjunta, que contempla la suma de todas las métricas parciales.
+Table \ref{tab:metricas_ranking} presents the value of each partial metric and the value of the joint metric for all variants, sorted from lowest to highest (the minimum being the best variant and the maximum the worst). The partial metrics are abbreviated in the table, where $RD$ is dataset reduction, $CS$ is signal quality, $CA$ is acoustic quality, $DH$ is speech differences, and $TOT$ is the joint metric, which comprises the sum of all partial metrics.
 
 \begin{table}[h]
 \centering
 \small
-\caption{Métricas compuestas y total para todas las configuraciones.}
+\caption{Composite and total metrics for all configurations.}
 \label{tab:metricas_ranking}
 \begin{tabular}{@{} l S l S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] S[table-format=1.2] @{}}
 \toprule
-Filtrado & {Umbral} & Denoiser & {RD} & {CS} & {CA} & {DH} & {TOT} \\
+Filtering & {Threshold} & Denoiser & {RD} & {CS} & {CA} & {DH} & {TOT} \\
 \midrule
 DNSMOS  & 2.7 & Demucs        & 0.02 & 2.30 & 1.29 & 0.48 & \textbf{4.08} \\
 DNSMOS  & 3.0 & Demucs        & 0.13 & 2.27 & 1.27 & 0.51 & 4.17 \\
@@ -141,111 +141,111 @@ NISQA   & 4.2 & No denoising  & 0.89 & 2.53 & 1.65 & 0.46 & 5.53 \\
 \end{tabular}
 \end{table}
 
-La mejor versión de la cadena es la que utiliza Demucs como algoritmo de denoiser y DNSMOS como algoritmo de filtrado con umbral de MOS en 2.7, que obtiene un valor total de 4.08, mientras que la peor variante alcanza un valor total de 5.53
+The best version of the pipeline is the one that uses Demucs as the denoising algorithm and DNSMOS as the filtering algorithm with a MOS threshold of 2.7, which obtains a total value of 4.08, while the worst variant reaches a total value of 5.53
 
-Es interesante analizar como la cadena que alcanza la mejor puntuación general, no es la mejor opción en ninguna de las métricas individuales (marcadas en negrita), sino que ofrece la mejor relación de compromiso entre las 4 condiciones evaluadas.
+It is interesting to note that the pipeline that achieves the best overall score is not the best option for any of the individual metrics (marked in bold), but rather offers the best trade-off among the 4 evaluated conditions.
 
-\subsubsection{Análisis del peso de cada métrica}
-Se analiza la varianza de cada métrica en función de las distintas disposiciones de la cadena para determinar cuál métrica tiene más peso en el ordenamiento propuesto por la metodología de evaluación. En los resultados presentados cada conjunto de métrica tiene el mismo peso, pero al analizar la varianza de los resultados a través de las diferentes configuraciones se evidencia que por las características del dataset, ciertas métricas tienen mayor influencia que otras. En la Tabla \ref{tab:varianza_pipelines}, se presentan los resultados de este análisis comparando desvío estándar y máxima desviación para todas las métricas conjuntas.
+\subsubsection{Analysis of the weight of each metric}
+The variance of each metric across the different pipeline arrangements is analyzed to determine which metric carries the most weight in the ranking proposed by the evaluation methodology. In the presented results, each set of metrics has the same weight, but analyzing the variance of the results across the different configurations shows that, due to the characteristics of the dataset, certain metrics have greater influence than others. Table \ref{tab:varianza_pipelines} presents the results of this analysis, comparing the standard deviation and maximum deviation for all composite metrics.
 
 \begin{table}[ht]
 \centering
 \small
-\caption{Desvío estándar y máxima desviación para cada métrica compuesta respecto a las diferentes versiones de cadena bajo evaluación.}
+\caption{Standard deviation and maximum deviation of each composite metric across the different pipeline versions under evaluation.}
 \label{tab:varianza_pipelines}
 \begin{tabular}{@{} l c c c c @{}}
 \toprule
- & \makecell[c]{\textbf{RD: Reducción} \\ \textbf{datos}} &
-   \makecell[c]{\textbf{CS: Calidad} \\ \textbf{señal}} &
-   \makecell[c]{\textbf{CA: Condiciones} \\ \textbf{acústicas}} &
-   \makecell[c]{\textbf{DH: Diferencias} \\ \textbf{del habla}} \\
+ & \makecell[c]{\textbf{RD: Data} \\ \textbf{reduction}} &
+   \makecell[c]{\textbf{CS: Signal} \\ \textbf{quality}} &
+   \makecell[c]{\textbf{CA: Acoustic} \\ \textbf{conditions}} &
+   \makecell[c]{\textbf{DH: Speech} \\ \textbf{differences}} \\
 \midrule
-Desvío & 0,28 & 0,20 & 0,18 & 0,22 \\
+Std. dev. & 0,28 & 0,20 & 0,18 & 0,22 \\
 $\Delta_{\max}$ & 0,92 & 0,62 & 0,58 & 0,74 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-En concordancia con los resultados, el conjunto de métricas que tiene más variación es la reducción de datos. Esto tiene sentido dado que los filtrados más permisivos prácticamente no reducían la cantidad de horas del dataset, mientras que los filtrados con un umbral más agresivo reducían considerablemente la cantidad de horas del conjunto de datos.
+Consistent with the results, the set of metrics with the greatest variation is data reduction. This makes sense given that the most permissive filters barely reduced the number of hours in the dataset, whereas filters with a more aggressive threshold considerably reduced the number of hours in the dataset.
 
-\subsection{COMPARACIÓN ENTRE CONJUNTOS DE DATOS}
+\subsection{COMPARISON BETWEEN DATASETS}
 
-\subsubsection{Dataset profesional vs procesado}
-El conjunto de datos profesionales detallado en (\ref{sec:datos_profesionales}), utiliza condiciones de grabación óptimas, con micrófonos de alta calidad, entornos controlados y técnicas de post-procesamiento avanzadas. Esto se traduce en una calidad acústica superior, con menor ruido de fondo, menor reverberación y una representación más fiel de la voz humana. En contraste, el dataset \emph{in-the-wild} procesado mediante la cadena propuesta, aunque mejora significativamente la calidad del audio original, sigue presentando limitaciones inherentes a las condiciones de grabación no controladas.
+\subsubsection{Professional vs. processed dataset}
+The professional dataset detailed in (\ref{sec:datos_profesionales}) uses optimal recording conditions, with high-quality microphones, controlled environments and advanced post-processing techniques. This translates into superior acoustic quality, with lower background noise, less reverberation and a more faithful representation of the human voice. In contrast, the \emph{in-the-wild} dataset processed through the proposed pipeline, although it significantly improves the quality of the original audio, still presents limitations inherent to uncontrolled recording conditions.
 
-Al utilizar las mismas métricas de análisis para caracterizar al dataset profesional, se puede evaluar el grado de mejora alcanzado por la cadena de procesamiento y comparar objetivamente las condiciones acústicas y de calidad entre ambos conjuntos de datos. Este análisis permite identificar en qué aspectos específicos el dataset procesado se acerca o se aleja de las condiciones ideales representadas por el dataset profesional, y así determinar si la cadena de procesamiento logra mitigar efectivamente las limitaciones del material \emph{in-the-wild} o si persisten brechas significativas en términos de calidad acústica, ruido residual o variabilidad prosódica, que no se pueden resolver únicamente con procesamiento de señales.
+By using the same analysis metrics to characterize the professional dataset, the degree of improvement achieved by the processing pipeline can be evaluated, and the acoustic and quality conditions of both datasets can be objectively compared. This analysis makes it possible to identify in which specific aspects the processed dataset approaches or departs from the ideal conditions represented by the professional dataset, and thus to determine whether the processing pipeline effectively mitigates the limitations of the \emph{in-the-wild} material or whether significant gaps persist in terms of acoustic quality, residual noise or prosodic variability that cannot be resolved by signal processing alone.
 
-En la Figura \ref{fig:pro_vs_p_PESQ} se compara el resultado de PESQ para la condición base (dataset \emph{in-the-wild} sin procesar), el peor y mejor resultado de la cadena de procesamiento, y el valor promedio de los dataset profesionales. Esto pretende mostrar que si bien se genera una mejora objetiva en el dataset original, simplemente con procesamiento no se pueden igualar las condiciones de un conjunto de datos grabado en condiciones óptimas.
+Figure \ref{fig:pro_vs_p_PESQ} compares the PESQ result for the baseline condition (unprocessed \emph{in-the-wild} dataset), the worst and best results of the processing pipeline, and the average value of the professional datasets. This is intended to show that, although an objective improvement is achieved on the original dataset, processing alone cannot match the conditions of a dataset recorded under optimal conditions.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets PESQ.pdf}}
-  \caption{Diferencias del valor de PESQ promedio según diferentes conjuntos de datos.}
+  \caption{Differences in the average PESQ value across different datasets.}
     \label{fig:pro_vs_p_PESQ}
 \end{figure}
 
-En cambio, para el parámetro de $T_{30}$, se observa que la mejor variante con procesamientos mejora la condición de reverberación promedio alcanzada por el promedio de dataset tradicionales como se observa en la Figura \ref{fig:pro_vs_p_T30}. Esto deja en evidencia que la variación producto del procesamiento depende específicamente de cada métrica, donde se puede evaluar casos como el PESQ donde no se iguala el valor del dataset original, o casos como el $T_{30}$ donde se mejora la condición de referencia. Esta tendencia se repite para $C_{50}$, donde la mejor variante de la cadena de procesamiento mejora el valor promedio del dataset profesional, mientras que métricas de calidad como SNR y SI-SDR, aunque mejoran respecto al dataset original, no alcanzan el valor promedio del dataset profesional. Todos los resultados de esta comparación para las métricas individuales se presentan en el Anexo III.
+In contrast, for the $T_{30}$ parameter, it is observed that the best processed variant improves upon the average reverberation condition achieved by the average of traditional datasets, as shown in Figure \ref{fig:pro_vs_p_T30}. This makes it evident that the variation resulting from processing depends specifically on each metric, where one can observe cases such as PESQ, where the value of the original dataset is not matched, or cases such as $T_{30}$, where the reference condition is improved upon. This trend is repeated for $C_{50}$, where the best variant of the processing pipeline improves upon the average value of the professional dataset, whereas quality metrics such as SNR and SI-SDR, although they improve with respect to the original dataset, do not reach the average value of the professional dataset. All results of this comparison for the individual metrics are presented in Appendix III.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets T30.pdf}}
-  \caption{Diferencias del valor de T30 promedio según diferentes conjuntos de datos.}
+  \caption{Differences in the average T30 value across different datasets.}
     \label{fig:pro_vs_p_T30}
 \end{figure}
 
-Estos resultados son congruentes con las agrupaciones realizadas en el estudio de métricas, donde se evidenció que las métricas de calidad de señal y acústica no necesariamente están correlacionadas, y que el procesamiento puede mejorar ciertas condiciones acústicas sin necesariamente mejorar la calidad de señal en la misma proporción.
+These results are consistent with the groupings made in the metrics study, where it was shown that signal quality and acoustic metrics are not necessarily correlated, and that processing can improve certain acoustic conditions without necessarily improving signal quality in the same proportion.
 
-Por último, para analizar la variabilidad prosódica y de identidad del hablante, en la Figura \ref{fig:pro_vs_p_F0} se compara la frecuencia fundamental promedio de los hablantes de los dataset evaluados, donde el dataset ITW presenta una mayor variabilidad y un valor promedio mayor, indicando que no hay ningún tipo de sesgo hacia hablantes con voz más grave, como suele ocurrir en los dataset profesionales, donde se tiende a seleccionar hablantes con voz más grave para evitar problemas de sibilancia y ruido. Además, el valor de $F0\text{-}STD$ es mayor para el dataset ITW, lo que indica una mayor variabilidad en la frecuencia fundamental, lo cual es positivo para tareas de síntesis de voz que requieren diversidad prosódica.
+Finally, to analyze prosodic and speaker identity variability, Figure \ref{fig:pro_vs_p_F0} compares the average fundamental frequency of the speakers in the evaluated datasets, where the in-the-wild (ITW) dataset shows greater variability and a higher average value, indicating that there is no bias towards speakers with lower-pitched voices, as usually occurs in professional datasets, where speakers with lower-pitched voices tend to be selected to avoid sibilance and noise problems. Furthermore, the $F0\text{-}STD$ value is higher for the ITW dataset, indicating greater variability in fundamental frequency, which is positive for speech synthesis tasks that require prosodic diversity.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=12cm]{Figuras/Pro_vs_Pipe/Comparación tipos datasets F0.pdf}}
-  \caption{Diferencias del valor de F0 promedio según diferentes conjuntos de datos.}
+  \caption{Differences in the average F0 value across different datasets.}
     \label{fig:pro_vs_p_F0}
 \end{figure}
 
-Estos resultados evidencian la necesidad de incorporar conjuntos de datos \emph{in-the-wild} si se busca capturar el fenómeno del habla en su diversidad y complejidad real, ya que los dataset profesionales, aunque de alta calidad, pueden presentar sesgos significativos en términos de identidad de hablante y patrones prosódicos, lo cual limita su aplicabilidad para tareas que requieren generalización a condiciones reales de uso.
+These results show the need to incorporate \emph{in-the-wild} datasets if the aim is to capture the speech phenomenon in its real diversity and complexity, since professional datasets, although of high quality, may present significant biases in terms of speaker identity and prosodic patterns, which limits their applicability to tasks that require generalization to real-world conditions of use.
 
-\subsection{COMPARACIÓN POR ESTIMACIÓN DE DENSIDAD}
-En la Sección \ref{sec:model_config}, se describen los detalles de la configuración usada para entrenar el modelo. En la Tabla \ref{tab:model_training} se resumen los resultados más importantes del proceso de entrenamiento, donde se puede ver lo costoso que es entrenar un modelo de difusión de alta fidelidad.
+\subsection{COMPARISON BY DENSITY ESTIMATION}
+Section \ref{sec:model_config} describes the details of the configuration used to train the model. Table \ref{tab:model_training} summarizes the most important results of the training process, showing how costly it is to train a high-fidelity diffusion model.
 
 \begin{table}[htbp]
 \centering
-\caption{Especificaciones técnicas e hiperparámetros del entrenamiento del modelo de difusión.}
+\caption{Technical specifications and hyperparameters of the diffusion model training.}
 \label{tab:model_training}
 \begin{tabular}{@{}ll@{}}
 \toprule
-\textbf{Parámetro / Recurso}           & \textbf{Valor / Descripción} \\ \midrule
-Duración total del entrenamiento       & 33,554 kwav (33.5M de muestras) \\
-Tiempo de cómputo total                & $\approx$ 92 horas \\
-Función de pérdida (\textit{Score Matching Loss}) & $-1.218$ \\
-Mecanismo de promediado                & EMA (Exponential Moving Average) 0.100 \\ \bottomrule
+\textbf{Parameter / Resource}           & \textbf{Value / Description} \\ \midrule
+Total training duration       & 33,554 kwav (33.5M samples) \\
+Total computation time                & $\approx$ 92 hours \\
+Loss function (\textit{Score Matching Loss}) & $-1.218$ \\
+Averaging mechanism                & EMA (Exponential Moving Average) 0.100 \\ \bottomrule
 \end{tabular}
 \end{table}
 
-En la Figura \ref{fig:perdida_entrenamiento} se muestra la función de pérdida en función de los audios evaluados (la unidad 1 kwav equivale a 1000 audios evaluados), donde se observa que el entrenamiento ha convergido de manera efectiva, lo cual indica que el modelo ha aprendido a estimar la distribución de los datos, permitiendo así realizar comparaciones significativas entre las diferentes variantes de la cadena de procesamiento.
+Figure \ref{fig:perdida_entrenamiento} shows the loss function as a function of the evaluated audio files (the unit 1 kwav is equivalent to 1000 evaluated audio files), where it can be seen that training has converged effectively, which indicates that the model has learned to estimate the data distribution, thus allowing meaningful comparisons to be made between the different variants of the processing pipeline.
 
 \begin{figure}[h]
   \centering
 \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/loss_time.png}}
-  \caption{Función de pérdida en función de los audios evaluados durante el entrenamiento del modelo de difusión.}
+  \caption{Loss function as a function of the audio files evaluated during the training of the diffusion model.}
     \label{fig:perdida_entrenamiento}
 \end{figure}
 
-Los modelos de difusión son costosos de entrenar y tienen un alto tiempo de ejecución en la etapa de inferencia (para procesar 10 horas de audio se necesitan aproximadamente 24 horas de cómputo). Para optimizar los recursos, se evalúa el modelo en ocho variantes seleccionadas a partir de los resultados de la Tabla \ref{tab:metricas_ranking}, con el fin de cubrir un rango de puntuaciones de la métrica conjunta. El análisis de likelihood se limita a estas ocho configuraciones y permite describir patrones exploratorios, no establecer diferencias estadísticamente significativas entre todas las variantes posibles.
+Diffusion models are costly to train and have a long execution time at the inference stage (processing 10 hours of audio requires approximately 24 hours of computation). To optimize resources, the model is evaluated on eight variants selected from the results in Table \ref{tab:metricas_ranking}, in order to cover a range of joint metric scores. The likelihood analysis is limited to these eight configurations and allows exploratory patterns to be described, not statistically significant differences to be established among all possible variants.
 
-Al igual que para el cálculo de métricas objetivas, se seleccionan aleatoriamente muestras de cada variante. Se toma la mitad de las muestras disponibles por configuración y se evalúan los primeros cinco segundos de cada audio para limitar el uso de memoria. Como filtro previo al cálculo, se excluyen los recortes que casi no contienen voz en esos cinco segundos, pues su puntuación no representaría la calidad general del audio. Este filtro de voz es distinto del corte post hoc de log-likelihood descrito en la metodología.
+As with the computation of the objective metrics, samples from each variant are randomly selected. Half of the available samples per configuration are taken, and the first five seconds of each audio file are evaluated to limit memory usage. As a filter prior to the computation, crops that contain almost no speech in those five seconds are excluded, since their score would not represent the overall quality of the audio. This speech filter is distinct from the post hoc log-likelihood cutoff described in the methodology.
 
-En la Tabla \ref{tab:comparacion_likelihood_tot} se presentan las medias de la serie canónica de likelihood filtrado para las ocho configuraciones evaluadas, junto con su puntuación según las métricas objetivas. Una media mayor indica que las observaciones retenidas son más compatibles con la distribución de referencia del corpus profesional; esta comparación no equivale por sí sola a una medida de calidad perceptual.
+Table \ref{tab:comparacion_likelihood_tot} presents the means of the canonical filtered likelihood series for the eight evaluated configurations, together with their score according to the objective metrics. A higher mean indicates that the retained observations are more compatible with the reference distribution of the professional corpus; this comparison is not, on its own, equivalent to a measure of perceptual quality.
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Comparación entre las medias de likelihood y la métrica objetiva total (TOT), ordenadas por verosimilitud.}
+\caption{Comparison between the likelihood means and the total objective metric (TOT), sorted by likelihood.}
 \label{tab:comparacion_likelihood_tot}
 \begin{tabular}{@{} l S[table-format=1.1] l S[table-format=1.2] S[table-format=1.2] @{}}
 \toprule
-Filtrado & {Umbral} & Denoiser & {Likelihood filtrado $\uparrow$} & {TOT $\downarrow$} \\
+Filtering & {Threshold} & Denoiser & {Filtered likelihood $\uparrow$} & {TOT $\downarrow$} \\
 \midrule
 DNSMOS  & 2.7 & DeepFilterNet & 2.37 & 4.65 \\
 NISQA   & 3.8 & DeepFilterNet & 2.30 & 5.13 \\
@@ -259,105 +259,105 @@ NISQA   & 3.0 & Demucs        & 1.69 & 4.31 \\
 \end{tabular}
 \end{table}
 
-En las ocho configuraciones evaluadas, las dos medias de likelihood más altas corresponden a DeepFilterNet (2.37 y 2.30), seguidas por las dos configuraciones sin denoising (2.02 y 2.01); las cuatro configuraciones Demucs se sitúan entre 1.69 y 1.88. Las diferencias entre umbrales no siguen una tendencia única. Descriptivamente, la separación entre algoritmos de denoising parece más marcada que la variación entre umbrales, pero la selección limitada no permite atribuir causalidad ni generalizar este ordenamiento a configuraciones no evaluadas. Una posible explicación es que el procesamiento de Demucs introduce artefactos espectrales que reducen la compatibilidad con la distribución de referencia.
+Across the eight evaluated configurations, the two highest likelihood means correspond to DeepFilterNet (2.37 and 2.30), followed by the two no-denoising configurations (2.02 and 2.01); the four Demucs configurations lie between 1.69 and 1.88. The differences between thresholds do not follow a single trend. Descriptively, the separation between denoising algorithms appears more pronounced than the variation between thresholds, but the limited selection does not allow causality to be attributed or this ranking to be generalized to configurations that were not evaluated. One possible explanation is that Demucs processing introduces spectral artifacts that reduce compatibility with the reference distribution.
 
-En la Figura \ref{fig:likelihood_distribution} se muestran las distribuciones, estimadas mediante Kernel Density Estimation (KDE; \cite{parzen1962estimation}), para tres configuraciones: Demucs con NISQA 3.0, DeepFilterNet con DNSMOS 2.7 y sin denoising con DNSMOS 2.7.
+Figure \ref{fig:likelihood_distribution} shows the distributions, estimated by Kernel Density Estimation (KDE; \cite{parzen1962estimation}), for three configurations: Demucs with NISQA 3.0, DeepFilterNet with DNSMOS 2.7, and no denoising with DNSMOS 2.7.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/density_likelihood.pdf}}
-  \caption{Distribución filtrada de la verosimilitud para tres configuraciones de denoising.}
+  \caption{Filtered likelihood distribution for three denoising configurations.}
     \label{fig:likelihood_distribution}
 \end{figure}
 
-En estas tres configuraciones, Demucs presenta la distribución más concentrada y la media más baja; DeepFilterNet, la media más alta y la mayor dispersión; y la condición sin denoising queda en una posición intermedia. Estas observaciones describen solo las configuraciones y los recortes retenidos que se muestran, y no permiten concluir que un algoritmo produzca conjuntos más homogéneos para todos los umbrales.
+In these three configurations, Demucs shows the most concentrated distribution and the lowest mean; DeepFilterNet, the highest mean and the greatest dispersion; and the no-denoising condition falls in an intermediate position. These observations describe only the configurations and retained crops shown, and do not allow the conclusion that one algorithm produces more homogeneous datasets for all thresholds.
 
-La calidad, la homogeneidad y la diversidad son relevantes para preparar datos de TTS. Sin embargo, las distribuciones de la figura corresponden a tres configuraciones y no bastan para establecer diferencias generales de homogeneidad o diversidad entre algoritmos. La evaluación de más configuraciones y umbrales permitiría comprobar si el patrón se mantiene.
+Quality, homogeneity and diversity are relevant when preparing TTS data. However, the distributions in the figure correspond to three configurations and are not sufficient to establish general differences in homogeneity or diversity between algorithms. Evaluating more configurations and thresholds would make it possible to verify whether the pattern holds.
 
-\subsection{COMPARACIÓN ENTRE MÉTRICAS OBJETIVAS Y ESTIMACIÓN DE DENSIDAD}
+\subsection{COMPARISON BETWEEN OBJECTIVE METRICS AND DENSITY ESTIMATION}
 
-La comparación entre las métricas objetivas y la estimación de densidad muestra que ambos criterios ordenan de manera distinta las configuraciones evaluadas. Para la comparación se consideran las ocho configuraciones con resultados disponibles en ambas metodologías; las conclusiones de este apartado se limitan a ese conjunto.
+The comparison between the objective metrics and density estimation shows that the two criteria rank the evaluated configurations differently. For the comparison, the eight configurations with results available under both methodologies are considered; the conclusions of this subsection are limited to that set.
 
-En la Tabla \ref{tab:comparacion_likelihood_tot}, el mínimo de TOT corresponde a Demucs con DNSMOS 2.7 (4.08), mientras que las dos medias de likelihood filtrado más altas corresponden a DeepFilterNet (2.37 y 2.30). Este resultado muestra un ordenamiento diferente según el criterio, dentro de las ocho configuraciones compartidas. Las métricas describen aspectos distintos de las cadenas y su interpretación depende del objetivo de uso.
+In Table \ref{tab:comparacion_likelihood_tot}, the TOT minimum corresponds to Demucs with DNSMOS 2.7 (4.08), while the two highest filtered likelihood means correspond to DeepFilterNet (2.37 and 2.30). This result shows a different ranking depending on the criterion, within the eight shared configurations. The metrics describe different aspects of the pipelines, and their interpretation depends on the intended use.
 
-Dentro de las configuraciones incluidas, el puntaje objetivo más bajo se obtiene con Demucs DNSMOS 2.7. Las métricas intrusivas como PESQ y SI-SDR evalúan la señal procesada respecto de una referencia y pueden favorecer la reducción de energía en regiones consideradas silenciosas. El resultado describe el comportamiento de esta configuración bajo las métricas adoptadas y no establece una superioridad universal de Demucs para cualquier conjunto o tarea.
+Among the included configurations, the lowest objective score is obtained with Demucs DNSMOS 2.7. Intrusive metrics such as PESQ and SI-SDR evaluate the processed signal with respect to a reference and may favor energy reduction in regions considered silent. The result describes the behavior of this configuration under the adopted metrics and does not establish a universal superiority of Demucs for any dataset or task.
 
-En la serie filtrada, las cuatro configuraciones Demucs presentan medias entre 1.69 y 1.88. Una posible explicación es que algunos artefactos introducidos por la separación de fuentes reduzcan la compatibilidad de la señal con la distribución de referencia. La Figura \ref{fig:denoising_spectrograms} muestra un ejemplo de diferencias espectrales entre audio sin procesar, Demucs y DeepFilterNet; este ejemplo ilustra un caso y no prueba por sí solo el mecanismo que produce las diferencias de likelihood.
+In the filtered series, the four Demucs configurations have means between 1.69 and 1.88. One possible explanation is that some artifacts introduced by source separation reduce the compatibility of the signal with the reference distribution. Figure \ref{fig:denoising_spectrograms} shows an example of spectral differences between unprocessed audio, Demucs and DeepFilterNet; this example illustrates one case and does not, on its own, prove the mechanism that produces the likelihood differences.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=18cm]{Figuras/Resultados/spectrogram_pdf.pdf}}
-  \caption{Ejemplo del mismo audio procesado con diferentes algoritmos de denoising.}
+  \caption{Example of the same audio processed with different denoising algorithms.}
     \label{fig:denoising_spectrograms}
 \end{figure}
 
-Las dos configuraciones DeepFilterNet evaluadas ocupan las primeras posiciones de la tabla de likelihood, con medias filtradas de 2.37 y 2.30. Este ordenamiento es descriptivo de las configuraciones ensayadas. La hipótesis de que un realce más conservador preserve rasgos próximos a la distribución profesional puede orientar análisis posteriores, aunque las medidas de este experimento no permiten identificar por sí solas el mecanismo ni establecer que el likelihood refleje la preferencia perceptual.
+The two DeepFilterNet configurations evaluated occupy the top positions of the likelihood table, with filtered means of 2.37 and 2.30. This ranking is descriptive of the tested configurations. The hypothesis that a more conservative enhancement preserves features close to the professional distribution may guide further analyses, although the measurements from this experiment do not, on their own, allow the mechanism to be identified or establish that likelihood reflects perceptual preference.
 
-La Figura \ref{fig:calidad_vs_likelihood} relaciona la media de likelihood filtrado de cada configuración con sus medias de calidad de señal (CS) y condiciones acústicas (CA). Cada punto representa una configuración, emparejada por algoritmo de denoising, métrica acústica y umbral; las métricas objetivas y el likelihood se comparan como promedios por configuración. En estas ocho configuraciones se aprecia una separación descriptiva por algoritmo, mientras que los umbrales no muestran una tendencia uniforme.
+Figure \ref{fig:calidad_vs_likelihood} relates the filtered likelihood mean of each configuration to its signal quality (CS) and acoustic conditions (CA) means. Each point represents a configuration, matched by denoising algorithm, acoustic metric and threshold; the objective metrics and likelihood are compared as per-configuration averages. In these eight configurations, a descriptive separation by algorithm can be seen, while the thresholds do not show a uniform trend.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=14cm]{Figuras/Desarrollo/calidad_vs_likelihood.pdf}}
-  \caption{Relación entre la media de likelihood y las métricas de calidad de señal (CS) y condiciones acústicas (CA). El color indica el algoritmo de denoising, la forma distingue CS (círculo, eje izquierdo) de CA (cuadrado, eje derecho) y las etiquetas indican la métrica acústica y su umbral.}
+  \caption{Relationship between the likelihood mean and the signal quality (CS) and acoustic conditions (CA) metrics. Color indicates the denoising algorithm, shape distinguishes CS (circle, left axis) from CA (square, right axis), and labels indicate the acoustic metric and its threshold.}
     \label{fig:calidad_vs_likelihood}
 \end{figure}
 
-\subsubsection{Conclusión del Análisis Cruzado}
-La integración de ambas metodologías demuestra que evaluar pipelines de procesamiento de habla exige definir claramente el objetivo del sistema downstream.
+\subsubsection{Conclusion of the Cross-Analysis}
+The integration of both methodologies shows that evaluating speech processing pipelines requires clearly defining the objective of the downstream system.
 
-Si el objetivo es alimentar un sistema de reconocimiento automático del habla (ASR), las métricas objetivas consideradas ofrecen una forma rápida de comparar claridad de señal y condiciones acústicas; en las configuraciones ensayadas, favorecieron a Demucs según el puntaje TOT. La utilidad de esa elección debe comprobarse con la tarea de reconocimiento y el corpus de destino.
+If the objective is to feed an automatic speech recognition (ASR) system, the objective metrics considered offer a fast way to compare signal clarity and acoustic conditions; in the tested configurations, they favored Demucs according to the TOT score. The usefulness of that choice should be verified with the recognition task and the target corpus.
 
-Para un corpus destinado a TTS o clonación de voz, la estimación de densidad aporta una perspectiva complementaria sobre la compatibilidad con el corpus profesional de referencia. En las ocho configuraciones ensayadas, las medias filtradas más altas correspondieron a DeepFilterNet, pero este resultado no demuestra que esas cadenas produzcan mejores modelos generativos ni que eviten artefactos en todos los escenarios. La evaluación directa de sistemas entrenados con esos datos es necesaria para respaldar una recomendación de uso.
+For a corpus intended for TTS or voice cloning, density estimation provides a complementary perspective on compatibility with the professional reference corpus. In the eight tested configurations, the highest filtered means corresponded to DeepFilterNet, but this result does not demonstrate that those pipelines produce better generative models or that they avoid artifacts in all scenarios. Direct evaluation of systems trained on those data is necessary to support a usage recommendation.
 
-Estos resultados también indican que se debe expandir el análisis de las métricas objetivas para incorporar penalizaciones explícitas por artefactos de denoising, o bien, desarrollar nuevas métricas que puedan capturar la naturalidad espectral y la coherencia temporal, aspectos que el modelo de difusión parece valorar de manera inherente. La principal ventaja que tiene el análisis guiado por métricas objetivas es que permite evaluar de forma rápida y con bajo costo computacional una gran cantidad de variantes, lo cual es fundamental para poder optimizar la cadena de procesamiento, sobre todo cuando está pensada para ser aplicada a grandes cantidades de datos.
+These results also indicate that the analysis of the objective metrics should be expanded to incorporate explicit penalties for denoising artifacts, or alternatively, that new metrics should be developed that can capture spectral naturalness and temporal coherence, aspects that the diffusion model appears to value inherently. The main advantage of the analysis guided by objective metrics is that it allows a large number of variants to be evaluated quickly and at low computational cost, which is essential for optimizing the processing pipeline, especially when it is intended to be applied to large amounts of data.
 
-\subsection{EVALUACIÓN EXPLORATORIA DE TTS ZERO-SHOT}
-A continuación, se describe la relación exploratoria entre las métricas objetivas (TOT), el likelihood filtrado y el MOS estimado para el habla sintetizada por modelos de TTS \textit{zero-shot}.
+\subsection{EXPLORATORY EVALUATION OF ZERO-SHOT TTS}
+The following describes the exploratory relationship between the objective metrics (TOT), the filtered likelihood and the estimated MOS for speech synthesized by \textit{zero-shot} TTS models.
 
-\subsubsection{Relación con las Métricas Objetivas (TOT)}
-En la Figura \ref{fig:mos_vs_objetive} se ilustra la relación entre la puntuación total de métricas objetivas (TOT) en el eje horizontal y el MOS estimado del audio sintetizado en el eje vertical.
-Cada punto representa una configuración coincidente: el TOT de esa cadena se empareja con la media de MOS de sus síntesis. La figura incluye diez configuraciones comunes entre ambos resultados; son promedios por configuración y no correspondencias entre identificadores individuales de audio.
+\subsubsection{Relationship with the Objective Metrics (TOT)}
+Figure \ref{fig:mos_vs_objetive} illustrates the relationship between the total objective metric score (TOT) on the horizontal axis and the estimated MOS of the synthesized audio on the vertical axis.
+Each point represents a matching configuration: the TOT of that pipeline is paired with the mean MOS of its syntheses. The figure includes ten configurations common to both results; these are per-configuration averages and not correspondences between individual audio identifiers.
 
 \begin{figure}[h]
 \centering
 \centerline{\includegraphics[width=14cm]{Figuras/Resultados/MOS_vs_objetive.png}}
-\caption{Relación entre la métrica objetiva total (TOT) y la calidad subjetiva sintetizada (MOS).}
+\caption{Relationship between the total objective metric (TOT) and the subjective quality of the synthesized speech (MOS).}
 \label{fig:mos_vs_objetive}
 \end{figure}
 
-En las configuraciones evaluadas se observa una tendencia positiva entre TOT y el MOS estimado: los valores mayores de TOT tienden a coincidir con MOS mayores, aunque TOT se define como una métrica que se minimiza. Esta dirección es contraria a la esperada bajo ese criterio de optimización, pero el patrón por sí solo no demuestra capacidad predictiva ni permite concluir que la métrica objetiva carezca de utilidad para TTS.
+In the evaluated configurations, a positive trend is observed between TOT and the estimated MOS: higher TOT values tend to coincide with higher MOS values, even though TOT is defined as a metric to be minimized. This direction is contrary to what would be expected under that optimization criterion, but the pattern alone does not demonstrate predictive capability, nor does it allow the conclusion that the objective metric lacks usefulness for TTS.
 
-Una posible explicación es que el componente de reducción de datos de TOT tenga una relevancia distinta para esta evaluación \textit{zero-shot}, que utiliza referencias cortas. Este análisis no permite aislar el efecto de cada componente de la métrica.
+One possible explanation is that the data reduction component of TOT has a different relevance for this \textit{zero-shot} evaluation, which uses short references. This analysis does not allow the effect of each component of the metric to be isolated.
 
-Sobre estas diez configuraciones, las correlaciones de Pearson entre TOT y MOS son positivas para Qwen TTS ($r = 0.58$, $p = 0.08$) y F5 TTS ($r = 0.49$, $p = 0.15$), y no alcanzan el umbral de significancia del $5\%$. Con este tamaño muestral, la tendencia es exploratoria; estos resultados no validan una relación lineal entre TOT y MOS ni descartan que exista una asociación que requiera más datos para caracterizarse.
+Over these ten configurations, the Pearson correlations between TOT and MOS are positive for Qwen TTS ($r = 0.58$, $p = 0.08$) and F5 TTS ($r = 0.49$, $p = 0.15$), and do not reach the $5\%$ significance threshold. With this sample size, the trend is exploratory; these results neither validate a linear relationship between TOT and MOS nor rule out the existence of an association that would require more data to be characterized.
 
-\subsubsection{Relación con la Estimación de Densidad (Log-Likelihood)}
-La Figura \ref{fig:mos_vs_likelihood} compara, para cada modelo TTS, la media de likelihood filtrado y la media de MOS asociadas a una misma configuración. Primero se calcula la media de log-likelihood de los recortes retenidos por el filtro post hoc para cada configuración; por separado, se calcula la media de los MOS de las síntesis correspondientes a esa configuración. Luego se emparejan esas dos medias por algoritmo de denoising, métrica acústica y umbral. Cada punto representa ese par de promedios de una configuración, sin emparejar identificadores individuales de audio entre los recortes evaluados y los audios sintetizados. La comparación incluye seis configuraciones con correspondencia exacta en ambos resultados.
+\subsubsection{Relationship with Density Estimation (Log-Likelihood)}
+Figure \ref{fig:mos_vs_likelihood} compares, for each TTS model, the filtered likelihood mean and the MOS mean associated with the same configuration. First, the mean log-likelihood of the crops retained by the post hoc filter is computed for each configuration; separately, the mean MOS of the syntheses corresponding to that configuration is computed. These two means are then paired by denoising algorithm, acoustic metric and threshold. Each point represents that pair of averages for one configuration, without pairing individual audio identifiers between the evaluated crops and the synthesized audio. The comparison includes six configurations with an exact match in both results.
 
 \begin{figure}[h]
 \centering
 \centerline{\includegraphics[width=14cm]{Figuras/Resultados/MOS_vs_likelihood.png}}
-\caption{Medias de likelihood y MOS emparejadas por configuración para seis configuraciones coincidentes.}
+\caption{Likelihood and MOS means paired by configuration for six matching configurations.}
 \label{fig:mos_vs_likelihood}
 \end{figure}
 
-Con estos seis pares de medias por configuración, la correlación de Pearson es positiva y no alcanza significancia estadística: para Qwen TTS, $r = 0.4671$ ($p = 0.3503$); para F5 TTS, $r = 0.5973$ ($p = 0.2106$). Como descripción del orden de las configuraciones, la correlación de Spearman es $\rho = 0.77$ para Qwen TTS y $\rho = 0.89$ para F5 TTS. La asociación ordinal observada es más marcada en F5 y debe interpretarse de forma descriptiva.
+With these six pairs of per-configuration means, the Pearson correlation is positive and does not reach statistical significance: for Qwen TTS, $r = 0.4671$ ($p = 0.3503$); for F5 TTS, $r = 0.5973$ ($p = 0.2106$). As a description of the ordering of the configurations, the Spearman correlation is $\rho = 0.77$ for Qwen TTS and $\rho = 0.89$ for F5 TTS. The observed ordinal association is more pronounced for F5 and should be interpreted descriptively.
 
-La tendencia positiva debe interpretarse con cautela: se calcula sobre seis pares de promedios agregados por configuración y no describe una relación entre identificadores individuales de audio. Los resultados ofrecen una observación exploratoria sobre el orden de estas configuraciones, sin validar una relación lineal ni una capacidad predictiva del likelihood.
+The positive trend should be interpreted with caution: it is computed over six pairs of averages aggregated by configuration and does not describe a relationship between individual audio identifiers. The results offer an exploratory observation on the ordering of these configurations, without validating a linear relationship or a predictive capability of the likelihood.
 
-\subsubsection{Discusión Final}
-Los resultados de este experimento muestran ordenamientos distintos entre las métricas objetivas y el likelihood para las configuraciones ensayadas. La correlación entre la estimación de densidad y MOS es más marcada en F5 que en Qwen, mientras que las correlaciones lineales de Pearson no alcanzan significancia estadística en ninguno de los dos modelos.
+\subsubsection{Final Discussion}
+The results of this experiment show different rankings between the objective metrics and the likelihood for the tested configurations. The correlation between density estimation and MOS is more pronounced for F5 than for Qwen, while the Pearson linear correlations do not reach statistical significance for either model.
 
-En consecuencia, el likelihood puede usarse aquí como criterio exploratorio para ordenar las configuraciones evaluadas, pero estos datos no lo validan como predictor lineal del desempeño TTS. Para evaluar su capacidad predictiva se requieren más configuraciones, más datos emparejados y validación independiente, idealmente con juicios de escucha humana.
+Consequently, the likelihood can be used here as an exploratory criterion for ranking the evaluated configurations, but these data do not validate it as a linear predictor of TTS performance. Evaluating its predictive capability requires more configurations, more paired data and independent validation, ideally with human listening judgments.
 
-No obstante, entender esta relación es fundamental en el diseño de pipelines de preprocesamiento de audio para sistemas de ASR y TTS, donde la elección de algoritmos de denoising y filtrado no debe basarse únicamente en métricas objetivas tradicionales, sino también en la preservación de la topología acústica que los modelos generativos esperan encontrar.
+Nevertheless, understanding this relationship is fundamental in the design of audio preprocessing pipelines for ASR and TTS systems, where the choice of denoising and filtering algorithms should not be based solely on traditional objective metrics, but also on the preservation of the acoustic topology that generative models expect to find.
 
-Estos resultados también señalan la necesidad de explorar métricas de calidad acústica que sean funcionales a las arquitecturas de modelos generativos actuales y permitan optimizar las distintas etapas de la cadena de procesamiento.
+These results also point to the need to explore acoustic quality metrics that are suited to current generative model architectures and that make it possible to optimize the different stages of the processing pipeline.
 
-En cinco de las seis configuraciones coincidentes, el MOS medio estimado por Qwen TTS es mayor que el de F5 TTS. Esta diferencia es descriptiva de los modelos, muestras y configuraciones de este experimento; por sí sola no demuestra una diferencia general de rendimiento entre arquitecturas.
+In five of the six matching configurations, the mean MOS estimated for Qwen TTS is higher than that for F5 TTS. This difference is descriptive of the models, samples and configurations in this experiment; on its own, it does not demonstrate a general performance difference between architectures.
 
-Una hipótesis para explorar es que las diferencias entre modelos dependan, en parte, de cómo sus arquitecturas representan las referencias acústicas. Qwen TTS genera a partir de representaciones discretizadas por codecs neuronales, mientras que F5 TTS se basa en flow-matching y difusión. El presente experimento no aisló estos mecanismos ni midió directamente su efecto sobre la calidad percibida.
+One hypothesis to explore is that the differences between models depend, in part, on how their architectures represent the acoustic references. Qwen TTS generates from representations discretized by neural codecs, whereas F5 TTS is based on flow matching and diffusion. The present experiment did not isolate these mechanisms or directly measure their effect on perceived quality.
 
-La correlación positiva observada para F5 en este conjunto de seis configuraciones puede motivar una comparación controlada de arquitecturas. Para establecer si la arquitectura explica ese patrón se necesitarían más cadenas, referencias emparejadas y evaluaciones directas de las síntesis.
+The positive correlation observed for F5 in this set of six configurations may motivate a controlled comparison of architectures. Establishing whether the architecture explains this pattern would require more pipelines, paired references and direct evaluations of the syntheses.
 
-Por tanto, estos resultados no permiten concluir que F5 sea un evaluador más estricto ni que Qwen sea más robusto ante referencias no controladas. Ambas interpretaciones quedan como hipótesis para estudios con un diseño que evalúe esos mecanismos de forma directa.
+Therefore, these results do not allow the conclusion that F5 is a stricter evaluator or that Qwen is more robust to uncontrolled references. Both interpretations remain hypotheses for studies with a design that evaluates those mechanisms directly.

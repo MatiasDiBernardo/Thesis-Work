@@ -1,102 +1,102 @@
-\subsection{RECOPILACIÓN DE BASES DE DATOS}
-Con el fin de garantizar la reproducibilidad y transparencia de los experimentos, se ha recopilado el código fuente utilizado para generar los gráficos y resultados parciales presentados en esta tesis. Se puede encontrar el material en el siguiente repositorio web: \url{https://github.com/MatiasDiBernardo/Audio-Analysis-Tesis}.
+\subsection{DATASET COLLECTION}
+In order to ensure the reproducibility and transparency of the experiments, the source code used to generate the figures and partial results presented in this thesis has been compiled. The material can be found in the following web repository: \url{https://github.com/MatiasDiBernardo/Audio-Analysis-Tesis}.
 
-\subsubsection{Datos \emph{in-the-wild}}
-Para evaluar las cadenas de procesamiento sobre conjuntos de datos de habla se emplea el corpus en español de Argentina recopilado por el grupo de investigación Intercambios Transorgánicos. Este corpus consta de 24 horas de grabaciones realizadas en condiciones heterogéneas, tanto en calidad de audio como en diversidad de hablantes, y proviene mayoritariamente de fuentes públicas en internet. Por su variabilidad y carácter no controlado, este conjunto \emph{in-the-wild} resulta idóneo para validar procedimientos de preprocesado de audio. En lo sucesivo, se hará referencia a esta colección como el conjunto de datos \emph{original} (versión sin procesamientos).
+\subsubsection{\emph{In-the-wild} data}
+To evaluate the processing pipelines on speech datasets, the Argentine Spanish corpus collected by the Intercambios Transorgánicos research group is employed. This corpus consists of 24 hours of recordings made under heterogeneous conditions, both in terms of audio quality and speaker diversity, and comes mostly from public sources on the internet. Owing to its variability and uncontrolled nature, this \emph{in-the-wild} dataset is well suited for validating audio preprocessing procedures. Hereafter, this collection will be referred to as the \emph{original} dataset (unprocessed version).
 
-Con el objetivo de captar diferencias dialectales relevantes para Argentina, la selección de hablantes sigue la clasificación regional propuesta por (\cite{Fontanella2004español}). En concreto, el corpus incluye 32 hablantes con acento bonaerense y 27 con acento centro (que constituye principalmente a la provincia de Córdoba), para un total de 59 hablantes. La estrategia a futuro consiste en ampliar la cobertura dialectal para incorporar todas las variedades representativas del país; sin embargo, en esta tesis se valida inicialmente la cadena de preprocesamiento sobre estas dos variantes representativas.
+In order to capture dialectal differences relevant to Argentina, the selection of speakers follows the regional classification proposed by (\cite{Fontanella2004español}). Specifically, the corpus includes 32 speakers with a Buenos Aires (bonaerense) accent and 27 with a central accent (mainly corresponding to the province of Córdoba), for a total of 59 speakers. The future strategy is to broaden the dialectal coverage in order to incorporate all the representative varieties of the country; however, in this thesis the preprocessing pipeline is initially validated on these two representative variants.
 
-\subsubsection{Datos profesionales}
+\subsubsection{Professional data}
 \label{sec:datos_profesionales}
-Para complementar el corpus \emph{in-the-wild} y disponer de material de mayor calidad contra el cual contrastar el análisis objetivo, se incorporan conjuntos de datos profesionales disponibles en trabajos previos. Dado que no existe una colección pública extensa exclusivamente de español de Argentina, se incluyen también recursos con variantes dialectales cercanas cuando procede.
+To complement the \emph{in-the-wild} corpus and to have higher-quality material against which to contrast the objective analysis, professional datasets available from previous works are incorporated. Since there is no large public collection exclusively of Argentine Spanish, resources with closely related dialectal variants are also included where appropriate.
 
 \begin{itemize}
-\item ELRA Dataset (\cite{google-arg}): aproximadamente 8 horas de audio con dialecto bonaerense, 44 hablantes.
-\item CML Dataset (\cite{cml-dataset}): subset de 8 horas de audio con dialecto en español de España, 15 hablantes.
-\item HaCASpa Dataset (\cite{dataset_hamburg}): aproximadamente 10 horas de audio con dialecto de Mendoza, 50 hablantes.
+\item ELRA Dataset (\cite{google-arg}): approximately 8 hours of audio with the Buenos Aires dialect, 44 speakers.
+\item CML Dataset (\cite{cml-dataset}): an 8-hour subset of audio in Peninsular (Spain) Spanish, 15 speakers.
+\item HaCASpa Dataset (\cite{dataset_hamburg}): approximately 10 hours of audio with the Mendoza dialect, 50 speakers.
 \end{itemize}
 
-El conjunto profesional suma un total de 26 horas y 109 hablantes, con una distribución de acentos que refleja la diversidad regional. Este material se utiliza como referencia para evaluar la calidad acústica y las condiciones de grabación alcanzables mediante la cadena de preprocesamiento aplicada al corpus \emph{in-the-wild}.
+The professional set totals 26 hours and 109 speakers, with an accent distribution that reflects regional diversity. This material is used as a reference to evaluate the acoustic quality and recording conditions attainable through the preprocessing pipeline applied to the \emph{in-the-wild} corpus.
 
-\subsection{DESARROLLO DE LA CADENA DE PRE PROCESAMIENTO}
+\subsection{DEVELOPMENT OF THE PREPROCESSING PIPELINE}
 \label{sec:pipeline-desarrollo}
 
-La cadena de preprocesamiento diseñada en esta Tesis es una secuencia modular y reproducible de etapas destinadas a transformar material \emph{in-the-wild} en subconjuntos utilizables para entrenamiento de TTS. Las etapas principales son las siguientes:
+The preprocessing pipeline designed in this Thesis is a modular and reproducible sequence of stages intended to transform \emph{in-the-wild} material into subsets usable for TTS training. The main stages are as follows:
 
 \begin{enumerate}
-\item Post-procesado y metadatos: Normalización de niveles, etiquetado de metadatos (origen, duración, dialecto, condiciones de captura) y generación de los subconjuntos finales para evaluación y para alimentación a modelos TTS. Es importante destacar que esta etapa no altera la señal de audio, sino que organiza y prepara los datos para su posterior análisis.
-\item Voice Activity Detection (VAD): Eliminación de segmentos sin voz y genera una segmentación inicial de fragmentos cortos de voz continua. En la implementación se usa Silero VAD (\cite{SileroVAD}), que es un algoritmo que cuenta con una serie de hiperparámetros que controlan la sensibilidad del detector y la longitud mínima de los segmentos. Se realizaron pruebas para determinar los valores óptimos de estos parámetros, y al no encontrar una relación de compromiso eficiente se implementó una estrategia adaptativa de optimización de hiperparámetros basada en clasificar el ritmo de habla (lento/normal/rápido) mediante los timestamps de Whisper y optimizar los parámetros del VAD por categoría.
-\item Denoising / Speech enhancement: Aplicación opcional de la cadena para mitigar ruido y artefactos de grabación. Se evalúan modelos prácticos y eficientes en CPU, además de la opción sin denoising, considerando el balance entre mejora perceptual y preservación de la identidad vocal. Los modelos seleccionados son Demucs (\cite{demucs}) y DeepFilterNet (\cite{deepfilter}).
-\item Filtrado de calidad no intrusivo: Evaluación y filtrado mediante modelos de calidad perceptual no intrusiva para aceptar o rechazar fragmentos según puntuación mínima. Se utilizan modelos predictivos de MOS (Mean Opinion Score) como métrica conjunta de calidad. Se evalúan los modelos NISQA (\cite{nisqa}) y DNSMOS (\cite{dns_mos}).
-\item Transcripción (STT): Obtención de transcripciones automáticas necesarias para obtener los pares texto-audio que se requieren para el entrenamiento; en esta etapa se prioriza la precisión a costa de un mayor tiempo de cómputo, dado el impacto de errores de transcripción en la calidad final del corpus. Se utiliza el modelo de Whisper Large para la transcripción (\cite{whisper}).
+\item Post-processing and metadata: Level normalization, metadata tagging (source, duration, dialect, capture conditions) and generation of the final subsets for evaluation and for feeding TTS models. It is important to highlight that this stage does not alter the audio signal, but rather organizes and prepares the data for subsequent analysis.
+\item Voice Activity Detection (VAD): Removal of non-speech segments and generation of an initial segmentation into short fragments of continuous speech. The implementation uses Silero VAD (\cite{SileroVAD}), an algorithm with a series of hyperparameters that control the sensitivity of the detector and the minimum length of the segments. Tests were carried out to determine the optimal values of these parameters, and since no efficient trade-off was found, an adaptive hyperparameter optimization strategy was implemented, based on classifying the speech rate (slow/normal/fast) using Whisper timestamps and optimizing the VAD parameters per category.
+\item Denoising / Speech enhancement: Optional stage of the pipeline aimed at mitigating noise and recording artifacts. Practical, CPU-efficient models are evaluated, in addition to the no-denoising option, considering the balance between perceptual improvement and preservation of vocal identity. The selected models are Demucs (\cite{demucs}) and DeepFilterNet (\cite{deepfilter}).
+\item Non-intrusive quality filtering: Evaluation and filtering by means of non-intrusive perceptual quality models in order to accept or reject fragments according to a minimum score. Predictive MOS (Mean Opinion Score) models are used as a joint quality metric. The NISQA (\cite{nisqa}) and DNSMOS (\cite{dns_mos}) models are evaluated.
+\item Transcription (STT): Generation of the automatic transcriptions needed to obtain the text-audio pairs required for training; at this stage, accuracy is prioritized at the expense of longer computation time, given the impact of transcription errors on the final quality of the corpus. The Whisper Large model is used for transcription (\cite{whisper}).
 \end{enumerate}
 
-La implementación enfatiza portabilidad y bajo costo computacional, de modo que grupos con recursos limitados puedan reproducir la cadena y comparar variantes del algoritmo sin necesidad de utilizar hardware de alto rendimiento como serían GPUs. El diagrama de flujo de toda  la cadena propuesta se presenta en la Figura \ref{fig:pipeline_flowchart}.
+The implementation emphasizes portability and low computational cost, so that groups with limited resources can reproduce the pipeline and compare variants of the algorithm without the need for high-performance hardware such as GPUs. The flowchart of the entire proposed pipeline is presented in Figure \ref{fig:pipeline_flowchart}.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=18cm]{Figuras/Desarrollo/diagrama_cadena.PNG}}
-  \caption{Diagrama de flujo del proceso completo para generar el dataset.}
+  \caption{Flowchart of the complete process for generating the dataset.}
     \label{fig:pipeline_flowchart}
 \end{figure}
 
-\subsubsection{Diferentes esquemas de procesamiento}
+\subsubsection{Different processing schemes}
 
-Para evaluar el impacto de decisiones de diseño en la confección de cadenas de pre procesamiento, se proponen las siguientes variantes:
+To evaluate the impact of design decisions in the construction of preprocessing pipelines, the following variants are proposed:
 
 \begin{itemize}
-    \item Condiciones de denoising: DeepFilterNet (DFN), Demucs, y \emph{no-denoising}. Estas alternativas representan puntos intermedios entre eficiencia, mejora perceptual y preservación de timbre.
-    \item Modelos de calidad no intrusiva: NISQA y DNSMOS, seleccionados por su uso extendido y su diferente sensibilidad a condiciones de ruido. Estos modelos se usan con frecuencia en la literatura y presentan distinta sensibilidad al ruido; aquí se comparan bajo diferentes umbrales.
-    \item Umbrales de filtrado: Para NISQA se evaluaron (3.0, 3.5, 3.8, 4.2) y para DNSMOS (2.7, 3.0, 3.2, 3.4). Los umbrales se eligieron de forma empírica analizando el nivel predicho de MOS para todo el conjunto de datos original.
+    \item Denoising conditions: DeepFilterNet (DFN), Demucs, and \emph{no-denoising}. These alternatives represent intermediate points between efficiency, perceptual improvement and timbre preservation.
+    \item Non-intrusive quality models: NISQA and DNSMOS, selected for their widespread use and their different sensitivity to noise conditions. These models are frequently used in the literature and exhibit different sensitivity to noise; here they are compared under different thresholds.
+    \item Filtering thresholds: For NISQA, (3.0, 3.5, 3.8, 4.2) were evaluated, and for DNSMOS, (2.7, 3.0, 3.2, 3.4). The thresholds were chosen empirically by analyzing the predicted MOS level for the entire original dataset.
 \end{itemize}
 
-La selección de umbrales parte de un análisis empírico presentado en la Figura \ref{fig:original_mos}, donde se calcula el valor de MOS resultante de NISQA y DNSMOS para todos los segmentos del dataset original. Es interesante notar cómo DNSMOS presenta un valor medio inferior y menos varianza. En consecuencia, para hacer una comparación justa, se seleccionaron los umbrales para garantizar un filtrado equitativo para los dos modelos.
+The threshold selection is based on an empirical analysis presented in Figure \ref{fig:original_mos}, where the MOS value produced by NISQA and DNSMOS is computed for all segments of the original dataset. It is interesting to note how DNSMOS exhibits a lower mean value and less variance. Consequently, in order to make a fair comparison, the thresholds were selected so as to ensure equitable filtering for both models.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=13cm]{Figuras/Desarrollo/mos_dist.png}}
-  \caption{Resultado de MOS por cantidad de segmentos del dataset original para los 2 modelos a comparar.}
+  \caption{MOS results by number of segments of the original dataset for the 2 models being compared.}
     \label{fig:original_mos}
 \end{figure}
 
-En la Figura \ref{fig:pipeline_variants} se presentan de manera gráfica las diferentes variantes a analizar. Cada una genera un subconjunto procesado sobre el que se calculan las métricas objetivas (ver sección siguiente) para permitir una comparación reproducible y dirigida por métrica sin necesidad de entrenar modelos TTS para cada alternativa. A estas variantes de procesamiento se las denomina sub dataset.
+Figure \ref{fig:pipeline_variants} graphically presents the different variants to be analyzed. Each one generates a processed subset on which the objective metrics are computed (see the next section), enabling a reproducible, metric-driven comparison without the need to train TTS models for each alternative. These processing variants are referred to as sub-datasets.
 
 \begin{figure}[h]
   \centering
   \centerline{\includegraphics[width=15cm]{Figuras/Desarrollo/variantes_diagrama.PNG}}
-  \caption{Variantes propuestas para evaluar diferentes algoritmos y parámetros de la cadena de procesamientos.}
+  \caption{Proposed variants for evaluating different algorithms and parameters of the processing pipeline.}
     \label{fig:pipeline_variants}
 \end{figure}
 
-No se contemplaron variaciones en el orden de las etapas de la cadena por una limitación de los algoritmos de denoising utilizados. Sería interesante evaluar el rendimiento de la cadena si el primer proceso aplicado es el denoising en vez del VAD, pero la implementación de Demucs no soporta audios de gran duración (por problemas de saturación de memoria). De la misma forma, los algoritmos de estimación de calidad de audio, trabajan con segmentos cortos, ante estas limitaciones, se mantiene siempre el orden establecido, donde el VAD segmenta audios de larga duración para que puedan ser procesados por las etapas siguientes sin problemas de saturación de memoria.
+Variations in the order of the pipeline stages were not considered due to a limitation of the denoising algorithms used. It would be interesting to evaluate the performance of the pipeline if the first process applied were denoising instead of VAD, but the Demucs implementation does not support long-duration audio (due to memory saturation issues). Likewise, the audio quality estimation algorithms work with short segments. Given these limitations, the established order is always maintained, in which VAD segments long-duration audio so that it can be processed by the subsequent stages without memory saturation issues.
 
-El desarrollo de esta cadena sigue los principios de código libre y reproducible, de modo que otros grupos puedan replicar los experimentos y comparar diversas combinaciones de procesos sin necesidad de disponer de hardware especializado. El código presenta un principio de diseño modular para que pueda ser fácilmente adaptado y extendido, con el fin de poder adaptar las distintas partes de la cadena. La implementación completa se encuentra disponible en el repositorio en Github \url{https://github.com/MatiasDiBernardo/Lowcost-ITW-curation}.
+The development of this pipeline follows the principles of open and reproducible code, so that other groups can replicate the experiments and compare various combinations of processes without the need for specialized hardware. The code follows a modular design principle so that it can be easily adapted and extended, allowing the different parts of the pipeline to be modified. The complete implementation is available in the GitHub repository \url{https://github.com/MatiasDiBernardo/Lowcost-ITW-curation}.
 
-\subsection{EVALUACIÓN DE LOS CONJUNTOS DE DATOS}
+\subsection{DATASET EVALUATION}
 \label{sec:metricas_description}
 
-La evaluación se articula alrededor de cuatro bloques de métricas complementarias que capturan cantidad, calidad de señal, condiciones acústicas y preservación de características del hablante. Estas métricas se combinan en una métrica compuesta que permite ordenar y seleccionar la mejor configuración según criterios definidos en la Sección \ref{sec:metrica-conjunta}.
+The evaluation is structured around four blocks of complementary metrics that capture quantity, signal quality, acoustic conditions and preservation of speaker characteristics. These metrics are combined into a composite metric that makes it possible to rank and select the best configuration according to the criteria defined in Section \ref{sec:metrica-conjunta}.
 
-Todas las métricas buscan cuantificar diferencias relativas entre el dataset original y los sub datasets resultantes de las diferentes variantes; de esta forma, se pueden aplicar esta misma metodología de procesamiento para caracterizar el funcionamiento de la cadena de procesamientos, independientemente de las características del conjunto de datos de partida.
+All metrics seek to quantify relative differences between the original dataset and the sub-datasets resulting from the different variants; in this way, the same methodology can be applied to characterize the behavior of the processing pipeline, regardless of the characteristics of the starting dataset.
 
-\subsubsection{Reducción del corpus}
-El tamaño del dataset se mide en duración total (horas) y la \emph{reducción de datos} (RD) se cuantifica según la Ecuación \ref{eq:horas}, donde el subíndice P hace referencia a las diferentes alternativas del dataset procesado, y el subíndice O hace referencia a la cantidad de horas del dataset original.
+\subsubsection{Corpus reduction}
+Dataset size is measured as total duration (hours), and the \emph{data reduction} (RD) is quantified according to Equation \ref{eq:horas}, where the subscript P refers to the different alternatives of the processed dataset, and the subscript O refers to the number of hours of the original dataset.
 
 \begin{equation}
 \label{eq:horas}
 RD_P = 1 - \frac{\mathrm{HORAS}_P}{\mathrm{HORAS}_O}
 \end{equation}
 
-Un valor de RD más pequeño es preferible (menos pérdida de datos). Esta medida captura la relación de compromiso básico entre condiciones del filtrado agresivas y cantidad de material utilizable.
+A smaller RD value is preferable (less data loss). This measure captures the basic trade-off between aggressive filtering conditions and the amount of usable material.
 
-\subsubsection{Calidad de la grabación}
-La evaluación de la calidad de la grabación tiene por objetivo cuantificar, de forma objetiva y reproducible, las mejoras perceptuales y la fidelidad de la señal obtenidas tras aplicar las distintas etapas de la cadena (por ejemplo, denoising y filtrado). Para ello se emplean medidas complementarias: PESQ, SI-SDR y SNR; en un principio se contempla la posibilidad de utilizar también el STOI como un parámetro para cuantificar inteligibilidad, pero empíricamente no se encontraron diferencias significativas de este valor, con lo cual fue descartado.
+\subsubsection{Recording quality}
+The evaluation of recording quality aims to quantify, in an objective and reproducible manner, the perceptual improvements and the signal fidelity obtained after applying the different stages of the pipeline (for example, denoising and filtering). To this end, complementary measures are employed: PESQ, SI-SDR and SNR. Initially, the possibility of also using STOI as a parameter to quantify intelligibility was considered, but empirically no significant differences were found in this value, so it was discarded.
 
-PESQ (Perceptual Evaluation of Speech Quality) se utiliza como un indicador aproximado de la calidad subjetiva de la señal comparando la versión procesada con la referencia original; SI-SDR (Scale-Invariant Signal-to-Distortion Ratio) mide la fidelidad de la señal de forma robusta frente a cambios de escala y permite evaluar cuánto contenido de la señal original se preserva tras el procesamiento; la definición teórica para calcular estos parámetros requiere de tener una versión original de la señal y una versión degradada, como en este caso se quiere comparar ambos datasets de forma independiente, se utiliza el módulo PyTorch Squim (\cite{squim}), que permite predecir los valores de PESQ, SI-SDR de forma no intrusiva (estimación ciega).
+PESQ (Perceptual Evaluation of Speech Quality) is used as an approximate indicator of the subjective quality of the signal by comparing the processed version with the original reference; SI-SDR (Scale-Invariant Signal-to-Distortion Ratio) measures signal fidelity in a manner robust to scale changes and makes it possible to evaluate how much of the original signal content is preserved after processing. The theoretical definition for computing these parameters requires an original version of the signal and a degraded version; since in this case the aim is to compare both datasets independently, the PyTorch Squim module (\cite{squim}) is used, which makes it possible to predict PESQ and SI-SDR values non-intrusively (blind estimation).
 
-Las definiciones originales de PESQ y SI-SDR son intrusivas porque requieren una señal de referencia. En esta tesis se utilizan sus estimaciones no intrusivas obtenidas con SQUIM; en adelante, las formas abreviadas PESQ y SI-SDR se refieren a PESQ estimado y SI-SDR estimado, respectivamente. Del mismo modo, MOS designa una puntuación predicha automáticamente por el modelo correspondiente, salvo que se indique expresamente una prueba de escucha humana.
+The original definitions of PESQ and SI-SDR are intrusive because they require a reference signal. In this thesis, their non-intrusive estimates obtained with SQUIM are used; hereafter, the abbreviated forms PESQ and SI-SDR refer to estimated PESQ and estimated SI-SDR, respectively. Likewise, MOS denotes a score automatically predicted by the corresponding model, unless a human listening test is explicitly indicated.
 
-El SNR se estima mediante WADA-SNR (\cite{wada}) para obtener una cifra robusta de relación señal-ruido basada en la distribución de la amplitud de la onda. Todas estas métricas se computan a nivel de segmento y luego se resumen mediante la media y la desviación estándar para cada subconjunto, de modo que sea posible comparar distribuciones antes y después del procesamiento. Finalmente, las puntuaciones individuales se integran en el bloque \emph{Calidad señal} (CS) donde se suma la influencia de todos estos valores Ecuación \ref{eq:cs}, teniendo en cuenta que se espera que los valores de PESQ, SI-SDR y SNR suban (mejoría) al aplicar la cadena de procesamientos. Los subíndices respetan la condición anterior: P corresponde al conjunto procesado y O al original. Esta notación se mantiene consistente en todas las métricas.
+The SNR is estimated using WADA-SNR (\cite{wada}) to obtain a robust signal-to-noise ratio figure based on the waveform amplitude distribution. All these metrics are computed at the segment level and then summarized by the mean and standard deviation for each subset, so that it is possible to compare distributions before and after processing. Finally, the individual scores are integrated into the \emph{Signal Quality} (CS) block, where the influence of all these values is summed (Equation \ref{eq:cs}), taking into account that the PESQ, SI-SDR and SNR values are expected to increase (improvement) when the processing pipeline is applied. The subscripts follow the previous convention: P corresponds to the processed set and O to the original. This notation is kept consistent across all metrics.
 
 \begin{equation}
 \label{eq:cs}
@@ -106,12 +106,12 @@ CS_P =
 \;+\; \frac{\mathrm{SNR}_O}{\mathrm{SNR}_P}
 \end{equation}
 
-\subsubsection{Condiciones acústicas}
-Las métricas acústicas buscan describir las condiciones de sala y la presencia de reverberación o de energía tardía en las grabaciones, aspectos que afectan la utilidad de los audios para entrenamiento de TTS, especialmente la alineación temporal entre texto y mel-spectrograma. En este trabajo se emplean descriptores clásicos como $T_{30}$ (tiempo de reverberación aproximado) y medidas de claridad como $C_{50}$ y $D_{50}$, que resumen la proporción de energía inicial frente a la energía reverberada y permiten detectar grabaciones con exceso de reverberación o poca claridad.
+\subsubsection{Acoustic conditions}
+The acoustic metrics aim to describe the room conditions and the presence of reverberation or late energy in the recordings, aspects that affect the usefulness of the audio for TTS training, especially the temporal alignment between text and mel-spectrogram. This work employs classical descriptors such as $T_{30}$ (approximate reverberation time) and clarity measures such as $C_{50}$ and $D_{50}$, which summarize the proportion of early energy relative to reverberant energy and make it possible to detect recordings with excessive reverberation or poor clarity.
 
-Nuevamente, es necesario calcular estos parámetros de forma ciega y sin referencia de las condiciones del entorno original. Ante estas limitaciones, estas métricas se estiman mediante un modelo CNN que fue entrenado para calcular parámetros acústicos de forma ciega, y fue validado para voces del español argentino, de manera que la estimación sea práctica sobre material \emph{in-the-wild} sin requerir respuestas impulsivas de sala (\cite{Maxi2}). Las mediciones se calculan por segmento y se agregan mediante estadísticos (media y desvío) para cada subconjunto; en la métrica compuesta se incorporan las mejores relativas para evaluar si una determinada combinación de procesos reduce la reverberación y mejora la claridad respecto del conjunto original.
+Once again, it is necessary to compute these parameters blindly and without a reference of the original environmental conditions. Given these limitations, these metrics are estimated by means of a CNN model that was trained to compute acoustic parameters blindly and was validated for Argentine Spanish voices, so that the estimation is practical on \emph{in-the-wild} material without requiring room impulse responses (\cite{Maxi2}). The measurements are computed per segment and aggregated using statistics (mean and deviation) for each subset; the relative improvements are incorporated into the composite metric to evaluate whether a given combination of processes reduces reverberation and improves clarity with respect to the original set.
 
-En este caso, estas dos métricas se suman para contabilizar la influencia de las \emph{Condiciones acústicas} (CA) en la Ecuación \ref{eq:ca}, donde el $T_{30}$ mejora si disminuye, pero el $C_{50}$ mejora si se incrementa. Se descarta el $D_{50}$ ya que los resultados empíricos fueron muy similares al análisis del $C_{50}$, con lo cual se estaría agregando información redundante y se decide en consecuencia eliminar el aporte de esta métrica. El análisis de estas variables permite discriminar esquemas de procesamiento que mejoran la «condición de sala» del corpus sin sacrificar en exceso otros atributos.
+In this case, these two metrics are summed to account for the influence of the \emph{Acoustic Conditions} (CA) in Equation \ref{eq:ca}, where $T_{30}$ improves if it decreases, whereas $C_{50}$ improves if it increases. $D_{50}$ is discarded since the empirical results were very similar to the $C_{50}$ analysis, so redundant information would be added; consequently, it was decided to remove the contribution of this metric. The analysis of these variables makes it possible to discriminate processing schemes that improve the ``room condition'' of the corpus without excessively sacrificing other attributes.
 
 \begin{equation}
 \label{eq:ca}
@@ -120,12 +120,12 @@ CA_P =
 \;+\; \frac{C_{50,O}}{C_{50,P}}
 \end{equation}
 
-\subsubsection{Diferencias del habla}
-Las medidas de diferencias del habla están pensadas para garantizar que las etapas de preprocesamiento, en particular los algoritmos de denoising, no alteren indebidamente la identidad del hablante ni la variabilidad prosódica del corpus, aspectos críticos para síntesis con preservación de timbre y estilo. En la tesis se consideran dos indicadores principales: la desviación estándar del F0 (F0-STD) y la distorsión mel-cepstral media (MCD).
+\subsubsection{Speech differences}
+The speech difference measures are intended to ensure that the preprocessing stages, in particular the denoising algorithms, do not unduly alter speaker identity or the prosodic variability of the corpus, which are critical aspects for synthesis with timbre and style preservation. The thesis considers two main indicators: the standard deviation of F0 (F0-STD) and the mean mel-cepstral distortion (MCD).
 
-El F0-STD captura la variabilidad prosódica de los hablantes; su cálculo se realiza a nivel de segmento usando el estimador PESTO (\cite{PESTO}) para extracción robusta de pitch, y se compara entre versión original y procesada para detectar reducciones anómalas de variabilidad que indiquen pérdida de naturalidad o sesgo en la selección de hablantes. El MCD se calcula entre los coeficientes mel-cepstrales de la señal original y de la señal procesada (especialmente relevante en audios sometidos a denoising) para cuantificar cambios tímbricos (\cite{mcd_metric}); en la formulación adoptada el MCD se expresa como incremento porcentual o normalizado respecto a un valor de referencia aceptable de 5 dB según (\cite{survey2}), de esta forma se penalizan los esquemas que alteran significativamente el timbre.
+F0-STD captures the prosodic variability of the speakers; it is computed at the segment level using the PESTO estimator (\cite{PESTO}) for robust pitch extraction, and is compared between the original and processed versions to detect anomalous reductions in variability that would indicate a loss of naturalness or a bias in speaker selection. MCD is computed between the mel-cepstral coefficients of the original signal and of the processed signal (especially relevant for audio subjected to denoising) to quantify timbral changes (\cite{mcd_metric}); in the adopted formulation, MCD is expressed as a percentage or normalized increase relative to an acceptable reference value of 5 dB according to (\cite{survey2}), thereby penalizing schemes that significantly alter timbre.
 
-Estas dos componentes se combinan en el bloque \emph{Diferencias del habla} (DH), donde cualquier diferencia relativa de F0-STD es penalizada, y lo mismo para el MCD respecto al valor de referencia Ecuación \ref{eq:dh}. Cabe aclarar que el MCD solo se calcula para las variantes con denoising, esto favorece de alguna forma a las alternativas sin denoising que no modifican las características del hablante.
+These two components are combined into the \emph{Speech Differences} (DH) block, where any relative difference in F0-STD is penalized, and likewise for MCD with respect to the reference value (Equation \ref{eq:dh}). It should be noted that MCD is only computed for the variants with denoising, which somewhat favors the no-denoising alternatives that do not modify the speaker's characteristics.
 
 \begin{equation}
 \label{eq:dh}
@@ -134,11 +134,11 @@ DH_P =
 \;+\; \frac{MCD_P}{5}
 \end{equation}
 
-\subsubsection{Métrica conjunta}
+\subsubsection{Joint metric}
 \label{sec:metrica-conjunta}
-Para ordenar configuraciones se propone una métrica compuesta que suma los cuatro bloques anteriores: reducción del dataset (RD), calidad de señal (CS), condiciones acústicas (CA) y diferencias de habla (DH). Esta métrica compuesta, plantea de forma matemática las relaciones de compromiso que se asumen con la cadena de procesamientos.
+To rank configurations, a composite metric is proposed that sums the four previous blocks: dataset reduction (RD), signal quality (CS), acoustic conditions (CA) and speech differences (DH). This composite metric expresses mathematically the trade-offs assumed by the processing pipeline.
 
-Se plantea la métrica compuesta como un objetivo de optimización en la Ecuación \ref{eq:metric_total}, donde se busca minimizar el aporte negativo de cada variable para poder identificar la mejor variante P de la cadena de procesamientos.
+The composite metric is formulated as an optimization objective in Equation \ref{eq:metric_total}, where the aim is to minimize the negative contribution of each variable in order to identify the best variant P of the processing pipeline.
 
 \begin{equation}
 \label{eq:metric_total}
@@ -154,69 +154,69 @@ DH_{P}
 \Big\}
 \end{equation}
 
-Con esta formulación, configuraciones que mantienen mayor cantidad de horas, mejoran la calidad de señal, mejoran (o mantienen) condiciones acústicas y preservan características del hablante obtendrán puntuaciones más bajas (mejor). Se propone un esquema inicial donde todos los bloques tienen el mismo peso; la elección de pesos distintos permite priorizar, por ejemplo, la preservación vocal frente a la cantidad de horas si el objetivo es síntesis con alta fidelidad identitaria.
+With this formulation, configurations that retain more hours, improve signal quality, improve (or maintain) acoustic conditions and preserve speaker characteristics will obtain lower (better) scores. An initial scheme is proposed in which all blocks have the same weight; choosing different weights makes it possible to prioritize, for example, vocal preservation over the number of hours if the goal is synthesis with high identity fidelity.
 
-Esta métrica tiene alcance exploratorio y debe interpretarse como un descriptor comparativo de las configuraciones evaluadas, no como una medida física única de calidad. Los cocientes que incluyen variables expresadas en dB se utilizan para representar cambios relativos dentro del mismo corpus y ordenar las configuraciones, sin atribuirles una interpretación física directa. Sin embargo, los bloques combinan escalas y magnitudes de variación diferentes; por ello, asignarles peso unitario no garantiza una influencia equivalente sobre el ranking. Además, el término MCD solo se evalúa en las variantes con realce y se toma como cero en la condición sin realce, lo que favorece estructuralmente a esta última en el bloque de diferencias del habla. Las Ecuaciones \ref{eq:cs}, \ref{eq:ca}, \ref{eq:dh} y \ref{eq:metric_total} corresponden a la implementación utilizada para los resultados. Una evaluación posterior deberá normalizar los bloques, justificar ponderaciones según el objetivo de uso y analizar la estabilidad del ordenamiento frente a esas alternativas.
+This metric is exploratory in scope and should be interpreted as a comparative descriptor of the evaluated configurations, not as a single physical measure of quality. The ratios that include variables expressed in dB are used to represent relative changes within the same corpus and to rank the configurations, without attributing a direct physical interpretation to them. However, the blocks combine different scales and magnitudes of variation; therefore, assigning them unit weight does not guarantee an equivalent influence on the ranking. Furthermore, the MCD term is only evaluated for the variants with enhancement and is taken as zero in the no-enhancement condition, which structurally favors the latter in the speech differences block. Equations \ref{eq:cs}, \ref{eq:ca}, \ref{eq:dh} and \ref{eq:metric_total} correspond to the implementation used for the results. A subsequent evaluation should normalize the blocks, justify weightings according to the intended use, and analyze the stability of the ranking under those alternatives.
 
-\subsection{ENTRENAMIENTO DEL MODELO DE ESTIMACIÓN DE DENSIDAD}
-Si bien la evaluación mediante métricas acústicas tradicionales (Sección 4.3) ofrece una aproximación robusta e interpretable para caracterizar los conjuntos de datos, este análisis presenta limitaciones inherentes al restringir la evaluación a un conjunto discreto de características diseñadas manualmente. Estas métricas, aunque útiles, pueden introducir sesgos al no capturar la totalidad de las dependencias complejas y de alta dimensión presentes en la señal de audio y del problema en sí.
+\subsection{TRAINING OF THE DENSITY ESTIMATION MODEL}
+Although the evaluation by means of traditional acoustic metrics (Section 4.3) offers a robust and interpretable approach for characterizing the datasets, this analysis has inherent limitations, since it restricts the evaluation to a discrete set of manually designed features. These metrics, while useful, may introduce biases by failing to capture all of the complex, high-dimensional dependencies present in the audio signal and in the problem itself.
 
-Para mitigar estas limitaciones y proporcionar una perspectiva complementaria, se propone un método de evaluación basado en el aprendizaje de representaciones, utilizando un modelo de estimación de densidad. El objetivo fundamental de estos modelos es aprender la distribución de probabilidad intrínseca $p_{data}(x)$ de un conjunto de datos de entrenamiento, obteniendo una aproximación de la función de densidad de probabilidad (PDF) subyacente. La principal ventaja de este enfoque \textit{data-driven} radica en su naturaleza no supervisada: el modelo extrae patrones latentes y características comunes de la distribución de referencia sin depender de etiquetas explícitas o de la selección arbitraria de parámetros acústicos, reduciendo así la intervención humana exclusivamente a la curaduría del conjunto de entrenamiento.
+To mitigate these limitations and provide a complementary perspective, an evaluation method based on representation learning is proposed, using a density estimation model. The fundamental objective of these models is to learn the intrinsic probability distribution $p_{data}(x)$ of a training dataset, obtaining an approximation of the underlying probability density function (PDF). The main advantage of this \textit{data-driven} approach lies in its unsupervised nature: the model extracts latent patterns and common characteristics of the reference distribution without relying on explicit labels or on the arbitrary selection of acoustic parameters, thereby reducing human intervention exclusively to the curation of the training set.
 
-En el contexto de esta tesis, se adopta la arquitectura y metodología propuestas por (\cite{danilo2025_quality}), quienes utilizan modelos generativos basados en difusión probabilística para modelar la distribución del habla. Su investigación demuestra que, al utilizar audios de alta fidelidad como referencia para aprender la distribución base, el modelo es capaz de estimar la calidad de muestras fuera del conjunto de entrenamiento mediante la evaluación de su verosimilitud. Los resultados reportados indican que este enfoque presenta una correlación con la calidad perceptual superior a métricas tradicionales como PESQ o SNR, y una mayor alineación con la preferencia subjetiva humana en comparación con el MOS predicho.
+In the context of this thesis, the architecture and methodology proposed by (\cite{danilo2025_quality}) are adopted, who use generative models based on probabilistic diffusion to model the speech distribution. Their research shows that, by using high-fidelity audio as a reference to learn the base distribution, the model is able to estimate the quality of samples outside the training set by evaluating their likelihood. The reported results indicate that this approach exhibits a higher correlation with perceptual quality than traditional metrics such as PESQ or SNR, and a greater alignment with human subjective preference compared to predicted MOS.
 
-La implementación propuesta en este trabajo utiliza el mismo principio de aprendizaje no supervisado, empleando el conjunto de datos profesionales (descrito en la Sección 4.1.2) para entrenar el modelo. De esta forma, se establece una distribución de referencia que representa el "habla de alta calidad en español". Una vez entrenado, el modelo permite calcular la verosimilitud de los audios pertenecientes a los distintos sub-datasets generados por la cadena de procesamiento. Bajo la hipótesis de que una mayor verosimilitud indica mayor cercanía a la distribución de referencia, este valor se utiliza como indicador comparativo entre las configuraciones evaluadas. No constituye por sí solo una medida directa de calidad perceptual ni permite determinar qué esquema preserva mejor la señal en todos los contextos.
+The implementation proposed in this work uses the same principle of unsupervised learning, employing the professional dataset (described in Section 4.1.2) to train the model. In this way, a reference distribution is established that represents ``high-quality Spanish speech''. Once trained, the model makes it possible to compute the likelihood of the audio belonging to the different sub-datasets generated by the processing pipeline. Under the hypothesis that a higher likelihood indicates greater closeness to the reference distribution, this value is used as a comparative indicator between the evaluated configurations. On its own, it does not constitute a direct measure of perceptual quality, nor does it make it possible to determine which scheme best preserves the signal in all contexts.
 
-\subsubsection{Tratamiento de valores extremos y agregación}
-El log-likelihood se calcula para cada recorte de audio evaluado. Para el análisis se utiliza una serie filtrada post hoc: se excluyen las observaciones individuales cuyo log-likelihood es mayor que $4.0$ y se conservan las que son iguales o menores a ese umbral. La inspección de los resultados mostró valores extremos en la cola superior que influían desproporcionadamente en las medias y en las distribuciones por configuración; por eso se aplica el mismo corte a todas las observaciones, antes de calcular medias, distribuciones y asociaciones. El filtro actúa sobre observaciones individuales: no elimina corridas ni configuraciones completas. Al ser una decisión post hoc, sus resultados se interpretan como exploratorios y sujetos a validación con más configuraciones y datos.
+\subsubsection{Handling of extreme values and aggregation}
+The log-likelihood is computed for each evaluated audio crop. For the analysis, a post hoc filtered series is used: individual observations whose log-likelihood is greater than $4.0$ are excluded, and those equal to or below that threshold are retained. Inspection of the results showed extreme values in the upper tail that disproportionately influenced the means and the per-configuration distributions; therefore, the same cutoff is applied to all observations before computing means, distributions and associations. The filter acts on individual observations: it does not remove entire runs or configurations. As this is a post hoc decision, its results are interpreted as exploratory and subject to validation with more configurations and data.
 
-\subsubsection{Configuración del modelo e hiperparámetros}
+\subsubsection{Model configuration and hyperparameters}
 \label{sec:model_config}
 
-El entrenamiento del modelo de estimación de densidad se realizó utilizando un entorno de computación de alto rendimiento, centrado en una GPU NVIDIA GeForce RTX 5090 con 32 GB de memoria de video (VRAM). Este recurso fue fundamental para gestionar la carga computacional requerida por los modelos de difusión de alta fidelidad. Queremos expresar nuestro agradecimiento a la Subgerencia de Tecnología y Aplicaciones de Aceleradores de la Comisión Nacional de Energía Atómica por facilitar el acceso a este equipamiento de última generación.
+The training of the density estimation model was carried out using a high-performance computing environment, centered on an NVIDIA GeForce RTX 5090 GPU with 32 GB of video memory (VRAM). This resource was essential for handling the computational load required by high-fidelity diffusion models. We wish to express our gratitude to the Subgerencia de Tecnología y Aplicaciones de Aceleradores of the Comisión Nacional de Energía Atómica for providing access to this state-of-the-art equipment.
 
-La arquitectura del modelo de (\cite{danilo2025_quality}) se basa en el framework EDM2 (Elucidating the Design Space of Diffusion-Based Generative Models), configurada para operar con audios a una tasa de muestreo de 16 kHz. A diferencia de los modelos de difusión discretos tradicionales, se empleó un esquema de ruido continuo, optimizando el entrenamiento mediante la minimización de la función de pérdida de score-matching. Los hiperparámetros específicos utilizados se detallan en la Tabla \ref{tab:especificaciones_entrenamiento}.
+The architecture of the model by (\cite{danilo2025_quality}) is based on the EDM2 framework (Elucidating the Design Space of Diffusion-Based Generative Models), configured to operate on audio at a sampling rate of 16 kHz. Unlike traditional discrete diffusion models, a continuous noise scheme was employed, optimizing training through the minimization of the score-matching loss function. The specific hyperparameters used are detailed in Table \ref{tab:especificaciones_entrenamiento}.
 
 \begin{table}[htbp]
 \centering
-\caption{Tiempo y métricas de control del entrenamiento del modelo de difusión.}
+\caption{Time and control metrics of the diffusion model training.}
 \label{tab:especificaciones_entrenamiento}
 \begin{tabular}{@{}ll@{}}
 \toprule
-\textbf{Parámetro / Recurso}           & \textbf{Valor / Descripción} \\ \midrule
-Arquitectura del modelo                & EDM2-Diffusion (Tiempo continuo) \\
-Unidad de Procesamiento Gráfico (GPU)  & NVIDIA GeForce RTX 5090 \\
-Memoria de video (VRAM)                & 32 GB GDDR7 \\
-Entorno de software                    & PyTorch 2.6 / CUDA 13.1 \\
-Tamaño de lote (\textit{Batch size})   & 16 muestras por batch \\
-Precisión de cálculo                  & Punto flotante de 16 bits (fp16) \\
-Tasa de aprendizaje máxima ($\alpha_{ref}$) & $1.09 \times 10^{-2}$ \\
+\textbf{Parameter / Resource}           & \textbf{Value / Description} \\ \midrule
+Model architecture                & EDM2-Diffusion (Continuous time) \\
+Graphics Processing Unit (GPU)  & NVIDIA GeForce RTX 5090 \\
+Video memory (VRAM)                & 32 GB GDDR7 \\
+Software environment                    & PyTorch 2.6 / CUDA 13.1 \\
+\textit{Batch size}               & 16 samples per batch \\
+Computation precision                  & 16-bit floating point (fp16) \\
+Maximum learning rate ($\alpha_{ref}$) & $1.09 \times 10^{-2}$ \\
 \end{tabular}
 \end{table}
 
 
-\subsection{MODELO DE TTS ZERO-SHOT}
-La validación exhaustiva de una cadena de curaduría de datos requeriría, en un escenario ideal, el entrenamiento completo  de un modelo de síntesis para cada uno de los subconjuntos de datos generados. Sin embargo, debido a las restricciones de cómputo y a los tiempos de convergencia asociados al entrenamiento de múltiples modelos neuronales, esta aproximación resulta inviable en los contextos de esta investigación. Además de las limitaciones estructurales, este método tendría sus propias limitaciones metodológicas, dado que la variabilidad inherente al proceso de entrenamiento de modelos de síntesis podría introducir ruido en la evaluación, dificultando la atribución de diferencias en la calidad de síntesis exclusivamente a las características del conjunto de datos utilizado.
+\subsection{ZERO-SHOT TTS MODEL}
+The exhaustive validation of a data curation pipeline would, in an ideal scenario, require the complete training of a synthesis model for each of the generated data subsets. However, due to computational constraints and the convergence times associated with training multiple neural models, this approach is unfeasible in the context of this research. In addition to these structural limitations, this method would have its own methodological limitations, since the inherent variability of the training process of synthesis models could introduce noise into the evaluation, making it difficult to attribute differences in synthesis quality exclusively to the characteristics of the dataset used.
 
-Ante esta limitación, se propone una estrategia alternativa basada en la clonación de voz mediante modelos de TTS \textit{zero-shot}. La hipótesis metodológica subyacente plantea que la calidad acústica de la muestra de referencia (el audio proveniente de la cadena de procesamiento) podría asociarse con la calidad perceptual de la voz sintetizada. Se tomaron 200 muestras de cada combinación como una evaluación preliminar compatible con el costo computacional disponible; este tamaño no garantiza representatividad estadística ni permite por sí solo establecer asociaciones concluyentes. Un número mayor de muestras y configuraciones permitiría caracterizar mejor la variabilidad de la síntesis.
+Given this limitation, an alternative strategy based on voice cloning using \textit{zero-shot} TTS models is proposed. The underlying methodological hypothesis posits that the acoustic quality of the reference sample (the audio coming from the processing pipeline) could be associated with the perceptual quality of the synthesized voice. 200 samples were taken from each combination as a preliminary evaluation compatible with the available computational cost; this sample size does not guarantee statistical representativeness, nor does it by itself allow conclusive associations to be established. A larger number of samples and configurations would allow the variability of the synthesis to be better characterized.
 
-Para la ejecución de este experimento, se seleccionaron dos modelos representativos del estado del arte en síntesis \textit{zero-shot}, fundamentados en paradigmas generativos diametralmente opuestos. En primer lugar, se utilizó el modelo F5-TTS (\cite{chen2024f5}). Esta elección se fundamenta en tres características críticas para la investigación:
-
-\begin{enumerate}
-    \item Capacidad de clonación con referencias cortas: El modelo ha demostrado un rendimiento robusto utilizando muestras de referencia de muy corta duración (inferiores a 30 segundos). Esta característica es indispensable, dado que las variantes más estrictas de la cadena de procesamiento (e.g., umbrales altos de NISQA) pueden resultar en subconjuntos de datos con una disponibilidad limitada de segmentos continuos.
-    \item Coherencia Arquitectónica: F5-TTS se basa en el paradigma de \textit{Flow Matching}, una generalización de los modelos de difusión. Esto alinea la arquitectura del modelo de síntesis con la del modelo de estimación de densidad utilizado para la evaluación (Sección 4.4), manteniendo una consistencia metodológica en el uso de modelos generativos modernos.
-    \item Disponibilidad y Reproducibilidad: Al ser un modelo de código abierto (\textit{open source}), garantiza la reproducibilidad de los resultados y permite la inspección de su funcionamiento interno.
-\end{enumerate}
-
-Para contrastar y enriquecer este análisis, se incorporó un segundo sintetizador: Qwen TTS (Hu et al., 2026). La selección de esta segunda arquitectura, basada en Modelos de Lenguaje Grande (LLMs), introduce un contrapeso metodológico fundamental:
+To carry out this experiment, two models representative of the state of the art in \textit{zero-shot} synthesis were selected, grounded in diametrically opposed generative paradigms. First, the F5-TTS model (\cite{chen2024f5}) was used. This choice is based on three characteristics that are critical for the research:
 
 \begin{enumerate}
-    \item Contraste Arquitectónico (Espacio Discreto vs. Continuo): A diferencia de la naturaleza continua de F5-TTS, los modelos basados en LLMs operan sobre representaciones discretizadas del audio generadas mediante \textit{codecs} neuronales (\textit{tokens} acústicos). Esto permite evaluar cómo reacciona un modelo de naturaleza autorregresiva frente a los mismos datos de referencia.
-    \item Resiliencia a Artefactos y Filtrado Intrínseco: El proceso de discretización de los \textit{codecs} neuronales actúa como un filtro de normalización intrínseco, otorgando al modelo una mayor resiliencia computacional frente a ruidos residuales o distorsiones leves de fase. Su inclusión permite determinar si el impacto destructivo o beneficioso del preprocesamiento afecta de manera uniforme a todos los sintetizadores, o si depende intrínsecamente de su arquitectura subyacente.
+    \item Cloning capability with short references: The model has demonstrated robust performance using very short reference samples (under 30 seconds). This characteristic is indispensable, given that the strictest variants of the processing pipeline (e.g., high NISQA thresholds) may result in data subsets with limited availability of continuous segments.
+    \item Architectural Coherence: F5-TTS is based on the \textit{Flow Matching} paradigm, a generalization of diffusion models. This aligns the architecture of the synthesis model with that of the density estimation model used for evaluation (Section 4.4), maintaining methodological consistency in the use of modern generative models.
+    \item Availability and Reproducibility: Being an \textit{open source} model, it guarantees the reproducibility of the results and allows inspection of its internal workings.
 \end{enumerate}
 
-El protocolo experimental consiste en utilizar audios representativos de los diferentes sub-datasets (seleccionados tanto por métricas objetivas como por estimación de densidad) como entradas de referencias para el sistema F5-TTS. Para garantizar que la evaluación no esté sesgada por el contenido lingüístico, las oraciones a sintetizar se extraen del corpus \textit{"Los Sentidos"} (\cite{lossentidos}). Este texto ha sido seleccionado específicamente por su diseño para cubrir la diversidad fonética y alofónica característica del español de Argentina.
+To contrast and enrich this analysis, a second synthesizer was incorporated: Qwen TTS (Hu et al., 2026). The selection of this second architecture, based on Large Language Models (LLMs), introduces a fundamental methodological counterweight:
 
-Finalmente, para cuantificar la calidad de las síntesis resultantes y cerrar el ciclo de evaluación, se emplea un predictor de MOS (\textit{Mean Opinion Score}) entrenado específicamente para evaluar sistemas de TTS en idioma español (\cite{sosawelford25_interspeech}), lo que permite obtener una métrica de calidad perceptual automatizada y consistente.
+\begin{enumerate}
+    \item Architectural Contrast (Discrete vs. Continuous Space): Unlike the continuous nature of F5-TTS, LLM-based models operate on discretized representations of audio generated by neural \textit{codecs} (acoustic \textit{tokens}). This makes it possible to evaluate how a model of autoregressive nature reacts to the same reference data.
+    \item Resilience to Artifacts and Intrinsic Filtering: The discretization process of neural \textit{codecs} acts as an intrinsic normalization filter, giving the model greater computational resilience to residual noise or slight phase distortions. Its inclusion makes it possible to determine whether the destructive or beneficial impact of preprocessing affects all synthesizers uniformly, or whether it depends intrinsically on their underlying architecture.
+\end{enumerate}
 
-Es fundamental remarcar que los resultados de este último experimento presentan un carácter preliminar y exploratorio. La predicción de la percepción subjetiva de calidad (MOS del TTS) está sujeta a múltiples factores inherentes a los propios modelos sintetizadores (como su entrenamiento previo, su capacidad de adaptación al locutor y la complejidad del texto objetivo). Por tanto, si bien este análisis revela tendencias de suma importancia, se requiere de futuras evaluaciones con metodologías estandarizadas de pruebas de escucha humana y validación cruzada para establecer conclusiones categóricas.
+The experimental protocol consists of using representative audio from the different sub-datasets (selected both by objective metrics and by density estimation) as reference inputs for the F5-TTS system. To ensure that the evaluation is not biased by linguistic content, the sentences to be synthesized are taken from the \textit{"Los Sentidos"} corpus (\cite{lossentidos}). This text has been specifically selected because it is designed to cover the phonetic and allophonic diversity characteristic of Argentine Spanish.
+
+Finally, to quantify the quality of the resulting syntheses and close the evaluation loop, a MOS (\textit{Mean Opinion Score}) predictor trained specifically to evaluate Spanish-language TTS systems (\cite{sosawelford25_interspeech}) is employed, which makes it possible to obtain an automated and consistent perceptual quality metric.
+
+It is essential to emphasize that the results of this last experiment are preliminary and exploratory in nature. The prediction of subjective quality perception (TTS MOS) is subject to multiple factors inherent to the synthesizer models themselves (such as their prior training, their ability to adapt to the speaker and the complexity of the target text). Therefore, although this analysis reveals trends of great importance, future evaluations with standardized human listening test methodologies and cross-validation are required to establish categorical conclusions.

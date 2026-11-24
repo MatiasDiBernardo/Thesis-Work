@@ -1,10 +1,10 @@
 % !TEX program = xelatex
 \documentclass[12pt]{article}
 \usepackage[a4paper]{geometry}
-\usepackage[spanish,es-tabla]{babel}
-\addto\captionsspanish{%
-  \renewcommand{\listfigurename}{Índice de Figuras}%
-  \renewcommand{\listtablename}{Índice de Tablas}%
+\usepackage[english]{babel}
+\addto\captionsenglish{%
+  \renewcommand{\listfigurename}{List of Figures}%
+  \renewcommand{\listtablename}{List of Tables}%
 }
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -32,13 +32,13 @@
 \usepackage{titlesec}
 \usepackage{physics}
 \usepackage{changepage}
-\usepackage[hidelinks]{hyperref} % eliminar rectangulos rojos en los links
+\usepackage[hidelinks]{hyperref} % remove red boxes around links
 
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{siunitx}
 \sisetup{output-decimal-marker = {.}}
-\newcommand{\best}[1]{{\bfseries\tablenum{#1}}}  % para agregar negrita en tablas
+\newcommand{\best}[1]{{\bfseries\tablenum{#1}}}  % bold numbers in tables
 \usepackage{caption}
 \usepackage{makecell}
 \usepackage{array}
@@ -52,9 +52,9 @@
   {\normalfont\fontsize{14}{14}\bfseries}{\thesubsubsection.}{0.5ex}{}
 
 
-%-----------------CONFIGURACION-------------------------------
+%-----------------CONFIGURATION-------------------------------
 
-% Configuracion de la Pagina
+% Page setup
 \geometry{
     a4paper,
     total={21cm,29.7cm},
@@ -63,57 +63,57 @@
     right=2.5cm,
     bottom=2.5cm }
 
-\setstretch{1.5} %Interlineado a 1.5
-\setlength{\parindent}{1cm} %Sangría de cada nuevo párrafo a 1cm
+\setstretch{1.5} % 1.5 line spacing
+\setlength{\parindent}{1cm} % 1cm indent for each new paragraph
 
-% Configuración del pie de página (old)
-% \fancyfoot[C]{\rule{\textwidth}{0.4pt}\\ \hspace*{\fill}\fontsize{12pt}{14pt}\selectfont Evaluación de cadenas de procesamiento en la creación de conjuntos de datos de habla \hspace*{\fill}\thepage}
+% Footer setup (old)
+% \fancyfoot[C]{\rule{\textwidth}{0.4pt}\\ \hspace*{\fill}\fontsize{12pt}{14pt}\selectfont Evaluation of processing pipelines for building speech datasets \hspace*{\fill}\thepage}
 
 %\setlength{\footskip}{0.5 cm}
 
 \setlength{\footskip}{0.05 cm}
 
-% Configuración del pie de página (new by chat)
+% Footer setup (new)
 \fancyfoot[C]{\rule{\textwidth}{0.4pt}\\[0.5ex]%
-  \fontsize{11}{13}\selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos de habla.}
+  \fontsize{11}{13}\selectfont Evaluation of processing pipelines for building speech datasets.}
 
-% número a la derecha, bajado con \raisebox (valor negativo baja)
+% page number on the right, lowered with \raisebox (negative value lowers it)
 \fancyfoot[R]{\raisebox{-0.57cm}{\fontsize{12}{14}\selectfont\thepage}}
 
-\pagestyle{fancy} % Establecer el estilo de página como 'fancy'
+\pagestyle{fancy} % Set the page style to 'fancy'
 
-\fancyhead{} % Limpiar encabezado
-\renewcommand{\headrulewidth}{0pt} % Eliminar la línea de encabezado
+\fancyhead{} % Clear header
+\renewcommand{\headrulewidth}{0pt} % Remove header rule
 
-\DefineBibliographyStrings{spanish}{ % Redefinir la cadena de texto para Bibliografía
-  references = {BIBLIOGRAFÍA}, % <-- Aquí cerramos correctamente la definición}
+\DefineBibliographyStrings{english}{ % Redefine the bibliography heading
+  references = {REFERENCES},
 }
-% Configuración global de las descripciones de las figuras
+% Global figure caption settings
 \captionsetup[figure]{font=small, labelsep=period}
-% Configuración global de las descripciones de las tablas
+% Global table caption settings
 \floatsetup[table]{capposition=top}
 \captionsetup[table]{font=small, labelsep=period}
 
-% Personalización del formato del índice de figuras
-\renewcommand{\cftfigpresnum}{Figura }
+% List of figures format
+\renewcommand{\cftfigpresnum}{Figure }
 \renewcommand{\cftfigaftersnum}{.}
 \setlength{\cftfignumwidth}{4em}
 
-% Personalización del formato del índice de tablas
-\renewcommand{\cfttabpresnum}{Tabla }
+% List of tables format
+\renewcommand{\cfttabpresnum}{Table }
 \renewcommand{\cfttabaftersnum}{.}
 \setlength{\cfttabnumwidth}{4em}
 
-% Personalizar el formato del índice general
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Agrega puntos entre el título de la sección y el número de página
-\renewcommand{\cftsecfont}{\bfseries} % Establece la fuente del título de la sección en el índice como negrita
-\renewcommand{\cftsecpagefont}{\bfseries} % Establece la fuente de la página de la sección en el índice como negrita
+% Table of contents format
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Dot leaders between section title and page number
+\renewcommand{\cftsecfont}{\bfseries} % Bold section titles in the TOC
+\renewcommand{\cftsecpagefont}{\bfseries} % Bold section page numbers in the TOC
 
 
-% Definir el espaciado entre secciones y subsecciones
+% Spacing between sections and subsections
 \titlespacing*{\subsection}{1cm}{*4}{*1.5}
 
-% Definir el espaciado entre subsecciones y subsubsecciones
+% Spacing between subsections and subsubsections
 \titlespacing*{\subsubsection}{1.5cm}{*4}{*1.5}
 
 \usepackage{fontspec}
@@ -125,7 +125,7 @@ BoldItalicFont=Calibri Bold Italic.ttf,
 
 \begin{document}
 
-%-------------------------- PORTADA -----------------
+%-------------------------- TITLE PAGE -----------------
 \begin{titlepage}
 \centering
 
@@ -133,111 +133,111 @@ BoldItalicFont=Calibri Bold Italic.ttf,
 
 \vspace{0.1cm}
 
-\hspace*{-1.31cm}% Espacio horizontal de 1.31cm desde el borde izquierdo de la hoja
+\hspace*{-1.31cm}% 1.31cm horizontal offset from the left page edge
 \begin{minipage}[t]{16cm}
 \centering
-\framebox[17.13cm][c]{\parbox{18.13cm}{\centering{\fontsize{16pt}{1.5pt}\selectfont INGENIERÍA EN SONIDO}}}
-\vspace{0.5cm} % Espacio vertical entre el recuadro y el texto siguiente
+\framebox[17.13cm][c]{\parbox{18.13cm}{\centering{\fontsize{16pt}{1.5pt}\selectfont SOUND ENGINEERING}}}
+\vspace{0.5cm} % Vertical space between the box and the following text
 
 \end{minipage}
 
 
 \vspace{36pt}
 
-{\bfseries\fontsize{22pt}{24pt} \selectfont Evaluación de cadenas de procesamientos en la creación de conjuntos de datos del habla \par}
+{\bfseries\fontsize{22pt}{24pt} \selectfont Evaluation of Processing Pipelines for Building Speech Datasets \par}
 
 \vspace{22pt}
 
-% {\itshape\fontsize{18pt}{24pt}\selectfont \textbf{Subtítulo de la tesis (si lo tuviera)} \par}
+% {\itshape\fontsize{18pt}{24pt}\selectfont \textbf{Thesis subtitle (if any)} \par}
 
 \vspace{44pt}
 
-{\itshape\fontsize{14pt}{24pt}\selectfont Tesis final presentada para obtener el título de Ingeniero de Sonido de la Universidad Nacional de Tres de Febrero (UNTREF)}
+{\itshape\fontsize{14pt}{24pt}\selectfont Final thesis submitted for the degree of Sound Engineer at the Universidad Nacional de Tres de Febrero (UNTREF)}
 
 \vspace{70pt}
 
-{\bfseries\fontsize{14pt}{0pt}\selectfont TESISTA: Matías Di Bernardo (42.229.438) \par}
-{\bfseries\fontsize{14pt}{0pt}\selectfont TUTOR/A: (Ing.) Guillermo Marzik \par}
-{\bfseries\fontsize{14pt}{0pt}\selectfont COTUTOR/A: (Lic.) Gala Lucía Gonzalez Barrios \par}
+{\bfseries\fontsize{14pt}{0pt}\selectfont AUTHOR: Matías Di Bernardo (42.229.438) \par}
+{\bfseries\fontsize{14pt}{0pt}\selectfont ADVISOR: (Eng.) Guillermo Marzik \par}
+{\bfseries\fontsize{14pt}{0pt}\selectfont CO-ADVISOR: (Lic.) Gala Lucía Gonzalez Barrios \par}
 
 \vfill
 
 \begin{table}[h]
 \hrulefill \\
 \begin{tabular}{c}
-Fecha de defensa: noviembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
+Defense date: November 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 \end{tabular}
 \end{table}
 \hrule
 \end{titlepage}
 
 \newpage
-\thispagestyle{empty} % Página en blanco sin número de página, encabezado ni pie de página
-\mbox{} % Contenido de la página en blanco
+\thispagestyle{empty} % Blank page without page number, header or footer
+\mbox{} % Blank page content
 \newpage
 
 %---------------------------------------------------------------
-% CUERPO DEL DOCUMENTO
-% Centrar título de sección
+% DOCUMENT BODY
+% Center section title
 
-\pagenumbering{roman} % Comienza la numeración de página en números romanos
-\setcounter{page}{2} % Establece el número de página según sea necesario
+\pagenumbering{roman} % Start roman page numbering
+\setcounter{page}{2} % Set the page number as needed
 
-%-----------------Agradecimientos-----------------
+%-----------------Acknowledgements-----------------
 \newpage
 \thispagestyle{plain}
-% \section*{AGRADECIMIENTOS} % Título centrado
+% \section*{ACKNOWLEDGEMENTS} % Centered title
 \input{Secciones/Agradecimientos}
 
 \clearpage
 
 \newpage
-\thispagestyle{plain} % Página en blanco sin número de página, encabezado ni pie de página
-\mbox{} % Contenido de la página en blanco
+\thispagestyle{plain} % Blank page without page number, header or footer
+\mbox{} % Blank page content
 \newpage
 
-%-----------------Estado del Arte-----------------
+%-----------------Dedication-----------------
 \newpage
 \thispagestyle{plain}
-% \section*{DEDICATORIA}
+% \section*{DEDICATION}
 \input{Secciones/Dedicatoria}
 
 
 %------------------Indices------------------------
 \newpage
-\renewcommand{\contentsname}{ÍNDICE DE CONTENIDOS}
-\tableofcontents   % Índice General
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\tableofcontents   % Table of contents
 \newpage
-\listoffigures  % Índice de Figuras
+\listoffigures  % List of figures
 \newpage
-\listoftables   % Índice de Tablas
+\listoftables   % List of tables
 
 
-%------------------Resumen------------------------
-
-\newpage
-\thispagestyle{plain}
-% \section*{\centering RESUMEN}
-\phantomsection
-\addcontentsline{toc}{section}{RESUMEN} % Agregar RESUMEN al índice
-\input{Secciones/Resumen}
-% \end{titlepage}
-
-%------------------Abstrac------------------------
+%------------------Abstract------------------------
 
 \newpage
 \thispagestyle{plain}
 % \section*{\centering ABSTRACT}
 \phantomsection
-\addcontentsline{toc}{section}{ABSTRACT} % Agregar ABSTRACT al índice
+\addcontentsline{toc}{section}{ABSTRACT} % Add ABSTRACT to the TOC
 \input{Secciones/Abstrac}
 
+%------------------Resumen (Spanish abstract)------------------------
+
+\newpage
+\thispagestyle{plain}
+% \section*{\centering RESUMEN}
+\phantomsection
+\addcontentsline{toc}{section}{RESUMEN} % Add RESUMEN to the TOC
+\input{Secciones/Resumen}
+% \end{titlepage}
 
 
-%-----------------Introducción-----------------
-\clearpage % Asegúrate de que la sección de introducción comience en una nueva página
-\pagenumbering{arabic} % Restaurar numeración arábiga
-\section{INTRODUCCIÓN}
+
+%-----------------Introduction-----------------
+\clearpage % Make sure the introduction starts on a new page
+\pagenumbering{arabic} % Restore arabic numbering
+\section{INTRODUCTION}
 \input{Secciones/Introduccion}
 
 
@@ -245,57 +245,57 @@ Fecha de defensa: noviembre 2026 $\lvert$ Caseros, Buenos Aires, Argentina \\
 
 
 
-%-----------------Marco Teorico-----------------
+%-----------------Theoretical Framework-----------------
 \newpage
-\section{MARCO TEÓRICO}
+\section{THEORETICAL FRAMEWORK}
     \input{Secciones/MarcoTeorico}
 
-%-----------------Estado del Arte-----------------
+%-----------------State of the Art-----------------
 \newpage
-\section{ESTADO DEL ARTE}
+\section{STATE OF THE ART}
     \input{Secciones/Estado del Arte}
 
-%-----------------Desarrollo-----------------
+%-----------------Development-----------------
 \newpage
-\section{DESARROLLO}
+\section{DEVELOPMENT}
     \input{Secciones/Metodologia}
 
-%-----------------Resultados y análisis-----------------
+%-----------------Results and Analysis-----------------
 \newpage
-\section{RESULTADOS Y ANÁLISIS}
+\section{RESULTS AND ANALYSIS}
     \input{Secciones/Resultados}
 
 
-%-----------------Conclusiones-----------------
+%-----------------Conclusions-----------------
 \newpage
-\section{CONCLUSIONES}
+\section{CONCLUSIONS}
     \input{Secciones/Conclusiones}
 
-%-----------------Linea futuras de Invetigacion-----------------
+%-----------------Future Research Directions-----------------
 \newpage
-\section{LÍNEAS FUTURAS DE INVESTIGACIÓN}
+\section{FUTURE RESEARCH DIRECTIONS}
     \input{Secciones/Linea futuras de Invetigacion}
 
-%-----------------Bibliografia-----------------
+%-----------------References-----------------
 \newpage
 
 \phantomsection
-\printbibliography[title={BIBLIOGRAFÍA}, heading=bibintoc]
+\printbibliography[title={REFERENCES}, heading=bibintoc]
 
-%-----------------ANEXO-----------------
+%-----------------APPENDIX-----------------
 \newpage
 \appendix
 \phantomsection
-\section*{ANEXO I: Comparación métricas individuales}
-\addcontentsline{toc}{section}{ANEXO I: Comparación métricas individuales}
+\section*{APPENDIX I: Comparison of individual metrics}
+\addcontentsline{toc}{section}{APPENDIX I: Comparison of individual metrics}
     \input{Secciones/AnexoI}
 \phantomsection
-\section*{ANEXO II: Comparación métricas compuestas}
-\addcontentsline{toc}{section}{ANEXO II: Comparación métricas compuestas}
+\section*{APPENDIX II: Comparison of composite metrics}
+\addcontentsline{toc}{section}{APPENDIX II: Comparison of composite metrics}
     \input{Secciones/AnexoII}
 \phantomsection
-\section*{ANEXO III: Comparación entre dataset ITW vs Profesional}
-\addcontentsline{toc}{section}{ANEXO III: Comparación entre dataset ITW vs Profesional}
+\section*{APPENDIX III: Comparison between ITW and Professional datasets}
+\addcontentsline{toc}{section}{APPENDIX III: Comparison between ITW and Professional datasets}
     \input{Secciones/AnexoIII}
 
 \end{document}

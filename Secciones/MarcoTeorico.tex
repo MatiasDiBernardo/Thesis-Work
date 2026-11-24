@@ -1,113 +1,113 @@
-\subsection{DESCRIPTORES DE CALIDAD DE AUDIO}
-\subsubsection{Métricas de degradación de la señal}
+\subsection{AUDIO QUALITY DESCRIPTORS}
+\subsubsection{Signal degradation metrics}
 
-Las métricas de degradación de la señal cuantifican, a nivel objetivo, la diferencia entre una señal de referencia (habitualmente la señal limpia o de alta calidad) y una señal procesada o degradada (por ejemplo, una señal comprimida o con ruido de fondo). A continuación se describen las más empleadas en evaluación de voz y TTS.
+Signal degradation metrics objectively quantify the difference between a reference signal (usually the clean or high-quality signal) and a processed or degraded signal (for example, a compressed signal or one with background noise). The most widely used metrics in speech and TTS evaluation are described below.
 
-La métrica de Evaluación Perceptual de calidad del habla, (PESQ por sus siglas en inglés) es un índice objetivo diseñado para predecir la calidad percibida de la voz en telefonía y sistemas de comunicación (\cite{ITU-T_P.862}). Compara la señal de referencia y la señal degradada mediante un modelo perceptual que incluye etapas de alineamiento temporal, modelado perceptual y mapeo a una escala MOS-LQO (Mean Opinion Score — Listening Quality Objective). PESQ fue normalizado originalmente como la recomendación ITU-T P.862 y se utiliza ampliamente para evaluación de códecs y transmisiones telefónicas.
+The Perceptual Evaluation of Speech Quality (PESQ) metric is an objective index designed to predict the perceived quality of speech in telephony and communication systems (\cite{ITU-T_P.862}). It compares the reference signal and the degraded signal by means of a perceptual model that includes stages of time alignment, perceptual modeling, and mapping to an MOS-LQO scale (Mean Opinion Score — Listening Quality Objective). PESQ was originally standardized as ITU-T Recommendation P.862 and is widely used for the evaluation of codecs and telephone transmissions.
 
-Esta métrica tiene la limitación del rango de frecuencia que evalúa (va de 200 Hz a 3500 Hz). Para un análisis más completo surge la métrica denominada POLQA, que es la tercera generación de métricas ITU para evaluación de calidad de voz general ITU-T P.863 (\cite{ITU-T_P.863_2018}). Mejora y extiende PESQ en ancho de banda (incluye super-wideband y fullband), es más robusta frente a ciertas distorsiones modernas (ecualización, delays, codificación amplia banda) y proporciona predicciones MOS más fiables en escenarios actuales.
+This metric is limited by the frequency range it evaluates (from 200 Hz to 3500 Hz). For a more comprehensive analysis, the metric known as POLQA emerged, which is the third generation of ITU metrics for general speech quality assessment, ITU-T P.863 (\cite{ITU-T_P.863_2018}). It improves on and extends PESQ in bandwidth (including super-wideband and fullband), is more robust against certain modern distortions (equalization, delays, wideband coding), and provides more reliable MOS predictions in current scenarios.
 
-Para evaluar de forma objetiva la calidad de la señal de audio se tienen métricas como la Relación Señal a Ruido (SNR por sus siglas en inglés) y la Relación Distorsión a Ruido de Escalado Invariante (SI-SDR por sus siglas en inglés). El SNR es la relación entre la potencia de la señal útil y la potencia del ruido de fondo, normalmente expresada en decibelios (Ecuación \ref{eq:snr}). Es una medida física simple, muy útil para caracterizar condiciones de captura o transmisión, pero su correlación con la percepción humana puede ser pobre cuando las distorsiones son no-gaussianas, no-aditivas o hay alteraciones de fase y tiempo; por ello suele utilizarse junto con métricas perceptuales.
+To objectively evaluate the quality of the audio signal, there are metrics such as the Signal-to-Noise Ratio (SNR) and the Scale-Invariant Signal-to-Distortion Ratio (SI-SDR). The SNR is the ratio between the power of the useful signal and the power of the background noise, usually expressed in decibels (Equation \ref{eq:snr}). It is a simple physical measure, very useful for characterizing capture or transmission conditions, but its correlation with human perception can be poor when distortions are non-Gaussian or non-additive, or when there are phase and time alterations; for this reason, it is usually used together with perceptual metrics.
 
 \begin{equation}
     \label{eq:snr}
-    \text{SNR}_{\text{dB}} = 10 \log_{10} \left( \frac{P_{\text{señal}}}{P_{\text{ruido}}} \right)
+    \text{SNR}_{\text{dB}} = 10 \log_{10} \left( \frac{P_{\text{signal}}}{P_{\text{noise}}} \right)
 \end{equation}
 
-El SI-SDR es una versión modificada y más robusta del SDR tradicional diseñada para evitar penalizaciones por escalado de amplitud entre referencia y estimado (\cite{SISDR}). En la práctica, SI-SDR proyecta la señal estimada sobre la referencia (elimina la diferencia de escala) y calcula la relación señal/residuo resultante; por su formulación, es ampliamente usada en separación de fuentes y evaluación de redes de denoising o separación en el dominio temporal.
+SI-SDR is a modified and more robust version of the traditional SDR, designed to avoid penalties due to amplitude scaling between the reference and the estimate (\cite{SISDR}). In practice, SI-SDR projects the estimated signal onto the reference (removing the scale difference) and computes the resulting signal-to-residual ratio; owing to its formulation, it is widely used in source separation and in the evaluation of time-domain denoising or separation networks.
 
-Por último, entre las métricas de calidad de señales del habla se puede incluir el STOI (inteligibilidad objetiva de tiempo corto por sus siglas en inglés), que estima inteligibilidad de habla en condiciones ruidosas mediante una medida de correlación entre segmentos de tiempo-frecuencia de la señal limpia y la señal degradada (\cite{STOI_ref}). Fue propuesta para predecir la inteligibilidad de señal procesada (p. ej. filtrado espectral, separación) y ha mostrado alta correlación con experimentos de inteligibilidad humana en muchos escenarios. No mide naturalidad, sino inteligibilidad.
+Finally, among speech signal quality metrics one can include the Short-Time Objective Intelligibility (STOI), which estimates speech intelligibility under noisy conditions by means of a correlation measure between time-frequency segments of the clean signal and the degraded signal (\cite{STOI_ref}). It was proposed to predict the intelligibility of processed signals (e.g. spectral filtering, separation) and has shown high correlation with human intelligibility experiments in many scenarios. It does not measure naturalness, but intelligibility.
 
-Por su definición matemática, el cálculo de estas métricas es de carácter intrusivo, lo que significa que requieren inexcusablemente de una señal de referencia limpia (o la señal de ruido aislado, en el caso del SNR) para cuantificar la degradación mediante comparación directa. En contextos de aplicación empírica, como la curaduría de conjuntos de datos \textit{in-the-wild}, rara vez se dispone de esta señal original inalterada.
+Owing to their mathematical definition, the computation of these metrics is intrusive, which means that they strictly require a clean reference signal (or the isolated noise signal, in the case of SNR) to quantify degradation through direct comparison. In empirical application contexts, such as the curation of \textit{in-the-wild} datasets, this original unaltered signal is rarely available.
 
-Para sortear esta limitación práctica, han surgido métodos de estimación ciega o no intrusivos, los cuales permiten predecir la calidad de un audio analizando únicamente la señal degradada. Mientras que los estimadores ciegos tradicionales se basaban en el modelado estadístico de las características del tracto vocal y del ruido, el estado del arte actual emplea arquitecturas de aprendizaje profundo (redes convolucionales, transformers y representaciones auto-supervisadas). Estos sistemas neuronales se entrenan sobre bases de datos que sí tienen referencia para aprender un mapeo directo entre las características acústicas del audio de entrada y las puntuaciones que arrojarían de manera teórica las métricas intrusivas. Ejemplos recientes y de amplio uso en la literatura incluyen marcos de estimación objetiva como \textit{Torchaudio-Squim} (\cite{squim}), diseñado para predecir valores de PESQ y SI-SDR sin referencia, así como modelos orientados a predecir la calidad perceptual subjetiva (MOS) como NISQA (\cite{nisqa}) y DNSMOS (\cite{dns_mos}).
+To circumvent this practical limitation, blind or non-intrusive estimation methods have emerged, which make it possible to predict the quality of an audio recording by analyzing only the degraded signal. Whereas traditional blind estimators were based on statistical modeling of the characteristics of the vocal tract and of the noise, the current state of the art employs deep learning architectures (convolutional networks, transformers, and self-supervised representations). These neural systems are trained on databases that do have a reference in order to learn a direct mapping between the acoustic characteristics of the input audio and the scores that the intrusive metrics would theoretically yield. Recent and widely used examples in the literature include objective estimation frameworks such as \textit{Torchaudio-Squim} (\cite{squim}), designed to predict PESQ and SI-SDR values without a reference, as well as models aimed at predicting subjective perceptual quality (MOS), such as NISQA (\cite{nisqa}) and DNSMOS (\cite{dns_mos}).
 
-Hay que destacar que ninguna métrica captura todos los aspectos perceptuales simultáneamente (naturalidad, inteligibilidad, artefactos, coloración). En evaluación de TTS y sistemas de procesamiento de voz es habitual combinar métricas intrusivas (PESQ/POLQA, SI-SDR, MCD) con medidas de inteligibilidad (STOI) y, cuando es posible, pruebas subjetivas (MOS).
+It should be noted that no metric captures all perceptual aspects simultaneously (naturalness, intelligibility, artifacts, coloration). In the evaluation of TTS and speech processing systems, it is common to combine intrusive metrics (PESQ/POLQA, SI-SDR, MCD) with intelligibility measures (STOI) and, when possible, subjective tests (MOS).
 
-\subsubsection{Métricas de entorno}
-% (Revisar Chat) Explicar: T30, C50, C80, D50
-Las métricas de entorno (o de acústica de salas) describen propiedades de la sala o del campo acústico que afectan la percepción de la voz y la música.
+\subsubsection{Environment metrics}
+% (Check chat) Explain: T30, C50, C80, D50
+Environment metrics (or room acoustics metrics) describe properties of the room or of the sound field that affect the perception of speech and music.
 
-Uno de los parámetros principales, es el tiempo de reverberación T, que se define clásicamente como el tiempo que tarda el nivel sonoro en decaer 60 dB tras cortar la fuente (Sabine). Por razones prácticas se calculan estimadores como $T_{30}$ (pendiente del decaimiento entre -5 dB y -35 dB extrapolada a -60 dB) o $T_{20}$ (entre -5 y -25 dB). El $T_{30}$ es de uso corriente en caracterización objetiva de salas y está normalizado por ISO 3382 (\cite{T30}). Los valores de T afectan inteligibilidad, claridad y sensación de espacialidad acústica.
+One of the main parameters is the reverberation time T, classically defined as the time it takes for the sound level to decay by 60 dB after the source is switched off (Sabine). For practical reasons, estimators such as $T_{30}$ (slope of the decay between -5 dB and -35 dB extrapolated to -60 dB) or $T_{20}$ (between -5 and -25 dB) are computed. $T_{30}$ is commonly used in the objective characterization of rooms and is standardized by ISO 3382 (\cite{T30}). The values of T affect intelligibility, clarity, and the sense of acoustic spaciousness.
 
-Otros parámetros que se usan para evaluar la percepción del audio en recintos son la claridad $C_{50}$ (para voz) y $C_{80}$ (para música), que miden la relación entre la energía temprana y la tardía. Estos parámetros se definen matemáticamente como:
+Other parameters used to evaluate audio perception in enclosures are clarity $C_{50}$ (for speech) and $C_{80}$ (for music), which measure the ratio between early and late energy. These parameters are defined mathematically as:
 
 \begin{equation}
     C_{50} = 10\log_{10}\frac{\int_{0}^{50,\mathrm{ms}} p^{2}(t)dt}{\int_{50,\mathrm{ms}}^{\infty} p^{2}(t)dt}
 \end{equation}
 
-donde $p(t)$ es la respuesta al impulso en la posición de escucha. Valores altos de $C_{50}$ indican mayor proporción de energía temprana (mejor inteligibilidad para voz).
+where $p(t)$ is the impulse response at the listening position. High values of $C_{50}$ indicate a greater proportion of early energy (better speech intelligibility).
 
-% Agregar cita
+% Add citation
 
-El $D_{50}$ (a menudo expresado en porcentaje) es la fracción de energía que llega en los primeros 50 ms respecto a la energía total; es otra forma de cuantificar claridad/inteligibilidad para voz (relacionado con $C_{50}$). Se calcula a partir de la respuesta al impulso y es relevante para evaluación de recintos educativos, salas de conferencia y estudios de grabación.
+$D_{50}$ (often expressed as a percentage) is the fraction of energy arriving in the first 50 ms relative to the total energy; it is another way of quantifying clarity/intelligibility for speech (related to $C_{50}$). It is computed from the impulse response and is relevant for the evaluation of educational spaces, conference rooms, and recording studios.
 
-\subsubsection{Estimación ciega de parámetros acústicos}
-Las definiciones normalizadas de $T_{30}$, $C_{50}$ y $D_{50}$ requieren medir la respuesta impulsiva de la sala. En grabaciones de habla obtenidas fuera de condiciones controladas, esa respuesta no suele estar disponible; la estimación ciega busca entonces inferir parámetros equivalentes a partir de la señal observada, sin conocer la fuente ni la geometría del recinto. Los primeros métodos modelaron estadísticamente la cola reverberante para estimar el tiempo de reverberación a partir de habla conectada \cite{ratnam2003blind}.
+\subsubsection{Blind estimation of acoustic parameters}
+The standardized definitions of $T_{30}$, $C_{50}$, and $D_{50}$ require measuring the room impulse response. In speech recordings obtained outside controlled conditions, this response is usually not available; blind estimation therefore seeks to infer equivalent parameters from the observed signal, without knowledge of the source or the room geometry. The first methods statistically modeled the reverberant tail to estimate the reverberation time from connected speech \cite{ratnam2003blind}.
 
-Los métodos actuales aprenden esta relación a partir de ejemplos de habla y respuestas impulsivas conocidas. Por ejemplo, se ha propuesto estimar $C_{50}$ desde el espectrograma de habla monofónica mediante una red CNN--LSTM \cite{gamper2020c50}. Estas predicciones permiten comparar de forma práctica colecciones \emph{in-the-wild}, pero son estimaciones dependientes del dominio de entrenamiento y no sustituyen una medición física de la sala. En esta tesis se emplea un estimador basado en CNN, validado para voces del español argentino, para obtener $T_{30}$, $C_{50}$ y $D_{50}$ sin requerir mediciones de respuesta impulsiva \cite{Maxi2}.
+Current methods learn this relationship from examples of speech and known impulse responses. For instance, it has been proposed to estimate $C_{50}$ from the spectrogram of monophonic speech using a CNN--LSTM network \cite{gamper2020c50}. These predictions allow \emph{in-the-wild} collections to be compared in a practical way, but they are estimates that depend on the training domain and do not replace a physical measurement of the room. In this thesis, a CNN-based estimator, validated for Argentine Spanish voices, is used to obtain $T_{30}$, $C_{50}$, and $D_{50}$ without requiring impulse response measurements \cite{Maxi2}.
 
 
-\subsubsection{Métricas del habla}
+\subsubsection{Speech metrics}
 
-Las métricas del habla describen propiedades prosódicas y espectrales de la voz que influyen en la naturalidad y en la identificación del hablante. Dentro de esta categoría, una de las métricas principales es la frecuencia fundamental de la voz $F_0$, cuyo valor representa la frecuencia de vibración principal de las cuerdas vocales de los diferentes hablantes (\cite{F0_desc}) y constituye la base de la percepción del \emph{pitch}. Se estima mediante algoritmos de detección de pitch (autocorrelación, cepstrum, algoritmos basados en modelos probabilísticos) y se usa para análisis prosódico, control de entonación en TTS y evaluación de naturalidad. La distribución estadística de F\textsubscript{0}, su variación temporal (contorno), y su relación con la energía son indicadores usados tanto en evaluación objetiva como perceptual.
+Speech metrics describe prosodic and spectral properties of the voice that influence naturalness and speaker identification. Within this category, one of the main metrics is the fundamental frequency of the voice $F_0$, whose value represents the main vibration frequency of the vocal folds of different speakers (\cite{F0_desc}) and constitutes the basis of \emph{pitch} perception. It is estimated by means of pitch detection algorithms (autocorrelation, cepstrum, algorithms based on probabilistic models) and is used for prosodic analysis, intonation control in TTS, and naturalness evaluation. The statistical distribution of F\textsubscript{0}, its temporal variation (contour), and its relationship with energy are indicators used in both objective and perceptual evaluation.
 
-% Tal vez agregar diagramita
+% Maybe add a small diagram
 
-Otra métrica muy utilizada en el análisis de sistemas de TTS es la distorsión media cepstral (MCD por sus siglas en inglés). MCD (a veces llamado Mel-Cepstral Distance) cuantifica la distancia entre dos secuencias de coeficientes mel-cepstrales (por ejemplo, señal natural vs. señal sintetizada) y se expresa en dB (\cite{mcd_metric}). La expresión matemática de esta métrica para un cuadro de tiempo $t$ se presenta en la Ecuación \ref{eq:mcd}:
+Another metric widely used in the analysis of TTS systems is the Mel-Cepstral Distortion (MCD). MCD (sometimes called Mel-Cepstral Distance) quantifies the distance between two sequences of mel-cepstral coefficients (for example, natural signal vs. synthesized signal) and is expressed in dB (\cite{mcd_metric}). The mathematical expression of this metric for a time frame $t$ is presented in Equation \ref{eq:mcd}:
 
 \begin{equation}
     \label{eq:mcd}
     \text{MCD} = \frac{10}{\ln 10} \sqrt{2 \sum_{k=1}^{K} (y_{t,k} - \hat{y}_{t,k})^2}
 \end{equation}
 
-donde $y_{t,k}$ y $\hat{y}_{t,k}$ representan el $k$-ésimo coeficiente mel-cepstral de la señal de referencia y de la señal evaluada respectivamente, y $K$ es el número total de coeficientes considerados. Se calcula comúnmente como una raíz cuadrada de la suma de cuadrados normalizada entre vectores de coeficientes y es ampliamente utilizada para evaluar la calidad espectral en TTS y vocoders; sin embargo, su correlación con la calidad percibida no es perfecta y debe complementarse con pruebas perceptuales.
+where $y_{t,k}$ and $\hat{y}_{t,k}$ represent the $k$-th mel-cepstral coefficient of the reference signal and of the evaluated signal, respectively, and $K$ is the total number of coefficients considered. It is commonly computed as a square root of the normalized sum of squares between coefficient vectors and is widely used to evaluate spectral quality in TTS and vocoders; however, its correlation with perceived quality is not perfect and it must be complemented with perceptual tests.
 
 \subsection{TEXT-TO-SPEECH (TTS)}
-Los sistemas de text-to-speech (TTS) convierten texto en señal de voz (\cite{survey1}).
-Históricamente pueden agruparse en tres grandes enfoques:
+Text-to-speech (TTS) systems convert text into a speech signal (\cite{survey1}).
+Historically, they can be grouped into three major approaches:
 
 \begin{itemize}
-    \item Enfoque concatenativo: Ensamblan fragmentos pregrabados de voz (unidades) para formar enunciados. Ofrecen alta naturalidad cuando el corpus es homogéneo y extenso, pero presentan baja flexibilidad y alto coste de recopilación (\cite{concatenative}).
-    \item Enfoque paramétrico: Modelan parámetros acústicos (por ejemplo, mediante cadenas ocultas de Markov) y luego sintetizan la señal a partir de los parámetros predichos. Tienen mayor flexibilidad y requieren un menor tamaño de corpus, aunque su calidad perceptual suele ser inferior a la voz grabada (\cite{parametrico}).
-    \item Enfoque neuronal: Emplean redes neuronales para mapear texto a representaciones intermedias (p.\,ej. mel-espectrogramas) y vocoders neuronales para generar la forma de onda. Dentro de este grupo hay variantes autorregresivas (mayor fidelidad pero más lentas) y no autorregresivas (más rápidas y escalables). Los sistemas actuales de mayor calidad combinan un modelo de predicción de espectrogramas, como pueden ser Tacotron2 (\cite{tacotron}) o FastSpeech (\cite{fastspeech}), con un vocoder neural, como pueden ser WaveNet (\cite{wavenet}) o HiFi-GAN (\cite{hifigan}).
+    \item Concatenative approach: These systems assemble prerecorded speech fragments (units) to form utterances. They offer high naturalness when the corpus is homogeneous and extensive, but have low flexibility and a high collection cost (\cite{concatenative}).
+    \item Parametric approach: These systems model acoustic parameters (for example, by means of hidden Markov models) and then synthesize the signal from the predicted parameters. They are more flexible and require a smaller corpus, although their perceptual quality is usually inferior to recorded speech (\cite{parametrico}).
+    \item Neural approach: These systems employ neural networks to map text to intermediate representations (e.g.\ mel-spectrograms) and neural vocoders to generate the waveform. Within this group there are autoregressive variants (higher fidelity but slower) and non-autoregressive variants (faster and more scalable). The highest-quality current systems combine a spectrogram prediction model, such as Tacotron2 (\cite{tacotron}) or FastSpeech (\cite{fastspeech}), with a neural vocoder, such as WaveNet (\cite{wavenet}) or HiFi-GAN (\cite{hifigan}).
 \end{itemize}
 
- En el presente trabajo se exploran las opciones de síntesis neuronal, que han demostrado un salto cualitativo en calidad y flexibilidad, aunque requieren grandes cantidades de datos y potencia computacional para entrenamiento. La evolución de estos sistemas se desarrolla en la Sección \ref{sec:estado_arte_tts}.
+ This work explores neural synthesis options, which have shown a qualitative leap in quality and flexibility, although they require large amounts of data and computational power for training. The evolution of these systems is discussed in Section \ref{sec:estado_arte_tts}.
 
-\subsection{REDES NEURONALES}
-Las redes neuronales son modelos parametrizados por capas de neuronas artificiales que aprenden funciones complejas a partir de datos (\cite{goodfellow}).
-En TTS y procesamiento de audio se emplean arquitecturas diversas: redes convolucionales (CNN) para extracción de características tiempo-frecuencia; redes recurrentes y Transformers (\cite{attention}) para modelado secuencial; y mecanismos de \emph{attention} en tareas seq2seq.
+\subsection{NEURAL NETWORKS}
+Neural networks are models parameterized by layers of artificial neurons that learn complex functions from data (\cite{goodfellow}).
+In TTS and audio processing, diverse architectures are employed: convolutional neural networks (CNN) for time-frequency feature extraction; recurrent networks and Transformers (\cite{attention}) for sequence modeling; and \emph{attention} mechanisms in seq2seq tasks.
 
-Las redes permiten aprender mapeos directos (texto $\rightarrow$ espectrograma) y modelos generativos (vocoder, modelos de densidad). Su flexibilidad explica el salto cualitativo en TTS, pero también la fuerte dependencia de la cantidad y calidad de los datos de entrenamiento.
+Neural networks make it possible to learn direct mappings (text $\rightarrow$ spectrogram) and generative models (vocoders, density models). Their flexibility explains the qualitative leap in TTS, but also the strong dependence on the quantity and quality of the training data.
 
-\subsection{INTELIGENCIA ARTIFICIAL GENERATIVA}
-La inteligencia artificial generativa (IAG) comprende técnicas cuyo objetivo es modelar la distribución de datos para generar muestras nuevas que sean plausibles, ya sea para imágenes, texto, o audio. La generación de estas muestras puede estar condicionada o no por información adicional (\emph{prompts}). Los principales paradigmas contemporáneos son:
+\subsection{GENERATIVE ARTIFICIAL INTELLIGENCE}
+Generative artificial intelligence (GenAI) comprises techniques whose objective is to model the data distribution in order to generate new, plausible samples, whether images, text, or audio. The generation of these samples may or may not be conditioned on additional information (\emph{prompts}). The main contemporary paradigms are:
 
 
 \begin{itemize}
-\item Modelos autorregresivos: modelan la probabilidad conjunta como producto de condicionales (p. ej. PixelRNN en imágenes (\cite{pixel_rnn}) o WaveNet en audio (\cite{wavenet})). Son conceptualmente simples y producen alta calidad pero pueden ser lentos en inferencia por su naturaleza secuencial.
-\item VAE (Variational Autoencoders): modelos latentes que optimizan una cota variacional de la verosimilitud. Buen control del espacio latente y entrenamiento estable, pero en general ofrecen menor fidelidad en muestras crudas (\cite{vaes}).
-\item GANs (Generative Adversarial Networks): enfrentan dos redes neuronales, un generador vs un discriminador que compiten como adversarios, donde una red se encarga de generar muestras, y la red adversaria busca identificar si las muestras generadas son falsas o no. Esta arquitectura genera muestras de alta fidelidad rápida y eficientemente (\cite{gans_ian}), aunque el entrenamiento puede ser inestable. Este tipo de modelo se ha aplicado con éxito a vocoders y síntesis auditiva (ej. HiFi-GAN por \cite{hifigan}).
-\item Modelos basados en score / difusión: incluyen los modelos de difusión y score-matching (DDPM, score-based models) que adicionan ruido progresivamente a datos reales y aprenden a invertir ese proceso para muestrear (\cite{ddpm_diff}). Actualmente han mostrado resultados competitivos o superiores en calidad de muestras y estabilidad de entrenamiento en imagen y audio (ej. DiffWave por \cite{diffWave}).
+\item Autoregressive models: they model the joint probability as a product of conditionals (e.g. PixelRNN for images (\cite{pixel_rnn}) or WaveNet for audio (\cite{wavenet})). They are conceptually simple and produce high quality, but can be slow at inference due to their sequential nature.
+\item VAEs (Variational Autoencoders): latent models that optimize a variational bound on the likelihood. They offer good control of the latent space and stable training, but in general provide lower fidelity in raw samples (\cite{vaes}).
+\item GANs (Generative Adversarial Networks): they pit two neural networks against each other, a generator vs. a discriminator competing as adversaries, where one network is in charge of generating samples and the adversarial network seeks to identify whether the generated samples are fake or not. This architecture generates high-fidelity samples quickly and efficiently (\cite{gans_ian}), although training can be unstable. This type of model has been successfully applied to vocoders and audio synthesis (e.g. HiFi-GAN by \cite{hifigan}).
+\item Score-based / diffusion models: these include diffusion and score-matching models (DDPM, score-based models), which progressively add noise to real data and learn to reverse this process in order to sample (\cite{ddpm_diff}). They have currently shown competitive or superior results in sample quality and training stability in image and audio (e.g. DiffWave by \cite{diffWave}).
 \end{itemize}
 
-En audio/TTS, cada paradigma tiene ventajas: los autorregresivos (WaveNet) alcanzaron alta naturalidad; los GANs (HiFi-GAN) ofrecen inferencia rápida y alta fidelidad; y los modelos de difusión (DiffWave) combinan calidad con mayor estabilidad y flexibilidad condicional. La elección depende de trade-offs entre calidad, velocidad y control.
+In audio/TTS, each paradigm has advantages: autoregressive models (WaveNet) achieved high naturalness; GANs (HiFi-GAN) offer fast inference and high fidelity; and diffusion models (DiffWave) combine quality with greater stability and conditional flexibility. The choice depends on trade-offs between quality, speed, and control.
 
-\subsection{MODELOS DE DIFUSIÓN}
-Los modelos de difusión son una clase de generadores probabilísticos basados en procesos estocásticos de adición y eliminación de ruido. Su formulación moderna se fundamenta en dos ideas principales: (1) definir un proceso directo (forward) que corrompe los datos añadiendo ruido gaussiano progresivamente hasta obtener ruido casi puro; (2) aprender el proceso inverso (reverse) —un modelo condicional que predice pasos de denoising— para transformar ruido en datos sintéticos.
+\subsection{DIFFUSION MODELS}
+Diffusion models are a class of probabilistic generators based on stochastic processes of noise addition and removal. Their modern formulation rests on two main ideas: (1) defining a forward process that corrupts the data by progressively adding Gaussian noise until almost pure noise is obtained; (2) learning the reverse process ---a conditional model that predicts denoising steps--- to transform noise into synthetic data.
 
-La definición matemática plantea una muestra de datos $x_{0}$, donde el proceso directo añade ruido en (T) pasos:
+The mathematical definition considers a data sample $x_{0}$, where the forward process adds noise over (T) steps:
 \begin{equation}
     q(x_{t}\mid x_{t-1})=\mathcal{N}(x_{t};\sqrt{1-\beta_{t}},x_{t-1},\beta_{t}),
 \end{equation}
 
-con una escala de varianzas (${\beta_{t}}$). El proceso inverso se parametriza como:
+with a variance schedule (${\beta_{t}}$). The reverse process is parameterized as:
 
 \begin{equation}
     p_{\theta}(x_{t-1}\mid x_{t})=\mathcal{N}(x_{t-1};\mu_{\theta}(x_{t},t),\Sigma_{\theta}(x_{t},t)),
 \end{equation}
 
-y se entrena minimizando una variación de la evidencia (ELBO) o una pérdida de denoising equivalente. El trabajo de \cite{ddpm_diff} formaliza esta familia (DDPM) y conecta la aproximación por denoising con score-matching (\cite{score_based}).
+and is trained by minimizing a variational bound on the evidence (ELBO) or an equivalent denoising loss. The work of \cite{ddpm_diff} formalizes this family (DDPM) and connects the denoising approximation with score-matching (\cite{score_based}).
 
-Los modelos de difusión proporcionan calidad competitiva sin entrenamiento adversario y permiten control condicional (por ejemplo, condicionamiento en mel-espectrogramas para vocoders). La principal limitación práctica es el costo de muestreo (múltiples pasos), aunque variantes (DDIM, sampling acelerado, distillation) reducen el número de pasos sin pérdida sustancial de calidad.
+Diffusion models provide competitive quality without adversarial training and allow conditional control (for example, conditioning on mel-spectrograms for vocoders). The main practical limitation is the sampling cost (multiple steps), although variants (DDIM, accelerated sampling, distillation) reduce the number of steps without substantial loss of quality.
